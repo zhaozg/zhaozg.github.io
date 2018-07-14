@@ -33,6 +33,7 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
+<li><a href="#Class_cms">Class cms </a></li>
 </ul>
 
 
@@ -74,15 +75,29 @@
 <div id="content">
 
 <h1>Module <code>cms</code></h1>
-<p>hamc module for lua-openssl binding</p>
+<p>cms module for lua-openssl binding</p>
 
-<p>cms are based on apps/cms.c from the OpenSSL dist, so for more information, see the documentation for OpenSSL.</p>
-<p>cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;, &ldquo;text&rdquo;, &ldquo;nointern&rdquo;, &ldquo;noverify&rdquo;, &ldquo;nochain&rdquo;, &ldquo;nocerts&rdquo;,
-&ldquo;noattr&rdquo;, &ldquo;binary&rdquo;, &ldquo;nosigs&rdquo;</p>
+<p>The Cryptographic Message Syntax (CMS) is the IETF&rsquo;s standard for
+cryptographically protected messages.</p>
+<p> It can be used to digitally sign, digest,
+authenticate or encrypt any form of digital data. CMS is based on the syntax of
+PKCS#7, which in turn is based on the Privacy-Enhanced Mail standard. The
+newest version of CMS is specified in RFC 5652.</p>
 
-<p>Decrypts the S/MIME message in the BIO object and output the results to BIO object.
-recipcert is a CERT for one of the recipients. recipkey specifies the private key matching recipcert.
-Headers is an array of headers to prepend to the message, they will not be included in the encoded section.</p>
+<p>The architecture of CMS is built around certificate-based key management, such
+as the profile defined by the PKIX working group. CMS is used as the key
+cryptographic component of many other cryptographic standards, such as S/MIME,
+PKCS #12 and the RFC 3161 Digital timestamping protocol.</p>
+
+<p>OpenSSL is open source software that can encrypt, decrypt, sign and verify,
+compress and uncompress CMS documents.</p>
+
+<p>CMS are based on apps/cms.c from the OpenSSL dist, so for more information,
+you better see the documentation for OpenSSL.
+cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;, &ldquo;text&rdquo;, &ldquo;nointern&rdquo;,
+&ldquo;noverify&rdquo;, &ldquo;nochain&rdquo;, &ldquo;nocerts&rdquo;, &ldquo;noattr&rdquo;, &ldquo;binary&rdquo;, &ldquo;nosigs&rdquo;</p>
+
+<p>OpenSSL not give full document about CMS api, so some function will be dangers.</p>
     <h3>Usage:</h3>
     <ul>
         <pre class="example">cms = require(&apos;openssl&apos;).cms
@@ -97,7 +112,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 	<td class="summary">read cms object from input bio or string</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#write">write (cms, out, in[, flags=0[, format='smime']])</a></td>
+	<td class="name" nowrap><a href="#export">export (cms[, data[, flags=0[, format='smime']]])</a></td>
 	<td class="summary">write cms object to bio object</td>
 	</tr>
 	<tr>
@@ -121,36 +136,63 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 	<td class="summary">uncompress cms object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#sign">sign (signer, pkey, certs, input_data[, flags=0])</a></td>
+	<td class="name" nowrap><a href="#sign">sign (signer, pkey, input_data[, certs[, flags=0]])</a></td>
 	<td class="summary">make signed cms object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#verify">verify (signed, verify_mode, others, castore, message, out[, flags=0])</a></td>
+	<td class="name" nowrap><a href="#verify">verify (signed, signers[, store[, message[, flags=0]]])</a></td>
 	<td class="summary">verfiy signed cms object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#verify">verify (digested, verify_mode, input, out[, flags=0])</a></td>
-	<td class="summary">verify digest cms object</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#verify">verify (cms, verify_mode, source, certs, store[, flags=0])</a></td>
-	<td class="summary">verify receipt cms object</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#EncryptedData_encrypt">EncryptedData_encrypt (input, cipher_alg, key[, flags=0])</a></td>
+	<td class="name" nowrap><a href="#EncryptedData_encrypt">EncryptedData_encrypt (input, key[, cipher_alg='des-ede3-cbc'[, flags=0]])</a></td>
 	<td class="summary">create enryptdata cms</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#EncryptedData_decrypt">EncryptedData_decrypt (encrypted, key, out[, flags=0])</a></td>
+	<td class="name" nowrap><a href="#EncryptedData_decrypt">EncryptedData_decrypt (encrypted, key[, dcont[, flags=0]])</a></td>
 	<td class="summary">decrypt encryptdata cms</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#encrypt">encrypt (recipt, input, cipher_alg[, flags=0[, options=nil]])</a></td>
+	<td class="name" nowrap><a href="#digest_create">digest_create (input[, digest_alg='sha256'[, flags=0]])</a></td>
+	<td class="summary">create digest cms</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#digest_verify">digest_verify (digested[, dcont[, flags=0]])</a></td>
+	<td class="summary">verify digest cms</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#encrypt">encrypt (recipt, input[, cipher_alg='des-ede3-cbc'[, flags=0[, options=nil]]])</a></td>
 	<td class="summary">encrypt with recipt certs</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#decrypt">decrypt (message, pkey, recipt, dcount, out[, flags=0[, options=nil]])</a></td>
+	<td class="name" nowrap><a href="#decrypt">decrypt (message, pkey, recipt[, dcount[, flags=0[, options=nil]]])</a></td>
 	<td class="summary">decrypt cms message</td>
+	</tr>
+</table>
+<h2><a href="#Class_cms">Class cms </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#cms:cms">cms:cms ()</a></td>
+	<td class="summary">get type of cms object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:datainit">cms:datainit ([data])</a></td>
+	<td class="summary">do dataInit</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:datafnal">cms:datafnal (cmsbio)</a></td>
+	<td class="summary">do dataFinal</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:detached">cms:detached (cmsbio)</a></td>
+	<td class="summary">get detached state</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:detached">cms:detached (detach)</a></td>
+	<td class="summary">set detached state</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:content">cms:content ()</a></td>
+	<td class="summary">get content of cms object</td>
 	</tr>
 </table>
 
@@ -192,7 +234,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">cms</span></span>
+           <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
 
 
     </ol>
@@ -202,8 +244,8 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 
 </dd>
     <dt>
-    <a name = "write"></a>
-    <strong>write (cms, out, in[, flags=0[, format='smime']])</strong>
+    <a name = "export"></a>
+    <strong>export (cms[, data[, flags=0[, format='smime']]])</strong>
     </dt>
     <dd>
     write cms object to bio object
@@ -212,19 +254,15 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">cms</span>
-            <span class="types"><span class="type">cms</span></span>
+            <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
 
 
         </li>
-        <li><span class="parameter">out</span>
+        <li><span class="parameter">data</span>
             <span class="types"><span class="type">bio</span></span>
 
 
-        </li>
-        <li><span class="parameter">in</span>
-            <span class="types"><span class="type">bio</span></span>
-
-
+         (<em>optional</em>)
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><span class="type">number</span></span>
@@ -242,10 +280,12 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 
     <h3>Returns:</h3>
     <ol>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
-           <span class="types"><span class="type">boolean</span></span>
-
-
+</li>
+        <li>
+        nil, and followed by error message</li>
     </ol>
 
 
@@ -264,7 +304,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">cms</span></span>
+           <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
 
 
     </ol>
@@ -299,7 +339,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">cms</span></span>
+           <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
 
 
     </ol>
@@ -339,7 +379,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">cms</span></span>
+           <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
 
 
     </ol>
@@ -378,7 +418,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">cms</span></span>
+           <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
 
 
     </ol>
@@ -398,7 +438,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">cms</span>
-            <span class="types"><span class="type">cms</span></span>
+            <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
 
 
         </li>
@@ -434,7 +474,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 </dd>
     <dt>
     <a name = "sign"></a>
-    <strong>sign (signer, pkey, certs, input_data[, flags=0])</strong>
+    <strong>sign (signer, pkey, input_data[, certs[, flags=0]])</strong>
     </dt>
     <dd>
     make signed cms object
@@ -451,14 +491,15 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 
 
         </li>
-        <li><span class="parameter">certs</span>
-            <span class="types"><span class="type">stack_of_x509</span></span>
-         include in the CMS
-        </li>
         <li><span class="parameter">input_data</span>
             <span class="types"><span class="type">bio</span></span>
 
 
+        </li>
+        <li><span class="parameter">certs</span>
+            <span class="types"><span class="type">stack_of_x509</span></span>
+         include in the CMS
+         (<em>optional</em>)
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><span class="type">number</span></span>
@@ -471,7 +512,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">cms</span></span>
+           <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
         object
     </ol>
 
@@ -481,7 +522,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 </dd>
     <dt>
     <a name = "verify"></a>
-    <strong>verify (signed, verify_mode, others, castore, message, out[, flags=0])</strong>
+    <strong>verify (signed, signers[, store[, message[, flags=0]]])</strong>
     </dt>
     <dd>
     verfiy signed cms object
@@ -490,132 +531,25 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">signed</span>
-            <span class="types"><span class="type">cms</span></span>
+            <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
 
 
         </li>
-        <li><span class="parameter">verify_mode</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        , must be &lsquo;verify&rsquo;
-        </li>
-        <li><span class="parameter">others</span>
-            <span class="types"><span class="type">stack_of_x509</span></span>
-
-
-        </li>
-        <li><span class="parameter">castore</span>
-            <span class="types"><span class="type">x509_store</span></span>
-
-
-        </li>
-        <li><span class="parameter">message</span>
-            <span class="types"><span class="type">bio</span></span>
-
-
-        </li>
-        <li><span class="parameter">out</span>
-            <span class="types"><span class="type">bio</span></span>
-
-
-        </li>
-        <li><span class="parameter">flags</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-         (<em>default</em> 0)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-        result
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "verify"></a>
-    <strong>verify (digested, verify_mode, input, out[, flags=0])</strong>
-    </dt>
-    <dd>
-    verify digest cms object
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">digested</span>
-            <span class="types"><span class="type">cms</span></span>
-
-
-        </li>
-        <li><span class="parameter">verify_mode</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        , must be &lsquo;digest&rsquo;
-        </li>
-        <li><span class="parameter">input</span>
-            <span class="types"><span class="type">bio</span></span>
-         message
-        </li>
-        <li><span class="parameter">out</span>
-            <span class="types"><span class="type">bio</span></span>
-         content
-        </li>
-        <li><span class="parameter">flags</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-         (<em>default</em> 0)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-        result
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "verify"></a>
-    <strong>verify (cms, verify_mode, source, certs, store[, flags=0])</strong>
-    </dt>
-    <dd>
-    verify receipt cms object
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">cms</span>
-            <span class="types"><span class="type">cms</span></span>
-
-
-        </li>
-        <li><span class="parameter">verify_mode</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         must be &lsquo;receipt&rsquo;
-        </li>
-        <li><span class="parameter">source</span>
-            <span class="types"><span class="type">cms</span></span>
-
-
-        </li>
-        <li><span class="parameter">certs</span>
+        <li><span class="parameter">signers</span>
             <span class="types"><span class="type">stack_of_x509</span></span>
 
 
         </li>
         <li><span class="parameter">store</span>
             <span class="types"><span class="type">x509_store</span></span>
+         trust certificates store
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">message</span>
+            <span class="types"><span class="type">bio</span></span>
 
 
+         (<em>optional</em>)
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><span class="type">number</span></span>
@@ -627,9 +561,11 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 
     <h3>Returns:</h3>
     <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-        result
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        content</li>
+        <li>
+        nil, and followed by error message</li>
     </ol>
 
 
@@ -638,7 +574,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 </dd>
     <dt>
     <a name = "EncryptedData_encrypt"></a>
-    <strong>EncryptedData_encrypt (input, cipher_alg, key[, flags=0])</strong>
+    <strong>EncryptedData_encrypt (input, key[, cipher_alg='des-ede3-cbc'[, flags=0]])</strong>
     </dt>
     <dd>
     create enryptdata cms
@@ -647,12 +583,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">bio</span></span>
-
-
-        </li>
-        <li><span class="parameter">cipher_alg</span>
-            <span class="types"><span class="type">cipher</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">bio</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
         </li>
@@ -660,6 +591,59 @@ Headers is an array of headers to prepend to the message, they will not be inclu
             <span class="types"><span class="type">strig</span></span>
 
 
+        </li>
+        <li><span class="parameter">cipher_alg</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">evp_cipher</span></span>
+
+
+         (<em>default</em> 'des-ede3-cbc')
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
+        object</li>
+        <li>
+        nil, followed by error message</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "EncryptedData_decrypt"></a>
+    <strong>EncryptedData_decrypt (encrypted, key[, dcont[, flags=0]])</strong>
+    </dt>
+    <dd>
+    decrypt encryptdata cms
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">encrypted</span>
+            <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
+
+
+        </li>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+        </li>
+        <li><span class="parameter">dcont</span>
+            <span class="types"><span class="type">bio</span></span>
+
+
+         (<em>optional</em>)
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><span class="type">number</span></span>
@@ -672,8 +656,8 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">cms</span></span>
-        object
+           <span class="types"><span class="type">boolean</span></span>
+        result
     </ol>
 
 
@@ -681,29 +665,67 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 
 </dd>
     <dt>
-    <a name = "EncryptedData_decrypt"></a>
-    <strong>EncryptedData_decrypt (encrypted, key, out[, flags=0])</strong>
+    <a name = "digest_create"></a>
+    <strong>digest_create (input[, digest_alg='sha256'[, flags=0]])</strong>
     </dt>
     <dd>
-    decrypt encryptdata cms
+    create digest cms
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">encrypted</span>
-            <span class="types"><span class="type">cms</span></span>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">bio</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
         </li>
-        <li><span class="parameter">key</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        <li><span class="parameter">digest_alg</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">evp_md</span></span>
+
+
+         (<em>default</em> 'sha256')
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
+        object</li>
+        <li>
+        nil, followed by error message</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "digest_verify"></a>
+    <strong>digest_verify (digested[, dcont[, flags=0]])</strong>
+    </dt>
+    <dd>
+    verify digest cms
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">digested</span>
+            <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
 
 
         </li>
-        <li><span class="parameter">out</span>
-            <span class="types"><span class="type">bio</span></span>
+        <li><span class="parameter">dcont</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">bio</span></span>
 
 
+         (<em>optional</em>)
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><span class="type">number</span></span>
@@ -726,7 +748,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 </dd>
     <dt>
     <a name = "encrypt"></a>
-    <strong>encrypt (recipt, input, cipher_alg[, flags=0[, options=nil]])</strong>
+    <strong>encrypt (recipt, input[, cipher_alg='des-ede3-cbc'[, flags=0[, options=nil]]])</strong>
     </dt>
     <dd>
     encrypt with recipt certs
@@ -739,7 +761,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
          certs
         </li>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">bio</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
         </li>
@@ -747,6 +769,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">evp_cipher</span></span>
 
 
+         (<em>default</em> 'des-ede3-cbc')
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><span class="type">number</span></span>
@@ -756,7 +779,8 @@ Headers is an array of headers to prepend to the message, they will not be inclu
         </li>
         <li><span class="parameter">options</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        , may have key,keyid, password field which must be string type
+        , support key, keyid, password fields,
+  and values must be string type
          (<em>default</em> nil)
         </li>
     </ul>
@@ -764,7 +788,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">cms</span></span>
+           <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
 
 
     </ol>
@@ -775,7 +799,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 </dd>
     <dt>
     <a name = "decrypt"></a>
-    <strong>decrypt (message, pkey, recipt, dcount, out[, flags=0[, options=nil]])</strong>
+    <strong>decrypt (message, pkey, recipt[, dcount[, flags=0[, options=nil]]])</strong>
     </dt>
     <dd>
     decrypt cms message
@@ -784,7 +808,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">message</span>
-            <span class="types"><span class="type">cms</span></span>
+            <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
 
 
         </li>
@@ -801,10 +825,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
         <li><span class="parameter">dcount</span>
             <span class="types"><span class="type">bio</span></span>
          output object
-        </li>
-        <li><span class="parameter">out</span>
-            <span class="types"><span class="type">bio</span></span>
-         output object
+         (<em>optional</em>)
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><span class="type">number</span></span>
@@ -814,8 +835,96 @@ Headers is an array of headers to prepend to the message, they will not be inclu
         </li>
         <li><span class="parameter">options</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         may have key, keyid, password field, which must be string type
+         may have key, keyid, password field,
+  and values must be string type
          (<em>default</em> nil)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        decrypted message</li>
+        <li>
+        nil, and followed by error message</li>
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_cms"></a>Class cms </h2>
+
+          <div class="section-description">
+          openssl.cms object
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "cms:cms"></a>
+    <strong>cms:cms ()</strong>
+    </dt>
+    <dd>
+    get type of cms object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">asn1_object</span></span>
+        type of cms
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cms:datainit"></a>
+    <strong>cms:datainit ([data])</strong>
+    </dt>
+    <dd>
+    do dataInit
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">bio</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">bio</span></span>
+        cmsbio</li>
+        <li>
+        nil for fail</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cms:datafnal"></a>
+    <strong>cms:datafnal (cmsbio)</strong>
+    </dt>
+    <dd>
+    do dataFinal
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cmsbio</span>
+            <span class="types"><span class="type">bio</span></span>
+         bio returned by datainit
         </li>
     </ul>
 
@@ -823,8 +932,85 @@ Headers is an array of headers to prepend to the message, they will not be inclu
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
+        true for success, other value will followed by error message
+    </ol>
 
 
+
+
+</dd>
+    <dt>
+    <a name = "cms:detached"></a>
+    <strong>cms:detached (cmsbio)</strong>
+    </dt>
+    <dd>
+    get detached state
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cmsbio</span>
+            <span class="types"><span class="type">bio</span></span>
+         bio returned by datainit
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true for detached</li>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true for success, others value will followed by error message</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cms:detached"></a>
+    <strong>cms:detached (detach)</strong>
+    </dt>
+    <dd>
+    set detached state
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">detach</span>
+            <span class="types"><span class="type">boolean</span></span>
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        for success, others value will followed by error message
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cms:content"></a>
+    <strong>cms:content ()</strong>
+    </dt>
+    <dd>
+    get content of cms object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        content, if have no content will return nil
     </ol>
 
 
@@ -838,7 +1024,7 @@ Headers is an array of headers to prepend to the message, they will not be inclu
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-07-13 22:00:07 </i>
+<i style="float:right;">Last updated 2018-07-14 16:02:08 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
