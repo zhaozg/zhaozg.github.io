@@ -32,14 +32,10 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#lua_openssl_modules">lua-openssl modules </a></li>
+<li><a href="#Introduction">Introduction </a></li>
 <li><a href="#documentation">documentation </a></li>
-<li><a href="#compat_with_others">compat with others </a></li>
-<li><a href="#lua_openssl_Objects">lua-openssl Objects </a></li>
-<li><a href="#openssl_bn">openssl.bn </a></li>
-<li><a href="#Version">Version </a></li>
-<li><a href="#Style">Style </a></li>
-<li><a href="#Bugs">Bugs </a></li>
+<li><a href="#Howto">Howto </a></li>
+<li><a href="#Example_usage">Example usage </a></li>
 </ul>
 
 
@@ -79,7 +75,7 @@
 
 <div id="content">
 
-    lua-openssl toolkit &ndash; A free, MIT-licensed OpenSSL binding for Lua.</p>
+    <p>lua-openssl toolkit &ndash; A free, MIT-licensed OpenSSL binding for Lua.</p>
 
 <p><a href="https://travis-ci.org/zhaozg/lua-openssl"><img src="https://travis-ci.org/zhaozg/lua-openssl.svg" alt="Build Status" /></a>
 <a href="https://ci.appveyor.com/project/zhaozg/lua-openssl/branch/master"><img src="https://ci.appveyor.com/api/projects/status/f8xchhlj035yqq88/branch/master?svg=true" alt="Build status" /></a></p>
@@ -90,44 +86,51 @@
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#documentation">Documentation</a></li>
 <li><a href="#howto">Howto</a></li>
-<li><a href="#example-usage">Examples</a> </li>
+<li><a href="#example-usage">Examples</a></li>
 </ol>
 
 
-<h1>Introduction</h1>
+<p><a name="Introduction"></a></p>
 
-<p>I needed a full OpenSSL binding for Lua, after googled, I couldn&rsquo;t find a version to fit my needs.
-I found the PHP openssl binding is a good implementation, and it inspired me.
-So I decided to write this OpenSSL toolkit for Lua.</p>
+<h2>Introduction</h2>
 
-<p>The goal is to fully support the listed items. Below you can find the development progress of lua-openssl: </p>
+<p>I needed a full OpenSSL binding for Lua, after googled, I couldn&rsquo;t find a version
+to fit my needs. I found the PHP openssl binding is a good implementation, and it
+inspired me. So I decided to write this OpenSSL toolkit for Lua.</p>
+
+<p>The goal is to fully support openssl, include:</p>
 
 <ul>
-<li>Symmetrical encrypt/decrypt. (Finished)</li>
-<li>Message digest. (Finished)</li>
-<li>Asymmetrical encrypt/decrypt/sign/verify/seal/open. (Finished)</li>
-<li>X509 certificate. (Finished)</li>
-<li>PKCS7/CMS. (Finished)</li>
-<li>SSL/TLS. (Finished)</li>
+<li>ASN1 Process.</li>
+<li>Symmetrical encrypt/decrypt.</li>
+<li>Message digest.</li>
+<li>Asymmetrical encrypt/decrypt/sign/verify/seal/open.</li>
+<li>X509 certificate.</li>
+<li>PKCS7/CMS.</li>
+<li>SSL/TLS.</li>
 </ul>
 
 
-<p>Most of the lua-openssl functions require a key or certificate as argument; to make things easy to use OpenSSL.
-This rule allows you to specify certificates or keys in the following ways:</p>
+<p>Support backend include <a href="https://www.openssl.org/">OpenSSL</a> and
+<a href="https://www.libressl.org/">LibreSSL</a>.</p>
+
+<p>Most of the lua-openssl functions require a key or certificate as argument, to
+make things easy to use OpenSSL.</p>
+
+<p>This rule allows you to specify certificates or keys in the following ways:</p>
 
 <ol>
-<li>As an openssl.x509 object returned from openssl.x509.read</li>
-<li>As an openssl.evp_pkey object return from openssl.pkey.read or openssl.pkey.new</li>
+<li>As an openssl.x509 object returned from <code>openssl.x509.read</code></li>
+<li>As an openssl.evp_pkey object return from <code>openssl.pkey.read</code> or <code>openssl.pkey.new</code></li>
 </ol>
 
 
-<p>Similarly, you can also specify a public key as a key object returned from x509:get_public().</p>
+<p>Similarly, you can also specify a public key as a key object returned from
+<code>x509:get_public()</code>.</p>
 
-<p><a name="lua_openssl_modules"></a></p>
+<h3>lua-openssl modules</h3>
 
-<h2>lua-openssl modules</h2>
-
-<p>digest,cipher, x509, cms and so on, be write as modules.</p>
+<p>digest, cipher, x509, pkcs7, cms and so on, be write as modules.</p>
 
 <pre>
    <span class="keyword">local</span> digest = <span class="global">require</span><span class="string">'openssl'</span>.digest
@@ -143,22 +146,12 @@ This rule allows you to specify certificates or keys in the following ways:</p>
 
 <h2>documentation</h2>
 
-<p>Document please see <a href="http://zhaozg.github.io/lua-openssl/index.html">here</a></p>
+<p>Document please see <a href="http://zhaozg.github.io/lua-openssl/index.html">here</a>,
+that are generate by <a href="https://github.com/stevedonovan/LDoc">LDoc</a>.</p>
 
-<p><a name="compat_with_others"></a></p>
+<p><em>Notice</em>: Document quality is low and stale, feel free to make a PR to improve it.</p>
 
-<h2>compat with others</h2>
-
-<p><strong>crypto</strong> is a compat module with <a href="https://github.com/mkottman/luacrypto">LuaCrypto</a>,
-document should to <a href="http://mkottman.github.io/luacrypto/manual.html#reference">reference</a></p>
-
-<p><strong>ssl</strong> is a compat module with <a href="https://github.com/brunoos/luasec">luasec</a>,
-document should to <a href="https://github.com/brunoos/luasec/wiki/LuaSec-0.5">refrence</a>.
-NYI list: conn:settimeout,&hellip;</p>
-
-<p><a name="lua_openssl_Objects"></a></p>
-
-<h2>lua-openssl Objects</h2>
+<h3>lua-openssl Objects</h3>
 
 <p>The following are some important lua-openssl object types:</p>
 
@@ -178,33 +171,27 @@ NYI list: conn:settimeout,&hellip;</p>
 </code></pre>
 
 <p>They are shortened as bio, x509, sk_x509, csr, pkey, digest, cipher,
-<pre>
-engine, cipher_ctx, <span class="keyword">and</span> digest_ctx.
-</pre>
-<a name="openssl_bn"></a></p>
+engine, cipher_ctx, and digest_ctx.</p>
 
-<h2>openssl.bn</h2>
+<h3>openssl.bn</h3>
 
 <ul>
-<li><strong><em>openssl.bn</em></strong> come from <a href="http://www.tecgraf.puc-rio.br/%7Elhf/ftp/lua/">http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/</a>,thanks.</li>
+<li><strong><em>openssl.bn</em></strong> come from <a href="http://www.tecgraf.puc-rio.br/%7Elhf/ftp/lua/#lbn">lbn</a>, and thanks.</li>
 </ul>
 
 
 <p>openssl.bn is a big-number library for Lua 5.1. It handles only integers and is
 suitable for number-theoretical and cryptographic applications. It is based
 on the bn subsystem of OpenSSL cryptographic library:
-<pre>
 http://www.openssl.org/docs/crypto/bn.html
-</pre>
 If you're running Unix, you probably already have OpenSSL installed.</p>
 
 <p>To try the library, just edit Makefile to reflect your installation of Lua and
 then run make. This will build the library and run a simple test. For detailed
 installation instructions, see
-<pre>
-http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/install.html
-</pre>
-There is no manual but the library is simple and intuitive; see the summary
+http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/install.html</p>
+
+<p>There is no manual but the library is simple and intuitive; see the summary
 below.</p>
 
 <p>bn library:</p>
@@ -226,34 +213,41 @@ below.</p>
   bits(x)           number(x)             version
 </code></pre>
 
-<p><a name="Version"></a></p>
+<h3>Version</h3>
 
-<h2>Version</h2>
+<p>This lua-openssl toolkit works with Lua 5.1/5.2/5.3 or LuaJIT 2.0/2.1, and
+OpenSSL(0.9.8 or above 1.0.0) or LibreSSL(v2.8.x).</p>
 
-<p>This lua-openssl toolkit works with Lua 5.1/5.2 or LuaJIT 2.0/2.1, and OpenSSL (0.9.8 or above 1.0.0).
-It is recommended to use the most up-to-date OpenSSL version because of the recent security fixes.</p>
+<p>It is recommended to use the most up-to-date OpenSSL version because of the
+recent security fixes.</p>
 
-<p>If you want to get the lua-openssl and OpenSSL versions from a Lua script, here is how:</p>
+<p>You can get version of lua-openssl, lua and OpenSSL from a Lua script.</p>
 
 <pre>
 openssl = <span class="global">require</span> <span class="string">"openssl"</span>
-lua_openssl_version, lua_version, openssl_version = openssl.version()
+<span class="comment">-- get version string format
+</span>lua_openssl_version, lua_version, openssl_version = openssl.version()
+<span class="comment">-- get version number format
+</span>lua_openssl_version, lua_version, openssl_version = openssl.version(<span class="keyword">true</span>)
 </pre>
 
 
-<p><a name="Style"></a></p>
+<h3>Style</h3>
 
-<h2>Style</h2>
+<p>Source code of lua-openssl tidy with <a href="http://astyle.sourceforge.net/">astyle</a>
+<code>--style=allman --indent=spaces=2</code></p>
 
-<p>Source code of lua-openssl tidy with <a href="http://astyle.sourceforge.net/">astyle</a> <code>--style=allman --indent=spaces=2</code> </p>
+<h3>Bugs</h3>
 
-<p><a name="Bugs"></a></p>
+<p>Lua-Openssl is heavily updated, if you find a bug, please report to
+<a href="https://github.com/zhaozg/lua-openssl/issues/">here</a></p>
 
-<h2>Bugs</h2>
+<p>I try to use <a href="https://github.com/bluebird75/luaunit">luaunit</a> to write unit
+<a href="tree/master/test">test</a>, and welcome PR to improve it.</p>
 
-<p>Lua-Openssl is heavily updated, if you find a bug, please report to <a href="https://github.com/zhaozg/lua-openssl/issues/">here</a></p>
+<p><a name="Howto"></a></p>
 
-<h1>Howto</h1>
+<h2>Howto</h2>
 
 <h3>Howto 1: Build on Linux/Unix System.</h3>
 
@@ -294,30 +288,31 @@ make clean
 <h3>Howto 4: Install using luarocks.</h3>
 
 <pre>
-
 luarocks install openssl <span class="comment">--server=https://rocks.moonscript.org/dev</span>
 </pre>
 
 
 <h3>Howto 5: Handle fail or error</h3>
 
-<p>  Most lua-openssl function or methods return nil or false when error or
+<p>Most lua-openssl function or methods return nil or false when error or
 failed, followed by string type error <em>reason</em> and number type error <em>code</em>,
 <em>code</em> can pass to openssl.error() to get more error information.</p>
 
-<p>  All SSL object IO operation methods return nil or false when fail or error.
+<p>All SSL object IO operation methods return nil or false when fail or error.
 When nil returned, it followed by &lsquo;ssl&rsquo; or &lsquo;syscall&rsquo;, means SSL layer or
 system layer error. When false returned, it is followed by number 0, &lsquo;want_read&rsquo;,
 &lsquo;want_write&rsquo;,&lsquo;want_x509_lookup&rsquo;,&lsquo;want_connect&rsquo;,&lsquo;want_accept&rsquo;. Number 0 means
 SSL connection closed, other numbers means you should do some SSL operation.</p>
 
-<p>  Please remember that when lua-openssl function or methods fail without an
+<p>Please remember that when lua-openssl function or methods fail without an
 error code, you can get the last error by openssl.error(), and repeat call
 openssl.error() will walk through error stacks of current threads.
 openssl.error(true) will also clear error stacks after get last error code,
 this is very useful to free memory when lua-openssl repeat calls or run long times.</p>
 
-<h1>Example usage</h1>
+<p><a name="Example_usage"></a></p>
+
+<h2>Example usage</h2>
 
 <h3>Example 1: short encrypt/decrypt</h3>
 
@@ -359,7 +354,7 @@ hmac.hmac(alg, msg, key, <span class="keyword">true</span>) <span class="comment
 </pre>
 
 
-<h3>Example 4:  Iterate a openssl.stack_of_x509(sk_x509) object</h3>
+<h3>Example 4: Iterate a openssl.stack_of_x509(sk_x509) object</h3>
 
 <pre>
 n = #sk
@@ -483,13 +478,12 @@ THE SOFTWARE.</p>
 
 <hr />
 
-<p>This product includes PHP software, freely available from <a href="http://www.php.net/software/">http://www.php.net/software/</a>
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2019-02-14 22:28:54 </i>
+<i style="float:right;">Last updated 2019-03-26 17:59:28 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
