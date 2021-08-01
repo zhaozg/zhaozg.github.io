@@ -90,6 +90,70 @@ create and manage x509 certificate sign request</p>
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#ts_msg_imprint_new">ts_msg_imprint_new (data, alg)</a></td>
+	<td class="summary">create a new ts_msg_imprint object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#export">export ()</a></td>
+	<td class="summary">export a ts_msg_imprint object as DER encoded data</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#msg">msg ()</a></td>
+	<td class="summary">get a ts_msg_imprint msg</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#algo">algo ()</a></td>
+	<td class="summary">get a ts_msg_imprint algo</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#totable">totable ()</a></td>
+	<td class="summary">get a ts_msg_imprint table contains msg and algo fields</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#dup">dup ()</a></td>
+	<td class="summary">duplicate ts_msg_imprint object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#version">version ()</a></td>
+	<td class="summary">get version of ts_tst_info object object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#policy_id">policy_id ()</a></td>
+	<td class="summary">get policy_id of ts_tst_info object object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#msg_imprint">msg_imprint ()</a></td>
+	<td class="summary">get msg_imprint of ts_tst_info object object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#serial">serial ()</a></td>
+	<td class="summary">get serialNumber of ts_tst_info object object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#time">time ()</a></td>
+	<td class="summary">get time of ts_tst_info object object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#accuracy">accuracy ()</a></td>
+	<td class="summary">get accuracy of ts_tst_info object object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ording">ording ()</a></td>
+	<td class="summary">get ordering of ts_tst_info object object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#nonce">nonce ()</a></td>
+	<td class="summary">get nonce of ts_tst_info object object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tsa">tsa ()</a></td>
+	<td class="summary">get tsa nonce of ts_tst_info object object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#extensions">extensions ()</a></td>
+	<td class="summary">get extensions nonce of ts_tst_info object object</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#req_new">req_new ([version=1])</a></td>
 	<td class="summary">create a new ts_req object.</td>
 	</tr>
@@ -184,8 +248,12 @@ create and manage x509 certificate sign request</p>
 	<td class="summary">get tst_info as table or tst_info filed value</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#ts_resp:info">ts_resp:info ()</a></td>
-	<td class="summary">get info as table</td>
+	<td class="name" nowrap><a href="#ts_resp:status_info">ts_resp:status_info ()</a></td>
+	<td class="summary">get status_info as table</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ts_resp:token">ts_resp:token ()</a></td>
+	<td class="summary">get pkcs7 token of ts_tst_info</td>
 	</tr>
 </table>
 <h2><a href="#Class_ts_resp_ctx">Class ts_resp_ctx </a></h2>
@@ -310,6 +378,354 @@ create and manage x509 certificate sign request</p>
     <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
+    <dt>
+    <a name = "ts_msg_imprint_new"></a>
+    <strong>ts_msg_imprint_new (data, alg)</strong>
+    </dt>
+    <dd>
+    create a new ts_msg_imprint object.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+        </li>
+        <li><span class="parameter">alg</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">integer</span> or <span class="type">asn1_object</span></span>
+         name, nid or object identity
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ts_msg_imprint</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "export"></a>
+    <strong>export ()</strong>
+    </dt>
+    <dd>
+    export a ts_msg_imprint object as DER encoded data
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "msg"></a>
+    <strong>msg ()</strong>
+    </dt>
+    <dd>
+    get a ts_msg_imprint msg
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">asn1_string</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "algo"></a>
+    <strong>algo ()</strong>
+    </dt>
+    <dd>
+    get a ts_msg_imprint algo
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.x509_algor</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "totable"></a>
+    <strong>totable ()</strong>
+    </dt>
+    <dd>
+    get a ts_msg_imprint table contains msg and algo fields
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "dup"></a>
+    <strong>dup ()</strong>
+    </dt>
+    <dd>
+    duplicate ts_msg_imprint object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ts_msg_imprint</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "version"></a>
+    <strong>version ()</strong>
+    </dt>
+    <dd>
+    get version of ts_tst_info object object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">integer</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "policy_id"></a>
+    <strong>policy_id ()</strong>
+    </dt>
+    <dd>
+    get policy_id of ts_tst_info object object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">asn1_object</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "msg_imprint"></a>
+    <strong>msg_imprint ()</strong>
+    </dt>
+    <dd>
+    get msg_imprint of ts_tst_info object object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ts_msg_imprint</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "serial"></a>
+    <strong>serial ()</strong>
+    </dt>
+    <dd>
+    get serialNumber of ts_tst_info object object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.bn</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "time"></a>
+    <strong>time ()</strong>
+    </dt>
+    <dd>
+    get time of ts_tst_info object object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">asn1_time</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "accuracy"></a>
+    <strong>accuracy ()</strong>
+    </dt>
+    <dd>
+    get accuracy of ts_tst_info object object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ording"></a>
+    <strong>ording ()</strong>
+    </dt>
+    <dd>
+    get ordering of ts_tst_info object object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "nonce"></a>
+    <strong>nonce ()</strong>
+    </dt>
+    <dd>
+    get nonce of ts_tst_info object object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.bn</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tsa"></a>
+    <strong>tsa ()</strong>
+    </dt>
+    <dd>
+    get tsa nonce of ts_tst_info object object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">x509.name</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "extensions"></a>
+    <strong>extensions ()</strong>
+    </dt>
+    <dd>
+    get extensions nonce of ts_tst_info object object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "req_new"></a>
     <strong>req_new ([version=1])</strong>
@@ -883,11 +1299,11 @@ create and manage x509 certificate sign request</p>
 
 </dd>
     <dt>
-    <a name = "ts_resp:info"></a>
-    <strong>ts_resp:info ()</strong>
+    <a name = "ts_resp:status_info"></a>
+    <strong>ts_resp:status_info ()</strong>
     </dt>
     <dd>
-    get info as table
+    get status_info as table
 
 
 
@@ -895,6 +1311,27 @@ create and manage x509 certificate sign request</p>
     <ol>
 
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ts_resp:token"></a>
+    <strong>ts_resp:token ()</strong>
+    </dt>
+    <dd>
+    get pkcs7 token of ts_tst_info
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/ts.html#ts_resp:token">token</a></span>
 
 
     </ol>
@@ -1626,7 +2063,7 @@ ts_resp_ctx:set_time_cb(time_cb, arg)</pre>
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2021-04-14 18:10:26 </i>
+<i style="float:right;">Last updated 2021-08-01 13:44:44 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
