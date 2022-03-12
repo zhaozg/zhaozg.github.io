@@ -50,12 +50,12 @@
   <li><a href="../modules/ec.html">ec</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
   <li><a href="../modules/ts.html">ts</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
-  <li><a href="../modules/sk.html">sk</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
@@ -74,9 +74,8 @@
 <div id="content">
 
 <h1>Module <code>asn1</code></h1>
-<p>openssl.asn1 module for lua-openssl binding.</p>
-<p>Provide asn1_object, asn1_string, asn1_object as lua object.
-Sometime when you want to custome x509, you maybe need to use this.</p>
+<p>asn1 module to generate or parse ASN.1 data.</p>
+<p>Provide asn1_object, asn1_string, asn1_object as lua object.</p>
     <h3>Usage:</h3>
     <ul>
         <pre class="example">asn1 = require(&apos;openssl&apos;).asn1
@@ -104,19 +103,19 @@ Sometime when you want to custome x509, you maybe need to use this.</p>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new_string">new_string (data[, type])</a></td>
-	<td class="summary">Create asn1_string object</td>
+	<td class="summary">create asn1_string object</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new_integer">new_integer (integer)</a></td>
-	<td class="summary">Create asn1_integer object</td>
+	<td class="summary">create asn1_integer object</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new_generalizedtime">new_generalizedtime (time)</a></td>
-	<td class="summary">Create asn1_time object</td>
+	<td class="summary">create asn1_time object</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new_utctime">new_utctime (time)</a></td>
-	<td class="summary">Create asn1_time object</td>
+	<td class="summary">create asn1_time object</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#txt2nid">txt2nid (txt)</a></td>
@@ -124,15 +123,15 @@ Sometime when you want to custome x509, you maybe need to use this.</p>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new_object">new_object (name_or_oid[, no_name])</a></td>
-	<td class="summary">Create asn1_object object</td>
+	<td class="summary">create asn1_object object</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new_object">new_object (nid)</a></td>
-	<td class="summary">Create asn1_object object</td>
+	<td class="summary">create asn1_object object</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new_object">new_object (options)</a></td>
-	<td class="summary">Create asn1_object object</td>
+	<td class="summary">create asn1_object object</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#asn1type_di2">asn1type_di2 (der)</a></td>
@@ -399,7 +398,7 @@ indefinite length constructed
     <strong>new_string (data[, type])</strong>
     </dt>
     <dd>
-    Create asn1_string object <br/><p> asn1_string object support types:   &ldquo;integer&rdquo;, &ldquo;enumerated&rdquo;, &ldquo;bit&rdquo;, &ldquo;octet&rdquo;, &ldquo;utf8&rdquo;,
+    create asn1_string object <br/><p> asn1_string object support types:   &ldquo;integer&rdquo;, &ldquo;enumerated&rdquo;, &ldquo;bit&rdquo;, &ldquo;octet&rdquo;, &ldquo;utf8&rdquo;,
 &ldquo;numeric&rdquo;, &ldquo;printable&rdquo;, &ldquo;t61&rdquo;, &ldquo;teletex&rdquo;, &ldquo;videotex&rdquo;, &ldquo;ia5&rdquo;, &ldquo;graphics&rdquo;, &ldquo;iso64&rdquo;,
 &ldquo;visible&rdquo;, &ldquo;general&rdquo;, &ldquo;unversal&rdquo;, &ldquo;bmp&rdquo;, &ldquo;utctime&rdquo; </p>
 
@@ -438,7 +437,7 @@ indefinite length constructed
     <strong>new_integer (integer)</strong>
     </dt>
     <dd>
-    Create asn1_integer object
+    create asn1_integer object
 
 
     <h3>Parameters:</h3>
@@ -470,7 +469,7 @@ indefinite length constructed
     <strong>new_generalizedtime (time)</strong>
     </dt>
     <dd>
-    Create asn1_time object
+    create asn1_time object
 
 
     <h3>Parameters:</h3>
@@ -499,7 +498,7 @@ indefinite length constructed
     <strong>new_utctime (time)</strong>
     </dt>
     <dd>
-    Create asn1_time object
+    create asn1_time object
 
 
     <h3>Parameters:</h3>
@@ -555,7 +554,7 @@ indefinite length constructed
     <strong>new_object (name_or_oid[, no_name])</strong>
     </dt>
     <dd>
-    Create asn1_object object
+    create asn1_object object
 
 
     <h3>Parameters:</h3>
@@ -591,7 +590,7 @@ indefinite length constructed
     <strong>new_object (nid)</strong>
     </dt>
     <dd>
-    Create asn1_object object
+    create asn1_object object
 
 
     <h3>Parameters:</h3>
@@ -622,7 +621,7 @@ indefinite length constructed
     <strong>new_object (options)</strong>
     </dt>
     <dd>
-    Create asn1_object object
+    create asn1_object object
 
 
     <h3>Parameters:</h3>
@@ -1187,7 +1186,7 @@ indefinite length constructed
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2022-01-28 18:59:13 </i>
+<i style="float:right;">Last updated 2022-03-12 16:00:40 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

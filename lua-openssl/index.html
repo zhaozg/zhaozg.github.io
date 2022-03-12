@@ -41,12 +41,12 @@
   <li><a href="modules/ec.html">ec</a></li>
   <li><a href="modules/hmac.html">hmac</a></li>
   <li><a href="modules/bn.html">bn</a></li>
+  <li><a href="modules/ocsp.html">ocsp</a></li>
   <li><a href="modules/openssl.html">openssl</a></li>
   <li><a href="modules/ts.html">ts</a></li>
   <li><a href="modules/pkcs12.html">pkcs12</a></li>
   <li><a href="modules/pkcs7.html">pkcs7</a></li>
   <li><a href="modules/pkey.html">pkey</a></li>
-  <li><a href="modules/sk.html">sk</a></li>
   <li><a href="modules/ssl.html">ssl</a></li>
   <li><a href="modules/x509.html">x509</a></li>
   <li><a href="modules/x509.algor.html">x509.algor</a></li>
@@ -71,16 +71,15 @@
 <table class="module_list">
 	<tr>
 		<td class="name"  nowrap><a href="modules/asn1.html">asn1</a></td>
-		<td class="summary">openssl.asn1 module for lua-openssl binding.</td>
+		<td class="summary">asn1 module to generate or parse ASN.1 data.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/bio.html">bio</a></td>
-		<td class="summary">bio object for lua-openssl binding,  mapping to BIO in openssl
-openssl.bio is a help object, it is useful, but rarely use.</td>
+		<td class="summary">bio module to mapping a BIO in openssl to a lua object.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/cipher.html">cipher</a></td>
-		<td class="summary">cipher module for lua-openssl binding</td>
+		<td class="summary">cipher module do encrypt or decrypt base on OpenSSL EVP API.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/cms.html">cms</a></td>
@@ -91,82 +90,80 @@ cryptographically protected messages.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/x509.crl.html">x509.crl</a></td>
-		<td class="summary">x509.crl module for lua-openssl binding, provide x509_crl as lua object.</td>
+		<td class="summary">x509.crl module to mapping <code>X509_CRL</code> to lua object, creates and  processes CRL file in DER or PEM format.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/x509.req.html">x509.req</a></td>
-		<td class="summary">x509.req module for lua-openssl binding, provide x509_req as lua object.</td>
+		<td class="summary">x509.req module to mapping <code>X509_REQ</code> to lua object, creates and processes certificate requests (CSRs) in PKCS#10 format.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/digest.html">digest</a></td>
-		<td class="summary">digest module for lua-openssl binding</td>
+		<td class="summary">digest module perform digest operations base on OpenSSL EVP API.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/ec.html">ec</a></td>
-		<td class="summary">ec module for lua-openssl binding</td>
+		<td class="summary">ec module to create EC keys and do EC key processes.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/hmac.html">hmac</a></td>
-		<td class="summary">hamc module for lua-openssl binding</td>
+		<td class="summary">hmac module perform Message Authentication Code operations.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/bn.html">bn</a></td>
 		<td class="summary">big-number library for Lua 5.1 based on OpenSSL bn</td>
 	</tr>
 	<tr>
+		<td class="name"  nowrap><a href="modules/ocsp.html">ocsp</a></td>
+		<td class="summary">OCSP module for lua-openssl binding
+Generate, sign, process OCSP request and response.</td>
+	</tr>
+	<tr>
 		<td class="name"  nowrap><a href="modules/openssl.html">openssl</a></td>
-		<td class="summary">lua-openssl binding, provide openssl base function in lua.</td>
+		<td class="summary">Openssl binding for Lua, provide openssl full function in lua.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/ts.html">ts</a></td>
-		<td class="summary">timestamp module for lua-openssl binding
-create and manage x509 certificate sign request</td>
+		<td class="summary">timestamp module provide basic Time Stamping Authority (TSA) client and server operations as specified in RFC 3161 (Time-Stamp Protocol, TSP).</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/pkcs12.html">pkcs12</a></td>
-		<td class="summary">Provide pkcs12 function in lua.</td>
+		<td class="summary">pkcs12 module to create and parse PKCS#12(PFX) files.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/pkcs7.html">pkcs7</a></td>
-		<td class="summary">PKCS7 module for lua-openssl binding</td>
+		<td class="summary">pkcs7 module to create and process PKCS#7 files.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/pkey.html">pkey</a></td>
-		<td class="summary">pkey module for lua-openssl binding</td>
-	</tr>
-	<tr>
-		<td class="name"  nowrap><a href="modules/sk.html">sk</a></td>
-		<td class="summary">Provide STACK_OF(object) maintance in lua.</td>
+		<td class="summary">pkey module to create and process public or private key, do asymmetric key operations.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/ssl.html">ssl</a></td>
-		<td class="summary">ssl modules for lua-openssl binding, provide ssl function in lua.</td>
+		<td class="summary">ssl modules to create SSL/TLS server or client, send and recv data over SSL channels.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/x509.html">x509</a></td>
-		<td class="summary">x509 modules for lua-openssl binding
-create and manage x509 certificate</td>
+		<td class="summary">x509 modules to create, parse, process X509 objects, sign CSR.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/x509.algor.html">x509.algor</a></td>
-		<td class="summary">x509.algor module for lua-openssl binding, Provide X509_ALGOR as lua object.</td>
+		<td class="summary">x509.algor module to mapping X509_ALGOR to lua object.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/x509.attr.html">x509.attr</a></td>
-		<td class="summary">x509 attributes module for lua-openssl binding, Provide x509_attribute as lua object.</td>
+		<td class="summary">x509.attr module to mapping X509_ATTRIBUTE to lua object.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/x509.extension.html">x509.extension</a></td>
-		<td class="summary">Provide x509_extension as lua object.</td>
+		<td class="summary">x509.extension module to mapping X509_EXTENSION to lua object.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/x509.name.html">x509.name</a></td>
-		<td class="summary">x509_name module for lua-openssl binding, provide x509_name as lua object
-Sometime when you make CSR,TS or X509, you maybe need to use this.</td>
+		<td class="summary">x509.name module to mapping X509_NAME to lua object.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/x509.store.html">x509.store</a></td>
-		<td class="summary">Provide x509_store as lua object, create and manage x509 store object</td>
+		<td class="summary">x509.store module to mapping X509_STORE to lua object.</td>
 	</tr>
 </table>
 <h2>Topics</h2>
@@ -181,7 +178,7 @@ Sometime when you make CSR,TS or X509, you maybe need to use this.</td>
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2022-01-28 18:59:13 </i>
+<i style="float:right;">Last updated 2022-03-12 16:00:40 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
