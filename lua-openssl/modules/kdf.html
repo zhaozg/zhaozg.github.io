@@ -1,0 +1,777 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>lua-openssl Docmentation</title>
+    <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>lua-openssl</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Class_kdf_ctx">Class kdf_ctx </a></li>
+<li><a href="#Class_openssl_kdf">Class openssl.kdf </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/asn1.html">asn1</a></li>
+  <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/cipher.html">cipher</a></li>
+  <li><a href="../modules/cms.html">cms</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/hmac.html">hmac</a></li>
+  <li><strong>kdf</strong></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/ocsp.html">ocsp</a></li>
+  <li><a href="../modules/openssl.html">openssl</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/pkcs12.html">pkcs12</a></li>
+  <li><a href="../modules/pkcs7.html">pkcs7</a></li>
+  <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/x509.html">x509</a></li>
+  <li><a href="../modules/x509.algor.html">x509.algor</a></li>
+  <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.extension.html">x509.extension</a></li>
+  <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.store.html">x509.store</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>kdf</code></h1>
+<p>kdf module perform EVP_KDF operations.</p>
+<p>It base on EVP_KDF in OpenSSL v3.</p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">hamc = require(&apos;openssl&apos;).kdf
+</pre>
+    </ul>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Author</strong>: george zhao &lt;zhaozg(at)gmail.com></li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#iterator">iterator (cb)</a></td>
+	<td class="summary">traverses all openssl.kdf, and calls fn with each openssl.kdf</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fetch">fetch (name)</a></td>
+	<td class="summary">fetch openssl.kdf object by name</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#deilver">deilver (kdf, array)</a></td>
+	<td class="summary">compute KDF delive</td>
+	</tr>
+</table>
+<h2><a href="#Class_kdf_ctx">Class kdf_ctx </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#kdf_ctx:dup">kdf_ctx:dup ()</a></td>
+	<td class="summary">duplicate kdf_ctx object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#kdf_ctx:reset">kdf_ctx:reset ()</a></td>
+	<td class="summary">reset kdf_ctx object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#kdf_ctx:derive">kdf_ctx:derive (paramaters)</a></td>
+	<td class="summary">derive the key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#kdf_ctx:size">kdf_ctx:size ()</a></td>
+	<td class="summary">get size of openssl.kdf_ctx</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#kdf_ctx:kdf">kdf_ctx:kdf ()</a></td>
+	<td class="summary">get openssl.kdf of openssl.kdf_ctx</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#kdf_ctx:gettable_params">kdf_ctx:gettable_params ()</a></td>
+	<td class="summary">get array with parameters that describes the retrievable parameters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#kdf_ctx:settable_params">kdf_ctx:settable_params ()</a></td>
+	<td class="summary">get array with parameters that describes the settable parameters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#kdf_ctx:get_params">kdf_ctx:get_params (parameters)</a></td>
+	<td class="summary">retrieves parameters</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#kdf_ctx:set_params">kdf_ctx:set_params (parameters)</a></td>
+	<td class="summary">set parameters</td>
+	</tr>
+</table>
+<h2><a href="#Class_openssl_kdf">Class openssl.kdf </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#openssl.kdf:deilver">openssl.kdf:deilver (array)</a></td>
+	<td class="summary">compute KDF delive</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.kdf:fetch">openssl.kdf:fetch ()</a></td>
+	<td class="summary">create new openssl.kdf_ctx object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.kdf:description">openssl.kdf:description ()</a></td>
+	<td class="summary">get description</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.kdf:name">openssl.kdf:name ()</a></td>
+	<td class="summary">get description</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.kdf:provider">openssl.kdf:provider ()</a></td>
+	<td class="summary">get provider</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.kdf:is_a">openssl.kdf:is_a (name)</a></td>
+	<td class="summary">check kdf is an implementation of an algorithm that&rsquo;s identifiable with name</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.kdf:iterator">openssl.kdf:iterator (cb)</a></td>
+	<td class="summary">traverses all names for kdf, and calls fn with each name</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.kdf:gettable_params">openssl.kdf:gettable_params ()</a></td>
+	<td class="summary">get array that describes the retrievable parameters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.kdf:gettable_ctx_params">openssl.kdf:gettable_ctx_params ()</a></td>
+	<td class="summary">get array with parameters that can be retrieved from an openssl.kdf_ctx.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.kdf:settable_ctx_params">openssl.kdf:settable_ctx_params ()</a></td>
+	<td class="summary">get array with parameters that can be set to an openssl.kdf_ctx.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.kdf:get_params">openssl.kdf:get_params ()</a></td>
+	<td class="summary">retrieves details about the implementation kdf.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "iterator"></a>
+    <strong>iterator (cb)</strong>
+    </dt>
+    <dd>
+    traverses all openssl.kdf, and calls fn with each openssl.kdf
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cb</span>
+            <span class="types"><span class="type">function</span></span>
+        (openssl.kdf)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">none</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fetch"></a>
+    <strong>fetch (name)</strong>
+    </dt>
+    <dd>
+    fetch openssl.kdf object by name
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/kdf.html#openssl.kdf">openssl.kdf</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "deilver"></a>
+    <strong>deilver (kdf, array)</strong>
+    </dt>
+    <dd>
+    compute KDF delive
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">kdf</span>
+            <span class="types"><span class="type">evp_kdf</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+        </li>
+        <li><span class="parameter">array</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         of paramaters
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        result binary string
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_kdf_ctx"></a>Class kdf_ctx </h2>
+
+          <div class="section-description">
+          openssl.kdf_ctx object
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "kdf_ctx:dup"></a>
+    <strong>kdf_ctx:dup ()</strong>
+    </dt>
+    <dd>
+    duplicate kdf_ctx object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/kdf.html#openssl.kdf">openssl.kdf_ctx</a> or <span class="type">fail</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "kdf_ctx:reset"></a>
+    <strong>kdf_ctx:reset ()</strong>
+    </dt>
+    <dd>
+    reset kdf_ctx object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/kdf.html#openssl.kdf">openssl.kdf_ctx</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "kdf_ctx:derive"></a>
+    <strong>kdf_ctx:derive (paramaters)</strong>
+    </dt>
+    <dd>
+    derive the key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">paramaters</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        , settable paramaters can be get by <code>kdf:settable_ctx_params()</code>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">fail</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "kdf_ctx:size"></a>
+    <strong>kdf_ctx:size ()</strong>
+    </dt>
+    <dd>
+    get size of openssl.kdf_ctx
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "kdf_ctx:kdf"></a>
+    <strong>kdf_ctx:kdf ()</strong>
+    </dt>
+    <dd>
+    get openssl.kdf of openssl.kdf_ctx
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/kdf.html#openssl.kdf">openssl.kdf</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "kdf_ctx:gettable_params"></a>
+    <strong>kdf_ctx:gettable_params ()</strong>
+    </dt>
+    <dd>
+    get array with parameters that describes the retrievable parameters.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "kdf_ctx:settable_params"></a>
+    <strong>kdf_ctx:settable_params ()</strong>
+    </dt>
+    <dd>
+    get array with parameters that describes the settable parameters.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "kdf_ctx:get_params"></a>
+    <strong>kdf_ctx:get_params (parameters)</strong>
+    </dt>
+    <dd>
+    retrieves parameters
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">parameters</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         to retrieves
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "kdf_ctx:set_params"></a>
+    <strong>kdf_ctx:set_params (parameters)</strong>
+    </dt>
+    <dd>
+    set parameters
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">parameters</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_openssl_kdf"></a>Class openssl.kdf </h2>
+
+          <div class="section-description">
+          openssl.kdf object
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "openssl.kdf:deilver"></a>
+    <strong>openssl.kdf:deilver (array)</strong>
+    </dt>
+    <dd>
+    compute KDF delive
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">array</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         of paramaters
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        result binary string
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.kdf:fetch"></a>
+    <strong>openssl.kdf:fetch ()</strong>
+    </dt>
+    <dd>
+    create new openssl.kdf_ctx object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/kdf.html#openssl.kdf">openssl.kdf_ctx</a> or <span class="type">fail</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.kdf:description"></a>
+    <strong>openssl.kdf:description ()</strong>
+    </dt>
+    <dd>
+    get description
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/kdf.html#openssl.kdf">openssl.kdf_ctx</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.kdf:name"></a>
+    <strong>openssl.kdf:name ()</strong>
+    </dt>
+    <dd>
+    get description
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.kdf:provider"></a>
+    <strong>openssl.kdf:provider ()</strong>
+    </dt>
+    <dd>
+    get provider
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">lightuserdata</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.kdf:is_a"></a>
+    <strong>openssl.kdf:is_a (name)</strong>
+    </dt>
+    <dd>
+    check kdf is an implementation of an algorithm that&rsquo;s identifiable with name
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         an algorithm that&rsquo;s identifiable with name
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.kdf:iterator"></a>
+    <strong>openssl.kdf:iterator (cb)</strong>
+    </dt>
+    <dd>
+    traverses all names for kdf, and calls fn with each name
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cb</span>
+            <span class="types"><span class="type">function</span></span>
+        (name)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.kdf:gettable_params"></a>
+    <strong>openssl.kdf:gettable_params ()</strong>
+    </dt>
+    <dd>
+    get array that describes the retrievable parameters.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.kdf:gettable_ctx_params"></a>
+    <strong>openssl.kdf:gettable_ctx_params ()</strong>
+    </dt>
+    <dd>
+    get array with parameters that can be retrieved from an openssl.kdf_ctx.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.kdf:settable_ctx_params"></a>
+    <strong>openssl.kdf:settable_ctx_params ()</strong>
+    </dt>
+    <dd>
+    get array with parameters that can be set to an openssl.kdf_ctx.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.kdf:get_params"></a>
+    <strong>openssl.kdf:get_params ()</strong>
+    </dt>
+    <dd>
+    retrieves details about the implementation kdf.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2023-09-02 15:20:46 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
