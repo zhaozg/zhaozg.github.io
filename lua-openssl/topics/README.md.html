@@ -26,6 +26,7 @@
 <br/>
 <h1>lua-openssl</h1>
 
+
 <ul>
   <li><a href="../index.html">Index</a></li>
 </ul>
@@ -204,21 +205,21 @@ below.</p>
 <p>bn library:</p>
 
 <pre>
- __add(x,y)        compare(x,y)          pow(x,y)
- __div(x,y)        div(x,y)              powmod(x,y,m)
- __eq(x,y)         divmod(x,y)           random(bits)
- __lt(x,y)         gcd(x,y)              rmod(x,y)
- __mod(x,y)        invmod(x)             sqr(x)
- __mul(x,y)        isneg(x)              sqrmod(x)
- __pow(x,y)        isodd(x)              sqrtmod(x)
- __sub(x,y)        isone(x)              sub(x,y)
- __tostring(x)     isprime(x,[checks])   submod(x,y,m)
- __unm(x)          iszero(x)             text(t)
- abs(x)            mod(x,y)              tohex(x)
- add(x,y)          mul(x,y)              <span class="global">tonumber</span>(x)
- addmod(x,y,m)     mulmod(x,y,m)         <span class="global">tostring</span>(x)
- aprime(bits)      neg(x)                totext(x)
- bits(x)           number(x)             version
+ <span class="function-name">__add</span>(x,y)        <span class="function-name">compare</span>(x,y)          <span class="function-name">pow</span>(x,y)
+ <span class="function-name">__div</span>(x,y)        <span class="function-name">div</span>(x,y)              <span class="function-name">powmod</span>(x,y,m)
+ <span class="function-name">__eq</span>(x,y)         <span class="function-name">divmod</span>(x,y)           <span class="function-name">random</span>(bits)
+ <span class="function-name">__lt</span>(x,y)         <span class="function-name">gcd</span>(x,y)              <span class="function-name">rmod</span>(x,y)
+ <span class="function-name">__mod</span>(x,y)        <span class="function-name">invmod</span>(x)             <span class="function-name">sqr</span>(x)
+ <span class="function-name">__mul</span>(x,y)        <span class="function-name">isneg</span>(x)              <span class="function-name">sqrmod</span>(x)
+ <span class="function-name">__pow</span>(x,y)        <span class="function-name">isodd</span>(x)              <span class="function-name">sqrtmod</span>(x)
+ <span class="function-name">__sub</span>(x,y)        <span class="function-name">isone</span>(x)              <span class="function-name">sub</span>(x,y)
+ <span class="function-name">__tostring</span>(x)     <span class="function-name">isprime</span>(x,[checks])   <span class="function-name">submod</span>(x,y,m)
+ <span class="function-name">__unm</span>(x)          <span class="function-name">iszero</span>(x)             <span class="function-name">text</span>(t)
+ <span class="function-name">abs</span>(x)            <span class="function-name">mod</span>(x,y)              <span class="function-name">tohex</span>(x)
+ <span class="function-name">add</span>(x,y)          <span class="function-name">mul</span>(x,y)              <span class="global">tonumber</span>(x)
+ <span class="function-name">addmod</span>(x,y,m)     <span class="function-name">mulmod</span>(x,y,m)         <span class="global">tostring</span>(x)
+ <span class="function-name">aprime</span>(bits)      <span class="function-name">neg</span>(x)                <span class="function-name">totext</span>(x)
+ <span class="function-name">bits</span>(x)           <span class="function-name">number</span>(x)             version
 </pre>
 
 
@@ -229,9 +230,9 @@ below.</p>
 <pre>
 openssl = <span class="global">require</span> <span class="string">"openssl"</span>
 <span class="comment">-- get version string format
-</span>lua_openssl_version, lua_version, openssl_version = openssl.version()
+</span>lua_openssl_version, lua_version, openssl_version = openssl.<span class="function-name">version</span>()
 <span class="comment">-- get version number format
-</span>lua_openssl_version, lua_version, openssl_version = openssl.version(<span class="keyword">true</span>)
+</span>lua_openssl_version, lua_version, openssl_version = openssl.<span class="function-name">version</span>(<span class="keyword">true</span>)
 </pre>
 
 
@@ -338,11 +339,11 @@ this is very useful to free memory when lua-openssl repeat calls or run long tim
 <h3>Example 1: short encrypt/decrypt</h3>
 
 <pre>
-<span class="keyword">local</span> evp_cipher = openssl.cipher.get(<span class="string">'des'</span>)
+<span class="keyword">local</span> evp_cipher = openssl.cipher.<span class="function-name">get</span>(<span class="string">'des'</span>)
 m = <span class="string">'abcdefghick'</span>
 key = m
-cdata = evp_cipher:encrypt(m,key)
-m1  = evp_cipher:decrypt(cdata,key)
+cdata = evp_cipher:<span class="function-name">encrypt</span>(m,key)
+m1  = evp_cipher:<span class="function-name">decrypt</span>(cdata,key)
 <span class="global">assert</span>(m==m1)
 </pre>
 
@@ -350,14 +351,14 @@ m1  = evp_cipher:decrypt(cdata,key)
 <h3>Example 2: quick evp_digest</h3>
 
 <pre>
-md = openssl.digest.get(<span class="string">'md5'</span>)
+md = openssl.digest.<span class="function-name">get</span>(<span class="string">'md5'</span>)
 m = <span class="string">'abcd'</span>
-aa = md:digest(m)
+aa = md:<span class="function-name">digest</span>(m)
 
-mdc=md:new()
-mdc:update(m)
-bb = mdc:final()
-<span class="global">assert</span>(openssl.hex(aa,<span class="keyword">true</span>)==bb)
+mdc=md:<span class="function-name">new</span>()
+mdc:<span class="function-name">update</span>(m)
+bb = mdc:<span class="function-name">final</span>()
+<span class="global">assert</span>(openssl.<span class="function-name">hex</span>(aa,<span class="keyword">true</span>)==bb)
 </pre>
 
 
@@ -370,8 +371,8 @@ alg = <span class="string">'sha256'</span>
 key = <span class="string">'0123456789'</span>
 msg = <span class="string">'example message'</span>
 
-hmac.hmac(alg, msg, key, <span class="keyword">true</span>) <span class="comment">-- binary/"raw" output
-</span>hmac.hmac(alg, msg, key, <span class="keyword">false</span>) <span class="comment">-- hex output</span>
+hmac.<span class="function-name">hmac</span>(alg, msg, key, <span class="keyword">true</span>) <span class="comment">-- binary/"raw" output
+</span>hmac.<span class="function-name">hmac</span>(alg, msg, key, <span class="keyword">false</span>) <span class="comment">-- hex output</span>
 </pre>
 
 
@@ -380,7 +381,7 @@ hmac.hmac(alg, msg, key, <span class="keyword">true</span>) <span class="comment
 <pre>
 n = #sk
 <span class="keyword">for</span> i=<span class="number">1</span>, n <span class="keyword">do</span>
-  x = sk:get(i)
+  x = sk:<span class="function-name">get</span>(i)
 <span class="keyword">end</span>
 </pre>
 
@@ -390,31 +391,31 @@ n = #sk
 <pre>
 <span class="keyword">local</span> openssl = <span class="global">require</span>(<span class="string">'openssl'</span>)
 
-<span class="keyword">function</span> dump(t,i)
+<span class="keyword">function</span> <span class="function-name">dump</span>(t,i)
   <span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="global">pairs</span>(t) <span class="keyword">do</span>
     <span class="keyword">if</span>(<span class="global">type</span>(v)==<span class="string">'table'</span>) <span class="keyword">then</span>
-      <span class="global">print</span>( <span class="global">string</span>.rep(<span class="string">'\t'</span>,i),k..<span class="string">'={'</span>)
-      dump(v,i+<span class="number">1</span>)
-      <span class="global">print</span>( <span class="global">string</span>.rep(<span class="string">'\t'</span>,i),k..<span class="string">'=}'</span>)
+      <span class="global">print</span>( <span class="global">string</span>.<span class="function-name">rep</span>(<span class="string">'\t'</span>,i),k..<span class="string">'={'</span>)
+      <span class="function-name">dump</span>(v,i+<span class="number">1</span>)
+      <span class="global">print</span>( <span class="global">string</span>.<span class="function-name">rep</span>(<span class="string">'\t'</span>,i),k..<span class="string">'=}'</span>)
     <span class="keyword">else</span>
-      <span class="global">print</span>( <span class="global">string</span>.rep(<span class="string">'\t'</span>,i),k..<span class="string">'='</span>..<span class="global">tostring</span>(v))
+      <span class="global">print</span>( <span class="global">string</span>.<span class="function-name">rep</span>(<span class="string">'\t'</span>,i),k..<span class="string">'='</span>..<span class="global">tostring</span>(v))
     <span class="keyword">end</span>
   <span class="keyword">end</span>
 <span class="keyword">end</span>
 
-<span class="keyword">function</span> test_x509()
-  <span class="keyword">local</span> x = openssl.x509.read(certasstring)
+<span class="keyword">function</span> <span class="function-name">test_x509</span>()
+  <span class="keyword">local</span> x = openssl.x509.<span class="function-name">read</span>(certasstring)
   <span class="global">print</span>(x)
-  t = x:parse()
-  dump(t,<span class="number">0</span>)
+  t = x:<span class="function-name">parse</span>()
+  <span class="function-name">dump</span>(t,<span class="number">0</span>)
   <span class="global">print</span>(t)
 <span class="keyword">end</span>
 
-test_x509()
+<span class="function-name">test_x509</span>()
 </pre>
 
 
-<h3>Example 5: bio network handle(TCP)</h3>
+<h3>Example 6: bio network handle(TCP)</h3>
 
 <ul>
 <li>server</li>
@@ -428,18 +429,18 @@ test_x509()
 host = host <span class="keyword">or</span> <span class="string">"127.0.0.1"</span>; <span class="comment">--only ip
 </span>port = port <span class="keyword">or</span> <span class="string">"8383"</span>;
 
-<span class="keyword">local</span> srv = <span class="global">assert</span>(bio.accept(host..<span class="string">':'</span>..port))
+<span class="keyword">local</span> srv = <span class="global">assert</span>(bio.<span class="function-name">accept</span>(host..<span class="string">':'</span>..port))
 <span class="global">print</span>(<span class="string">'listen at:'</span>..port)
-<span class="keyword">local</span> cli = <span class="global">assert</span>(srv:accept())
+<span class="keyword">local</span> cli = <span class="global">assert</span>(srv:<span class="function-name">accept</span>())
 <span class="keyword">while</span> <span class="number">1</span> <span class="keyword">do</span>
-    cli = <span class="global">assert</span>(srv:accept())
+    cli = <span class="global">assert</span>(srv:<span class="function-name">accept</span>())
     <span class="global">print</span>(<span class="string">'CLI:'</span>,cli)
     <span class="keyword">while</span> cli <span class="keyword">do</span>
-        <span class="keyword">local</span> s = <span class="global">assert</span>(cli:read())
+        <span class="keyword">local</span> s = <span class="global">assert</span>(cli:<span class="function-name">read</span>())
         <span class="global">print</span>(s)
-        <span class="global">assert</span>(cli:write(s))
+        <span class="global">assert</span>(cli:<span class="function-name">write</span>(s))
     <span class="keyword">end</span>
-    <span class="global">print</span>(openssl.errors())
+    <span class="global">print</span>(openssl.<span class="function-name">errors</span>())
 <span class="keyword">end</span>
 </pre>
 
@@ -452,32 +453,77 @@ host = host <span class="keyword">or</span> <span class="string">"127.0.0.1"</sp
 <pre>
 <span class="keyword">local</span> openssl = <span class="global">require</span><span class="string">'openssl'</span>
 <span class="keyword">local</span> bio = openssl.bio
-<span class="global">io</span>.read()
+<span class="global">io</span>.<span class="function-name">read</span>()
 
 host = host <span class="keyword">or</span> <span class="string">"127.0.0.1"</span>; <span class="comment">--only ip
 </span>port = port <span class="keyword">or</span> <span class="string">"8383"</span>;
 
-<span class="keyword">local</span> cli = <span class="global">assert</span>(bio.connect(host..<span class="string">':'</span>..port,<span class="keyword">true</span>))
+<span class="keyword">local</span> cli = <span class="global">assert</span>(bio.<span class="function-name">connect</span>(host..<span class="string">':'</span>..port,<span class="keyword">true</span>))
 
     <span class="keyword">while</span> cli <span class="keyword">do</span>
-        s = <span class="global">io</span>.read()
+        s = <span class="global">io</span>.<span class="function-name">read</span>()
         <span class="keyword">if</span>(#s&gt;<span class="number">0</span>) <span class="keyword">then</span>
-            <span class="global">print</span>(cli:write(s))
-            ss = cli:read()
+            <span class="global">print</span>(cli:<span class="function-name">write</span>(s))
+            ss = cli:<span class="function-name">read</span>()
             <span class="global">assert</span>(#s==#ss)
         <span class="keyword">end</span>
     <span class="keyword">end</span>
-    <span class="global">print</span>(openssl.errors())
+    <span class="global">print</span>(openssl.<span class="function-name">errors</span>())
 </pre>
 
 
 <p>For more examples, please see test lua script file.</p>
 
+<h3>Example 7: aes-128-gcm</h3>
+
+<pre>
+<span class="keyword">local</span> openssl = <span class="global">require</span>(<span class="string">'openssl'</span>)
+
+<span class="keyword">local</span> evp = openssl.cipher.<span class="function-name">get</span>(<span class="string">'aes-128-gcm'</span>)
+<span class="keyword">local</span> info = evp:<span class="function-name">info</span>()
+
+<span class="comment">-- get cipher info
+</span><span class="keyword">local</span> key = openssl.<span class="function-name">random</span>(info.key_length)
+<span class="keyword">local</span> msg = openssl.<span class="function-name">random</span>(info.key_length)
+<span class="keyword">local</span> iv = openssl.<span class="function-name">random</span>(info.iv_length)
+<span class="keyword">local</span> tn = <span class="number">16</span> <span class="comment">-- tag length
+</span>
+<span class="comment">--do encrypt
+</span><span class="keyword">local</span> e = evp:<span class="function-name">encrypt_new</span>()
+<span class="global">assert</span>(e:<span class="function-name">ctrl</span>(openssl.cipher.EVP_CTRL_GCM_SET_IVLEN, #iv))
+<span class="global">assert</span>(e:<span class="function-name">init</span>(key, iv))
+e:<span class="function-name">padding</span>(<span class="keyword">false</span>)
+
+<span class="comment">--- get cipher
+</span><span class="keyword">local</span> c = <span class="global">assert</span>(e:<span class="function-name">update</span>(msg))
+c = c .. e:<span class="function-name">final</span>()
+<span class="global">assert</span>(#c==#msg)
+
+<span class="comment">--- Get the tag
+</span><span class="keyword">local</span> tag = <span class="global">assert</span>(e:<span class="function-name">ctrl</span>(openssl.cipher.EVP_CTRL_GCM_GET_TAG, tn))
+<span class="global">assert</span>(#tag==tn)
+
+<span class="comment">--do decrypt
+</span>e = evp:<span class="function-name">decrypt_new</span>()
+<span class="global">assert</span>(e:<span class="function-name">ctrl</span>(openssl.cipher.EVP_CTRL_GCM_SET_IVLEN, #iv))
+<span class="global">assert</span>(e:<span class="function-name">init</span>(key, iv))
+e:<span class="function-name">padding</span>(<span class="keyword">false</span>)
+
+<span class="keyword">local</span> r = <span class="global">assert</span>(e:<span class="function-name">update</span>(c))
+<span class="global">assert</span>(e:<span class="function-name">ctrl</span>(openssl.cipher.EVP_CTRL_GCM_SET_TAG, tag))
+r = r .. <span class="global">assert</span>(e:<span class="function-name">final</span>())
+<span class="global">assert</span>(#r==#c)
+
+<span class="global">assert</span>(r==msg)
+<span class="global">print</span>(<span class="string">'Done'</span>)
+</pre>
+
+
 <hr />
 
 <p><strong><em>lua-openssl License</em></strong></p>
 
-<p>Copyright &copy; 2011 &ndash; 2023 zhaozg, zhaozg(at)gmail.com</p>
+<p>Copyright &copy; 2011 &ndash; 2024 zhaozg, zhaozg(at)gmail.com</p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &ldquo;Software&rdquo;), to
@@ -503,8 +549,8 @@ THE SOFTWARE.</p>
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2023-09-19 12:36:28 </i>
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-01-01 19:01:21 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
