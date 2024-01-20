@@ -34,7 +34,11 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
-<li><a href="#Fields">Fields</a></li>
+<li><a href="#Class_openssl_ocsp_certid">Class openssl.ocsp_certid </a></li>
+<li><a href="#Class_openssl_ocsp_request">Class openssl.ocsp_request </a></li>
+<li><a href="#Class_openssl_ocsp_singleresp">Class openssl.ocsp_singleresp </a></li>
+<li><a href="#Class_openssl_ocsp_basicresp">Class openssl.ocsp_basicresp </a></li>
+<li><a href="#Class_openssl_ocsp_response">Class openssl.ocsp_response </a></li>
 </ul>
 
 
@@ -90,39 +94,111 @@ Generate, sign, process OCSP request and response.</p>
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#certid_new">certid_new (certificate_or_serialNumber, issuer[, md_alg=sha256])</a></td>
+	<td class="summary">create a new ocsp certid object.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#request_new">request_new ([nonce])</a></td>
 	<td class="summary">create a new ocsp request object.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#add">add (certificate, cacert[, digest='sha256'])</a></td>
-	<td class="summary">add a OCSP_ONEREQ item with a x509 object</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#add">add (serialNumber, cacert[, digest='sha256'])</a></td>
-	<td class="summary">add a OCSP_ONEREQ item with a x509 object</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#request_read">request_read (input)</a></td>
+	<td class="name" nowrap><a href="#request_read">request_read (input[, pem=false])</a></td>
 	<td class="summary">read ocsp_request object from string or bio data</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#export">export ([default=false])</a></td>
-	<td class="summary">export a ocsp_request object as PEM or DER encoded data</td>
+	<td class="name" nowrap><a href="#read">read (content[, pem=false])</a></td>
+	<td class="summary">read openssl.ocsp_response object from string or bio object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#is_signed">is_signed ()</a></td>
+	<td class="name" nowrap><a href="#basicresp_new">basicresp_new ()</a></td>
+	<td class="summary">create a new openssl.ocsp_basicresp object</td>
+	</tr>
+</table>
+<h2><a href="#Class_openssl_ocsp_certid">Class openssl.ocsp_certid </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_certid.info">openssl.ocsp_certid.info</a></td>
+	<td class="summary">table which openssl.ocsp_certid:info returned</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_certid:info">openssl.ocsp_certid:info ()</a></td>
+	<td class="summary">get the certid info table.</td>
+	</tr>
+</table>
+<h2><a href="#Class_openssl_ocsp_request">Class openssl.ocsp_request </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_request:add">openssl.ocsp_request:add (certid)</a></td>
+	<td class="summary">add a ocsp_certid</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_request:add_ext">openssl.ocsp_request:add_ext (extension[, location])</a></td>
+	<td class="summary">add a x509_extension</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_request:export">openssl.ocsp_request:export ([pem=false])</a></td>
+	<td class="summary">export a ocsp_request object to encoded data</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_request:is_signed">openssl.ocsp_request:is_signed ()</a></td>
 	<td class="summary">ocsp_request is_signed or not</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#sign">sign (signer, pkey[, others[, flags=0[, digest='sha256']]])</a></td>
+	<td class="name" nowrap><a href="#openssl.ocsp_request:sign">openssl.ocsp_request:sign (signer, pkey[, others[, flags=0[, digest='sha256']]])</a></td>
 	<td class="summary">sign ocsp_request object</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_request:parse">openssl.ocsp_request:parse (request)</a></td>
+	<td class="summary">parse openssl.ocsp_request, and return a table</td>
+	</tr>
 </table>
-<h2><a href="#Fields">Fields</a></h2>
+<h2><a href="#Class_openssl_ocsp_singleresp">Class openssl.ocsp_singleresp </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#serialNumber">serialNumber</a></td>
-	<td class="summary">add a x509_extension to ocsp_request object</td>
+	<td class="name" nowrap><a href="#openssl.ocsp_singleresp:add_ext">openssl.ocsp_singleresp:add_ext (extension)</a></td>
+	<td class="summary">add openssl.x509_extension object to openssl.ocsp_singleresp</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_singleresp:info">openssl.ocsp_singleresp:info ()</a></td>
+	<td class="summary">get a table containing certificate status information</td>
+	</tr>
+</table>
+<h2><a href="#Class_openssl_ocsp_basicresp">Class openssl.ocsp_basicresp </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_basicresp:add">openssl.ocsp_basicresp:add (certid, status, reason[, revokedTime])</a></td>
+	<td class="summary">add one status item to openssl.ocsp_bascresp, return opessl.ocsp_singleresp</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_basicresp:add_ext">openssl.ocsp_basicresp:add_ext (extension[, location])</a></td>
+	<td class="summary">add one openssl.x509_extension to openssl.ocsp_bascresp</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_basicresp:sign">openssl.ocsp_basicresp:sign (cert, pkey[, digest=sha256[, array[, flag=0]]])</a></td>
+	<td class="summary">sign then to openssl.ocsp_bascresp</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_basicresp:info">openssl.ocsp_basicresp:info ()</a></td>
+	<td class="summary">get openssl.ocsp_bascresp info table</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_basicresp:copy_nonce">openssl.ocsp_basicresp:copy_nonce (request)</a></td>
+	<td class="summary">copy nonce from openssl.ocsp_request to openssl.ocsp_bascresp</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_basicresp:response">openssl.ocsp_basicresp:response ([status=0])</a></td>
+	<td class="summary">create openssl.ocsp_response object</td>
+	</tr>
+</table>
+<h2><a href="#Class_openssl_ocsp_response">Class openssl.ocsp_response </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_response:export">openssl.ocsp_response:export ([pem=false])</a></td>
+	<td class="summary">export openssl.ocsp_response an encoded string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.ocsp_response:export">openssl.ocsp_response:export ()</a></td>
+	<td class="summary">get parsed information table from openssl.ocsp_response object</td>
 	</tr>
 </table>
 
@@ -133,6 +209,46 @@ Generate, sign, process OCSP request and response.</p>
     <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
+    <dt>
+    <a name = "certid_new"></a>
+    <strong>certid_new (certificate_or_serialNumber, issuer[, md_alg=sha256])</strong>
+    </dt>
+    <dd>
+    create a new ocsp certid object.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">certificate_or_serialNumber</span>
+            <span class="types"><span class="type">openssl.x509</span> or <span class="type">openssl.bn</span></span>
+
+
+        </li>
+        <li><span class="parameter">issuer</span>
+            <span class="types"><span class="type">openssl.x509</span></span>
+
+
+        </li>
+        <li><span class="parameter">md_alg</span>
+            <span class="types"><span class="type">openssl.digest</span></span>
+
+
+         (<em>default</em> sha256)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.ocsp_certid</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "request_new"></a>
     <strong>request_new ([nonce])</strong>
@@ -154,84 +270,7 @@ Generate, sign, process OCSP request and response.</p>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ocsp_request</span></span>
-
-
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "add"></a>
-    <strong>add (certificate, cacert[, digest='sha256'])</strong>
-    </dt>
-    <dd>
-    add a OCSP_ONEREQ item with a x509 object
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">certificate</span>
-            <span class="types"><span class="type">x509</span></span>
-
-
-        </li>
-        <li><span class="parameter">cacert</span>
-            <span class="types"><span class="type">x509</span></span>
-
-
-        </li>
-        <li><span class="parameter">digest</span>
-
-
-         (<em>default</em> 'sha256')
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">ocsp_request</span></span>
-
-
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "add"></a>
-    <strong>add (serialNumber, cacert[, digest='sha256'])</strong>
-    </dt>
-    <dd>
-    add a OCSP_ONEREQ item with a x509 object
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">serialNumber</span>
-
-
-        </li>
-        <li><span class="parameter">cacert</span>
-            <span class="types"><span class="type">x509</span></span>
-
-
-        </li>
-        <li><span class="parameter">digest</span>
-
-
-         (<em>default</em> 'sha256')
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">ocsp_request</span></span>
+           <span class="types"><span class="type">openssl.ocsp_request</span></span>
 
 
     </ol>
@@ -242,7 +281,7 @@ Generate, sign, process OCSP request and response.</p>
 </dd>
     <dt>
     <a name = "request_read"></a>
-    <strong>request_read (input)</strong>
+    <strong>request_read (input[, pem=false])</strong>
     </dt>
     <dd>
     read ocsp_request object from string or bio data
@@ -255,12 +294,17 @@ Generate, sign, process OCSP request and response.</p>
 
 
         </li>
+        <li><span class="parameter">pem</span>
+            <span class="types"><span class="type">boolean</span></span>
+        , true for PEM, false for DER
+         (<em>default</em> false)
+        </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ocsp_request</span></span>
+           <span class="types"><span class="type">openssl.ocsp_request</span></span>
 
 
     </ol>
@@ -270,18 +314,205 @@ Generate, sign, process OCSP request and response.</p>
 
 </dd>
     <dt>
-    <a name = "export"></a>
-    <strong>export ([default=false])</strong>
+    <a name = "read"></a>
+    <strong>read (content[, pem=false])</strong>
     </dt>
     <dd>
-    export a ocsp_request object as PEM or DER encoded data
+    read openssl.ocsp_response object from string or bio object
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">default</span>
-            <span class="types"><span class="type">pem</span></span>
-         export der
+        <li><span class="parameter">content</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">bio</span></span>
+
+
+        </li>
+        <li><span class="parameter">pem</span>
+            <span class="types"><span class="type">boolean</span></span>
+        , true for PEM, false for DER
+         (<em>default</em> false)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.ocsp_response</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "basicresp_new"></a>
+    <strong>basicresp_new ()</strong>
+    </dt>
+    <dd>
+    create a new openssl.ocsp_basicresp object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.ocsp_basicresp</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_openssl_ocsp_certid"></a>Class openssl.ocsp_certid </h2>
+
+          <div class="section-description">
+          A openssl.ocsp_certid class.
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "openssl.ocsp_certid.info"></a>
+    <strong>openssl.ocsp_certid.info</strong>
+    </dt>
+    <dd>
+    table which openssl.ocsp_certid:info returned
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">hashAlgorith</span>
+
+
+        </li>
+        <li><span class="parameter">issuerNameHash</span>
+
+
+        </li>
+        <li><span class="parameter">issuerKeyHash</span>
+
+
+        </li>
+        <li><span class="parameter">serialNumber</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.ocsp_certid:info"></a>
+    <strong>openssl.ocsp_certid:info ()</strong>
+    </dt>
+    <dd>
+    get the certid info table.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.ocsp_certid.info</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_openssl_ocsp_request"></a>Class openssl.ocsp_request </h2>
+
+          <div class="section-description">
+          A openssl.ocsp_request class.
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "openssl.ocsp_request:add"></a>
+    <strong>openssl.ocsp_request:add (certid)</strong>
+    </dt>
+    <dd>
+    add a ocsp_certid
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">certid</span>
+            <span class="types"><span class="type">openssl.ocsp_certid</span></span>
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.ocsp_onereq</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.ocsp_request:add_ext"></a>
+    <strong>openssl.ocsp_request:add_ext (extension[, location])</strong>
+    </dt>
+    <dd>
+    add a x509_extension
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">extension</span>
+            <span class="types"><span class="type">openssl.x509_extension</span></span>
+
+
+        </li>
+        <li><span class="parameter">location</span>
+            <span class="types"><span class="type">integer</span></span>
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.ocsp_request:export"></a>
+    <strong>openssl.ocsp_request:export ([pem=false])</strong>
+    </dt>
+    <dd>
+    export a ocsp_request object to encoded data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pem</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true for PEM and false for DER
          (<em>default</em> false)
         </li>
     </ul>
@@ -299,8 +530,8 @@ Generate, sign, process OCSP request and response.</p>
 
 </dd>
     <dt>
-    <a name = "is_signed"></a>
-    <strong>is_signed ()</strong>
+    <a name = "openssl.ocsp_request:is_signed"></a>
+    <strong>openssl.ocsp_request:is_signed ()</strong>
     </dt>
     <dd>
     ocsp_request is_signed or not
@@ -320,8 +551,8 @@ Generate, sign, process OCSP request and response.</p>
 
 </dd>
     <dt>
-    <a name = "sign"></a>
-    <strong>sign (signer, pkey[, others[, flags=0[, digest='sha256']]])</strong>
+    <a name = "openssl.ocsp_request:sign"></a>
+    <strong>openssl.ocsp_request:sign (signer, pkey[, others[, flags=0[, digest='sha256']]])</strong>
     </dt>
     <dd>
     sign ocsp_request object
@@ -344,7 +575,7 @@ Generate, sign, process OCSP request and response.</p>
          (<em>optional</em>)
         </li>
         <li><span class="parameter">flags</span>
-            <span class="types"><span class="type">number</span></span>
+            <span class="types"><span class="type">integer</span></span>
 
 
          (<em>default</em> 0)
@@ -368,35 +599,363 @@ Generate, sign, process OCSP request and response.</p>
 
 
 </dd>
-</dl>
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
-
-    <dl class="function">
     <dt>
-    <a name = "serialNumber"></a>
-    <strong>serialNumber</strong>
+    <a name = "openssl.ocsp_request:parse"></a>
+    <strong>openssl.ocsp_request:parse (request)</strong>
     </dt>
     <dd>
-    add a x509_extension to ocsp_request object
+    parse openssl.ocsp_request, and return a table
 
 
+    <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">serialNumber</span>
+        <li><span class="parameter">request</span>
+            <span class="types"><span class="type">openssl.ocsp_request</span></span>
 
 
         </li>
-        <li><span class="parameter">ext</span>
-            <span class="types"><span class="type">x509_extension</span></span>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_openssl_ocsp_singleresp"></a>Class openssl.ocsp_singleresp </h2>
+
+          <div class="section-description">
+          A openssl.ocsp_singleresp class.
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "openssl.ocsp_singleresp:add_ext"></a>
+    <strong>openssl.ocsp_singleresp:add_ext (extension)</strong>
+    </dt>
+    <dd>
+    add openssl.x509_extension object to openssl.ocsp_singleresp
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">extension</span>
+            <span class="types"><span class="type">openssl.x509_extension</span></span>
 
 
         </li>
-        <li><span class="parameter">loc</span>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.ocsp_singleresp:info"></a>
+    <strong>openssl.ocsp_singleresp:info ()</strong>
+    </dt>
+    <dd>
+    get a table containing certificate status information
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_openssl_ocsp_basicresp"></a>Class openssl.ocsp_basicresp </h2>
+
+          <div class="section-description">
+          A openssl.ocsp_basicresp class.
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "openssl.ocsp_basicresp:add"></a>
+    <strong>openssl.ocsp_basicresp:add (certid, status, reason[, revokedTime])</strong>
+    </dt>
+    <dd>
+    add one status item to openssl.ocsp_bascresp, return opessl.ocsp_singleresp
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">certid</span>
+            <span class="types"><span class="type">openssl.ocsp_certid</span></span>
+
+
+        </li>
+        <li><span class="parameter">status</span>
+            <span class="types"><span class="type">integer</span></span>
+
+
+        </li>
+        <li><span class="parameter">reason</span>
+            <span class="types"><span class="type">integer</span></span>
+
+
+        </li>
+        <li><span class="parameter">revokedTime</span>
+            <span class="types"><span class="type">integer</span></span>
 
 
          (<em>optional</em>)
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.ocsp_singleresp</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.ocsp_basicresp:add_ext"></a>
+    <strong>openssl.ocsp_basicresp:add_ext (extension[, location])</strong>
+    </dt>
+    <dd>
+    add one openssl.x509_extension to openssl.ocsp_bascresp
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">extension</span>
+            <span class="types"><span class="type">openssl.x509_extension</span></span>
+
+
+        </li>
+        <li><span class="parameter">location</span>
+            <span class="types"><span class="type">integer</span></span>
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.ocsp_basicresp:sign"></a>
+    <strong>openssl.ocsp_basicresp:sign (cert, pkey[, digest=sha256[, array[, flag=0]]])</strong>
+    </dt>
+    <dd>
+    sign then to openssl.ocsp_bascresp
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cert</span>
+            <span class="types"><span class="type">openssl.x509</span></span>
+
+
+        </li>
+        <li><span class="parameter">pkey</span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
+
+
+        </li>
+        <li><span class="parameter">digest</span>
+            <span class="types"><span class="type">openssl.digest</span></span>
+
+
+         (<em>default</em> sha256)
+        </li>
+        <li><span class="parameter">array</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">flag</span>
+            <span class="types"><span class="type">integer</span></span>
+
+
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.ocsp_basicresp:info"></a>
+    <strong>openssl.ocsp_basicresp:info ()</strong>
+    </dt>
+    <dd>
+    get openssl.ocsp_bascresp info table
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.ocsp_basicresp:copy_nonce"></a>
+    <strong>openssl.ocsp_basicresp:copy_nonce (request)</strong>
+    </dt>
+    <dd>
+    copy nonce from openssl.ocsp_request to openssl.ocsp_bascresp
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">request</span>
+            <span class="types"><span class="type">openssl.ocsp_request</span></span>
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.ocsp_basicresp:response"></a>
+    <strong>openssl.ocsp_basicresp:response ([status=0])</strong>
+    </dt>
+    <dd>
+    create openssl.ocsp_response object
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">status</span>
+            <span class="types"><span class="type">integer</span></span>
+
+
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.ocsp_response</span></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_openssl_ocsp_response"></a>Class openssl.ocsp_response </h2>
+
+          <div class="section-description">
+          A openssl.ocsp_response class.
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "openssl.ocsp_response:export"></a>
+    <strong>openssl.ocsp_response:export ([pem=false])</strong>
+    </dt>
+    <dd>
+    export openssl.ocsp_response an encoded string
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pem</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true for PEM, false for DER
+         (<em>default</em> false)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.ocsp_response:export"></a>
+    <strong>openssl.ocsp_response:export ()</strong>
+    </dt>
+    <dd>
+    get parsed information table from openssl.ocsp_response object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+    </ol>
 
 
 
@@ -409,7 +968,7 @@ Generate, sign, process OCSP request and response.</p>
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-01-01 19:01:21 </i>
+<i style="float:right;">Last updated 2024-01-20 16:21:56 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
