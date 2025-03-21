@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>lua-openssl Docmentation</title>
+    <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>lua-openssl</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Class_srp_gn">Class srp_gn </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/asn1.html">asn1</a></li>
+  <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/cipher.html">cipher</a></li>
+  <li><a href="../modules/cms.html">cms</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/hmac.html">hmac</a></li>
+  <li><a href="../modules/kdf.html">kdf</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/ocsp.html">ocsp</a></li>
+  <li><a href="../modules/openssl.html">openssl</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/pkcs12.html">pkcs12</a></li>
+  <li><a href="../modules/pkcs7.html">pkcs7</a></li>
+  <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><strong>srp</strong></li>
+  <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/x509.html">x509</a></li>
+  <li><a href="../modules/x509.algor.html">x509.algor</a></li>
+  <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.extension.html">x509.extension</a></li>
+  <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.store.html">x509.store</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>srp</code></h1>
+<p>srp module to handle secure remote password.</p>
+<p>Provide srp_gn as lua object.</p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">srp = require(&apos;openssl&apos;).srp
+</pre>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#get_default_gN">get_default_gN (id)</a></td>
+	<td class="summary">Gets the default SRP_gN object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#calc_x">calc_x (s, username, password)</a></td>
+	<td class="summary">Calculates the x value.</td>
+	</tr>
+</table>
+<h2><a href="#Class_srp_gn">Class srp_gn </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#srp_gn:create_verifier">srp_gn:create_verifier (username, servpass)</a></td>
+	<td class="summary">Creates an SRP verifier.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#srp_gn:calc_b">srp_gn:calc_b (v[, bits])</a></td>
+	<td class="summary">Calculates the server&rsquo;s B value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#srp_gn:calc_server_key">srp_gn:calc_server_key (Apub, v, u, Brnd)</a></td>
+	<td class="summary">Calculates the server&rsquo;s key.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#srp_gn:calc_a">srp_gn:calc_a ([bits])</a></td>
+	<td class="summary">Calculates the client&rsquo;s A value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#srp_gn:calc_x">srp_gn:calc_x (s, username, password)</a></td>
+	<td class="summary">Calculates the x value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#srp_gn:calc_client_key">srp_gn:calc_client_key (Bpub, x, Arnd, u)</a></td>
+	<td class="summary">Calculates the client&rsquo;s key.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#srp_gn:calc_u">srp_gn:calc_u (Apub, Bpub)</a></td>
+	<td class="summary">Calculates the u value.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "get_default_gN"></a>
+    <strong>get_default_gN (id)</strong>
+    </dt>
+    <dd>
+    Gets the default SRP_gN object.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">id</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         SRP_gN ID
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.srp_gn</span></span>
+        GN SRP_gN object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "calc_x"></a>
+    <strong>calc_x (s, username, password)</strong>
+    </dt>
+    <dd>
+    Calculates the x value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Salt
+        </li>
+        <li><span class="parameter">username</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Username
+        </li>
+        <li><span class="parameter">password</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Password
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.bn</span></span>
+        x Value
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_srp_gn"></a>Class srp_gn </h2>
+
+          <div class="section-description">
+          openssl.srp_gn class.
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "srp_gn:create_verifier"></a>
+    <strong>srp_gn:create_verifier (username, servpass)</strong>
+    </dt>
+    <dd>
+    Creates an SRP verifier.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">username</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Username
+        </li>
+        <li><span class="parameter">servpass</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Service password
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">openssl.bn</span></span>
+        salt Salt</li>
+        <li>
+           <span class="types"><span class="type">openssl.bn</span></span>
+        verifier Verifier</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "srp_gn:calc_b"></a>
+    <strong>srp_gn:calc_b (v[, bits])</strong>
+    </dt>
+    <dd>
+    Calculates the server&rsquo;s B value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Verifier
+        </li>
+        <li><span class="parameter">bits</span>
+            <span class="types"><span class="type">int</span></span>
+         Number of random bits, default is 256
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">openssl.bn</span></span>
+        Bpub Server public key</li>
+        <li>
+           <span class="types"><span class="type">openssl.bn</span></span>
+        Brnd Server random number</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "srp_gn:calc_server_key"></a>
+    <strong>srp_gn:calc_server_key (Apub, v, u, Brnd)</strong>
+    </dt>
+    <dd>
+    Calculates the server&rsquo;s key.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Apub</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Client public key
+        </li>
+        <li><span class="parameter">v</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Verifier
+        </li>
+        <li><span class="parameter">u</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Random number u
+        </li>
+        <li><span class="parameter">Brnd</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Server random number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.bn</span></span>
+        Kserver Server key
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "srp_gn:calc_a"></a>
+    <strong>srp_gn:calc_a ([bits])</strong>
+    </dt>
+    <dd>
+    Calculates the client&rsquo;s A value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bits</span>
+            <span class="types"><span class="type">int</span></span>
+         Number of random bits, default is 256
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">openssl.bn</span></span>
+        Apub Client public key</li>
+        <li>
+           <span class="types"><span class="type">openssl.bn</span></span>
+        Arnd Client random number
+*</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "srp_gn:calc_x"></a>
+    <strong>srp_gn:calc_x (s, username, password)</strong>
+    </dt>
+    <dd>
+    Calculates the x value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Salt
+        </li>
+        <li><span class="parameter">username</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Username
+        </li>
+        <li><span class="parameter">password</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Password
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.bn</span></span>
+        x Value
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "srp_gn:calc_client_key"></a>
+    <strong>srp_gn:calc_client_key (Bpub, x, Arnd, u)</strong>
+    </dt>
+    <dd>
+    Calculates the client&rsquo;s key.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Bpub</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Server public key
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         x Value
+        </li>
+        <li><span class="parameter">Arnd</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Client random number
+        </li>
+        <li><span class="parameter">u</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Random number u
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.bn</span></span>
+        Kclient Client key
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "srp_gn:calc_u"></a>
+    <strong>srp_gn:calc_u (Apub, Bpub)</strong>
+    </dt>
+    <dd>
+    Calculates the u value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Apub</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Client public key
+        </li>
+        <li><span class="parameter">Bpub</span>
+            <span class="types"><span class="type">openssl.bn</span></span>
+         Server public key
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.bn</span></span>
+        u Value
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
