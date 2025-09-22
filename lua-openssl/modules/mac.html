@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -41,29 +41,40 @@
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
   <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
   <li><strong>mac</strong></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -92,8 +103,40 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#new">new (algorithm[, properties])</a></td>
+	<td class="summary">create new MAC object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_a">is_a (name)</a></td>
+	<td class="summary">check if MAC algorithm supports a specific name</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#names">names ()</a></td>
+	<td class="summary">get all names supported by this MAC algorithm</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#provider">provider ()</a></td>
+	<td class="summary">get provider name for this MAC algorithm</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#dup">dup ()</a></td>
+	<td class="summary">duplicate MAC context</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mac">mac ()</a></td>
+	<td class="summary">get MAC object from MAC context</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#params">params ()</a></td>
+	<td class="summary">get or set MAC context parameters (not yet implemented)</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#new">new (alg, key[, engine])</a></td>
 	<td class="summary">get mac_ctx object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#free">free ()</a></td>
+	<td class="summary">free MAC context resources</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#mac">mac (digest, message, key)</a></td>
@@ -120,6 +163,168 @@
     <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
+    <dt>
+    <a name = "new"></a>
+    <strong>new (algorithm[, properties])</strong>
+    </dt>
+    <dd>
+    create new MAC object
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">algorithm</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         MAC algorithm name (e.g., &ldquo;HMAC&rdquo;, &ldquo;CMAC&rdquo;, &ldquo;GMAC&rdquo;)
+        </li>
+        <li><span class="parameter">properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         optional properties string
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/mac.html#mac">mac</a> or <span class="type">nil</span></span>
+        new MAC object or nil on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_a"></a>
+    <strong>is_a (name)</strong>
+    </dt>
+    <dd>
+    check if MAC algorithm supports a specific name
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         algorithm name to check
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if MAC supports the given name
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "names"></a>
+    <strong>names ()</strong>
+    </dt>
+    <dd>
+    get all names supported by this MAC algorithm
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        array of supported algorithm names
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "provider"></a>
+    <strong>provider ()</strong>
+    </dt>
+    <dd>
+    get provider name for this MAC algorithm
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        name of the provider implementing this MAC
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "dup"></a>
+    <strong>dup ()</strong>
+    </dt>
+    <dd>
+    duplicate MAC context
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/mac.html#mac">mac_ctx</a></span>
+        duplicated MAC context
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "mac"></a>
+    <strong>mac ()</strong>
+    </dt>
+    <dd>
+    get MAC object from MAC context
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/mac.html#mac">mac</a></span>
+        the MAC object associated with this context
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "params"></a>
+    <strong>params ()</strong>
+    </dt>
+    <dd>
+    get or set MAC context parameters (not yet implemented)
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+        always returns nil (NYI &ndash; Not Yet Implemented)</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        error message &ldquo;NYI&rdquo;</li>
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "new"></a>
     <strong>new (alg, key[, engine])</strong>
@@ -150,6 +355,26 @@
 
            <span class="types"><a class="type" href="../modules/mac.html#mac">mac_ctx</a></span>
         object mapping MAC_CTX in openssl
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "free"></a>
+    <strong>free ()</strong>
+    </dt>
+    <dd>
+    free MAC context resources
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        always returns 0
     </ol>
 
 
@@ -209,6 +434,12 @@
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        result true for success
+    </ol>
 
 
 
@@ -263,6 +494,12 @@
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        size of MAC value in bytes
+    </ol>
 
 
 
@@ -275,7 +512,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

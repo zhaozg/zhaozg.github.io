@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>lua-openssl Documentation</title>
+    <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>lua-openssl</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/asn1.html">asn1</a></li>
+  <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
+  <li><a href="../modules/cipher.html">cipher</a></li>
+  <li><a href="../modules/cms.html">cms</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
+  <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
+  <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
+  <li><a href="../modules/hmac.html">hmac</a></li>
+  <li><a href="../modules/kdf.html">kdf</a></li>
+  <li><strong>lhash</strong></li>
+  <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
+  <li><a href="../modules/ocsp.html">ocsp</a></li>
+  <li><a href="../modules/openssl.html">openssl</a></li>
+  <li><a href="../modules/param.html">param</a></li>
+  <li><a href="../modules/pkcs12.html">pkcs12</a></li>
+  <li><a href="../modules/pkcs7.html">pkcs7</a></li>
+  <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
+  <li><a href="../modules/srp.html">srp</a></li>
+  <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
+  <li><a href="../modules/x509.html">x509</a></li>
+  <li><a href="../modules/x509.algor.html">x509.algor</a></li>
+  <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
+  <li><a href="../modules/x509.extension.html">x509.extension</a></li>
+  <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/x509.store.html">x509.store</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>lhash</code></h1>
+<p>lhash module for lua-openssl binding</p>
+
+<p>LHASH is OpenSSL&rsquo;s implementation of a hash table.</p>
+<p> It provides a
+generic hash table that can be used to store arbitrary data using
+string keys. This module provides Lua bindings for the LHASH functionality.</p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">lhash = require(&apos;openssl&apos;).lhash
+</pre>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#read">read (bio)</a></td>
+	<td class="summary">read configuration hash from BIO object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load">load (conf_file)</a></td>
+	<td class="summary">load configuration hash from file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_number">get_number (group, name)</a></td>
+	<td class="summary">get number value from LHASH configuration</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_string">get_string (group, name)</a></td>
+	<td class="summary">get string value from LHASH configuration</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#parse">parse ()</a></td>
+	<td class="summary">parse LHASH configuration to table</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#export">export ()</a></td>
+	<td class="summary">export LHASH configuration to string</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "read"></a>
+    <strong>read (bio)</strong>
+    </dt>
+    <dd>
+    read configuration hash from BIO object
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bio</span>
+            <span class="types"><span class="type">bio</span></span>
+         BIO object to read from
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">lhash</span></span>
+        configuration hash object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load"></a>
+    <strong>load (conf_file)</strong>
+    </dt>
+    <dd>
+    load configuration hash from file
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">conf_file</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         path to configuration file
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">lhash</span></span>
+        configuration hash object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_number"></a>
+    <strong>get_number (group, name)</strong>
+    </dt>
+    <dd>
+    get number value from LHASH configuration
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         configuration group name
+        </li>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         configuration key name
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        configuration value as number
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_string"></a>
+    <strong>get_string (group, name)</strong>
+    </dt>
+    <dd>
+    get string value from LHASH configuration
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         configuration group name
+        </li>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         configuration key name
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        configuration value as string
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "parse"></a>
+    <strong>parse ()</strong>
+    </dt>
+    <dd>
+    parse LHASH configuration to table
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        configuration data as key-value pairs
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "export"></a>
+    <strong>export ()</strong>
+    </dt>
+    <dd>
+    export LHASH configuration to string
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        configuration data in OpenSSL config format
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

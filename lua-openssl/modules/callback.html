@@ -42,7 +42,7 @@
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
   <li><a href="../modules/bn.html">bn</a></li>
-  <li><a href="../modules/callback.html">callback</a></li>
+  <li><strong>callback</strong></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
   <li><a href="../modules/compat.html">compat</a></li>
@@ -59,7 +59,7 @@
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
   <li><a href="../modules/param.html">param</a></li>
-  <li><strong>pkcs12</strong></li>
+  <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
@@ -86,13 +86,15 @@
 
 <div id="content">
 
-<h1>Module <code>pkcs12</code></h1>
-<p>pkcs12 module to create and parse PKCS#12(PFX) files.</p>
-<p>
-</p>
+<h1>Module <code>callback</code></h1>
+<p>callback module for lua-openssl binding</p>
+
+<p>This module provides callback functionality for SSL/TLS operations,
+including certificate verification callbacks and other SSL event handling.</p>
+<p>These callbacks allow customization of SSL/TLS behavior from Lua.</p>
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">pkcs12 = require(&apos;openssl&apos;).pkcs12
+        <pre class="example">-- Internal module used by SSL module
 </pre>
     </ul>
 
@@ -100,12 +102,8 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#export">export (cert, pkey, password[, friendlyname=nil[, extracerts[, keytype]]])</a></td>
-	<td class="summary">create and export pkcs12 data</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#read">read (input, password)</a></td>
-	<td class="summary">parse pkcs12 data as lua table</td>
+	<td class="name" nowrap><a href="#cert_verify_cb">cert_verify_cb (ctx, u)</a></td>
+	<td class="summary">certificate verification callback function</td>
 	</tr>
 </table>
 
@@ -117,85 +115,30 @@
 
     <dl class="function">
     <dt>
-    <a name = "export"></a>
-    <strong>export (cert, pkey, password[, friendlyname=nil[, extracerts[, keytype]]])</strong>
+    <a name = "cert_verify_cb"></a>
+    <strong>cert_verify_cb (ctx, u)</strong>
     </dt>
     <dd>
-    create and export pkcs12 data
+    certificate verification callback function
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">cert</span>
-            <span class="types"><span class="type">x509</span></span>
-
-
+        <li><span class="parameter">ctx</span>
+            <span class="types"><span class="type">x509_store_ctx</span></span>
+         X509 store context for verification
         </li>
-        <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
-
-
-        </li>
-        <li><span class="parameter">password</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-        </li>
-        <li><span class="parameter">friendlyname</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-         (<em>default</em> nil)
-        </li>
-        <li><span class="parameter">extracerts</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">stak_of_x509</span></span>
-
-
-         (<em>optional</em>)
-        </li>
-        <li><span class="parameter">keytype</span>
-            <span class="types"><span class="type">boolean</span></span>
-         flag to private key used by MSIE, true for KEY_SIG, or KEY_EX
-         (<em>optional</em>)
+        <li><span class="parameter">u</span>
+            <span class="types"><span class="type">userdata</span></span>
+         user data passed to callback
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        data
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "read"></a>
-    <strong>read (input, password)</strong>
-    </dt>
-    <dd>
-    parse pkcs12 data as lua table
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">input</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">bio</span></span>
-         pkcs12 content
-        </li>
-        <li><span class="parameter">password</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         for pkcs12
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        result contain &lsquo;cert&rsquo;, &lsquo;pkey&rsquo;, &lsquo;extracerts&rsquo; keys
+           <span class="types"><span class="type">number</span></span>
+        verification result (1 for success, 0 for failure)
     </ol>
 
 

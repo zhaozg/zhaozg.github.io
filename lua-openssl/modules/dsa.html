@@ -48,7 +48,7 @@
   <li><a href="../modules/compat.html">compat</a></li>
   <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
-  <li><a href="../modules/dsa.html">dsa</a></li>
+  <li><strong>dsa</strong></li>
   <li><a href="../modules/ec.html">ec</a></li>
   <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
@@ -59,7 +59,7 @@
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
   <li><a href="../modules/param.html">param</a></li>
-  <li><strong>pkcs12</strong></li>
+  <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
@@ -86,13 +86,17 @@
 
 <div id="content">
 
-<h1>Module <code>pkcs12</code></h1>
-<p>pkcs12 module to create and parse PKCS#12(PFX) files.</p>
-<p>
-</p>
+<h1>Module <code>dsa</code></h1>
+<p>dsa module for lua-openssl binding</p>
+
+<p>Digital Signature Algorithm (DSA) is a Federal Information Processing
+Standard for digital signatures.</p>
+<p> DSA is used for digital signing and
+signature verification. The module provides functionality for DSA key
+generation, signature creation and verification.</p>
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">pkcs12 = require(&apos;openssl&apos;).pkcs12
+        <pre class="example">dsa = require(&apos;openssl&apos;).dsa
 </pre>
     </ul>
 
@@ -100,12 +104,16 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#export">export (cert, pkey, password[, friendlyname=nil[, extracerts[, keytype]]])</a></td>
-	<td class="summary">create and export pkcs12 data</td>
+	<td class="name" nowrap><a href="#parse">parse ()</a></td>
+	<td class="summary">parse DSA key parameters and components</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#read">read (input, password)</a></td>
-	<td class="summary">parse pkcs12 data as lua table</td>
+	<td class="name" nowrap><a href="#set_engine">set_engine (engine)</a></td>
+	<td class="summary">set engine for DSA operations</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#generate_key">generate_key ([bits=1024[, seed[, eng]]])</a></td>
+	<td class="summary">generate DSA key pair with specified parameters</td>
 	</tr>
 </table>
 
@@ -117,54 +125,19 @@
 
     <dl class="function">
     <dt>
-    <a name = "export"></a>
-    <strong>export (cert, pkey, password[, friendlyname=nil[, extracerts[, keytype]]])</strong>
+    <a name = "parse"></a>
+    <strong>parse ()</strong>
     </dt>
     <dd>
-    create and export pkcs12 data
+    parse DSA key parameters and components
 
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">cert</span>
-            <span class="types"><span class="type">x509</span></span>
-
-
-        </li>
-        <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
-
-
-        </li>
-        <li><span class="parameter">password</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-        </li>
-        <li><span class="parameter">friendlyname</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-         (<em>default</em> nil)
-        </li>
-        <li><span class="parameter">extracerts</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">stak_of_x509</span></span>
-
-
-         (<em>optional</em>)
-        </li>
-        <li><span class="parameter">keytype</span>
-            <span class="types"><span class="type">boolean</span></span>
-         flag to private key used by MSIE, true for KEY_SIG, or KEY_EX
-         (<em>optional</em>)
-        </li>
-    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        data
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        DSA parameters including bits, p, q, g, public key, and private key (if present)
     </ol>
 
 
@@ -172,30 +145,64 @@
 
 </dd>
     <dt>
-    <a name = "read"></a>
-    <strong>read (input, password)</strong>
+    <a name = "set_engine"></a>
+    <strong>set_engine (engine)</strong>
     </dt>
     <dd>
-    parse pkcs12 data as lua table
+    set engine for DSA operations
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">input</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">bio</span></span>
-         pkcs12 content
-        </li>
-        <li><span class="parameter">password</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         for pkcs12
+        <li><span class="parameter">engine</span>
+            <span class="types"><span class="type">engine</span></span>
+         the engine to use for DSA operations
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        result contain &lsquo;cert&rsquo;, &lsquo;pkey&rsquo;, &lsquo;extracerts&rsquo; keys
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "generate_key"></a>
+    <strong>generate_key ([bits=1024[, seed[, eng]]])</strong>
+    </dt>
+    <dd>
+    generate DSA key pair with specified parameters
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bits</span>
+            <span class="types"><span class="type">number</span></span>
+         key size in bits
+         (<em>default</em> 1024)
+        </li>
+        <li><span class="parameter">seed</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         random seed for parameter generation
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">eng</span>
+            <span class="types"><span class="type">engine</span></span>
+         engine to use for key generation
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">dsa</span> or <span class="type">nil</span></span>
+        generated DSA key pair or nil on error
     </ol>
 
 

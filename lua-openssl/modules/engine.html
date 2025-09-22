@@ -1,0 +1,586 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>lua-openssl Documentation</title>
+    <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>lua-openssl</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/asn1.html">asn1</a></li>
+  <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
+  <li><a href="../modules/cipher.html">cipher</a></li>
+  <li><a href="../modules/cms.html">cms</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
+  <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
+  <li><a href="../modules/ec.html">ec</a></li>
+  <li><strong>engine</strong></li>
+  <li><a href="../modules/hmac.html">hmac</a></li>
+  <li><a href="../modules/kdf.html">kdf</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
+  <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
+  <li><a href="../modules/ocsp.html">ocsp</a></li>
+  <li><a href="../modules/openssl.html">openssl</a></li>
+  <li><a href="../modules/param.html">param</a></li>
+  <li><a href="../modules/pkcs12.html">pkcs12</a></li>
+  <li><a href="../modules/pkcs7.html">pkcs7</a></li>
+  <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
+  <li><a href="../modules/srp.html">srp</a></li>
+  <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
+  <li><a href="../modules/x509.html">x509</a></li>
+  <li><a href="../modules/x509.algor.html">x509.algor</a></li>
+  <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
+  <li><a href="../modules/x509.extension.html">x509.extension</a></li>
+  <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/x509.store.html">x509.store</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>engine</code></h1>
+<p>engine module for lua-openssl binding</p>
+
+<p>OpenSSL engine support allows the use of alternative implementations
+of cryptographic algorithms.</p>
+<p> Engines can provide hardware acceleration
+or alternative software implementations of cryptographic operations.</p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">engine = require(&apos;openssl&apos;).engine
+</pre>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#next">next ()</a></td>
+	<td class="summary">get next engine in the list</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#prev">prev ()</a></td>
+	<td class="summary">get previous engine in the internal list</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#add">add ()</a></td>
+	<td class="summary">add engine to the internal list for lookup by id or name</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#remove">remove ()</a></td>
+	<td class="summary">remove engine from the internal list</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#register">register ([unregister=false[, algorithms]])</a></td>
+	<td class="summary">register engine for specific algorithms</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ctrl">ctrl (cmd[, arg])</a></td>
+	<td class="summary">control engine operations and settings</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#id">id ([id])</a></td>
+	<td class="summary">get or set engine identifier</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#name">name ([name])</a></td>
+	<td class="summary">get or set engine name</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#flags">flags ([flags])</a></td>
+	<td class="summary">get or set engine flags</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#init">init ()</a></td>
+	<td class="summary">initialize an engine for use</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#finish">finish ()</a></td>
+	<td class="summary">release an initialized engine</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set_default">set_default (...)</a></td>
+	<td class="summary">set engine as default for specified algorithm types</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set_rand_engine">set_rand_engine ()</a></td>
+	<td class="summary">set random number generator engine</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load_private_key">load_private_key (key_id)</a></td>
+	<td class="summary">load private key from engine</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load_public_key">load_public_key (key_id)</a></td>
+	<td class="summary">load public key from engine</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load_ssl_client_cert">load_ssl_client_cert (ssl)</a></td>
+	<td class="summary">load SSL client certificate from engine</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "next"></a>
+    <strong>next ()</strong>
+    </dt>
+    <dd>
+    get next engine in the list
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">engine</span> or <span class="type">nil</span></span>
+        next engine object or nil if none
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "prev"></a>
+    <strong>prev ()</strong>
+    </dt>
+    <dd>
+    get previous engine in the internal list
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">engine</span></span>
+        previous engine object or nil if none
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "add"></a>
+    <strong>add ()</strong>
+    </dt>
+    <dd>
+    add engine to the internal list for lookup by id or name
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "remove"></a>
+    <strong>remove ()</strong>
+    </dt>
+    <dd>
+    remove engine from the internal list
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "register"></a>
+    <strong>register ([unregister=false[, algorithms]])</strong>
+    </dt>
+    <dd>
+    register engine for specific algorithms
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">unregister</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true to unregister, false to register
+         (<em>default</em> false)
+        </li>
+        <li><span class="parameter">algorithms</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         algorithm types to register for (e.g., &ldquo;ALL&rdquo;, &ldquo;RSA&rdquo;, &ldquo;DSA&rdquo;)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ctrl"></a>
+    <strong>ctrl (cmd[, arg])</strong>
+    </dt>
+    <dd>
+    control engine operations and settings
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cmd</span>
+            <span class="types"><span class="type">number</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         control command (number) or command string
+        </li>
+        <li><span class="parameter">arg</span>
+            <span class="types"><span class="type">any</span></span>
+         command argument (varies by command)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span> or <span class="type">any</span></span>
+        result depends on command type
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "id"></a>
+    <strong>id ([id])</strong>
+    </dt>
+    <dd>
+    get or set engine identifier
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">id</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         new engine ID to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">boolean</span></span>
+        engine ID (if getting) or success status (if setting)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "name"></a>
+    <strong>name ([name])</strong>
+    </dt>
+    <dd>
+    get or set engine name
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         new engine name to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">boolean</span></span>
+        engine name (if getting) or success status (if setting)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "flags"></a>
+    <strong>flags ([flags])</strong>
+    </dt>
+    <dd>
+    get or set engine flags
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">number</span></span>
+         new engine flags to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span> or <span class="type">boolean</span></span>
+        engine flags (if getting) or success status (if setting)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "init"></a>
+    <strong>init ()</strong>
+    </dt>
+    <dd>
+    initialize an engine for use
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "finish"></a>
+    <strong>finish ()</strong>
+    </dt>
+    <dd>
+    release an initialized engine
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "set_default"></a>
+    <strong>set_default (...)</strong>
+    </dt>
+    <dd>
+    set engine as default for specified algorithm types
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         algorithm types (&ldquo;RSA&rdquo;, &ldquo;DSA&rdquo;, &ldquo;DH&rdquo;, &ldquo;RAND&rdquo;, &ldquo;ECDH&rdquo;, &ldquo;ECDSA&rdquo;, &ldquo;CIPHERS&rdquo;, &ldquo;DIGESTS&rdquo;, &ldquo;STORE&rdquo;, &ldquo;complete&rdquo;)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "set_rand_engine"></a>
+    <strong>set_rand_engine ()</strong>
+    </dt>
+    <dd>
+    set random number generator engine
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        result true for success
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_private_key"></a>
+    <strong>load_private_key (key_id)</strong>
+    </dt>
+    <dd>
+    load private key from engine
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key_id</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         key identifier
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">evp_pkey</span></span>
+        private key object or nil if failed
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_public_key"></a>
+    <strong>load_public_key (key_id)</strong>
+    </dt>
+    <dd>
+    load public key from engine
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key_id</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         key identifier
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">evp_pkey</span></span>
+        public key object or nil if failed
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_ssl_client_cert"></a>
+    <strong>load_ssl_client_cert (ssl)</strong>
+    </dt>
+    <dd>
+    load SSL client certificate from engine
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ssl</span>
+            <span class="types"><span class="type">ssl</span></span>
+         SSL connection object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        result true for success
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

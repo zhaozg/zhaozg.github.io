@@ -37,11 +37,11 @@
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
-  <li><strong>bn</strong></li>
+  <li><a href="../modules/bn.html">bn</a></li>
   <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
-  <li><a href="../modules/compat.html">compat</a></li>
+  <li><strong>compat</strong></li>
   <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
   <li><a href="../modules/dsa.html">dsa</a></li>
@@ -82,19 +82,15 @@
 
 <div id="content">
 
-<h1>Module <code>bn</code></h1>
-<p>big-number library for Lua 5.1 based on OpenSSL bn</p>
-<p>
-</p>
+<h1>Module <code>compat</code></h1>
+<p>compat module for OpenSSL version compatibility</p>
+<p>This module provides compatibility functions for different versions
+of OpenSSL, ensuring that lua-openssl works across multiple OpenSSL
+versions by providing missing functions for older versions.</p>
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">bn = require(&apos;openssl&apos;).bn
+        <pre class="example">-- Internal compatibility module
 </pre>
-    </ul>
-    <h3>Info:</h3>
-    <ul>
-        <li><strong>License</strong>: This code is hereby placed in the public domain.</li>
-        <li><strong>Author</strong>: Luiz Henrique de Figueiredo <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x6c;&#104;&#102;&#x40;&#x74;&#x65;&#x63;&#103;&#114;&#x61;&#102;&#46;&#112;&#117;&#99;&#45;&#x72;&#105;&#x6f;&#x2e;&#98;&#x72;">&#108;&#104;&#102;&#64;&#116;&#101;&#x63;&#x67;&#x72;&#97;&#102;&#46;&#112;&#x75;&#99;&#x2d;&#x72;&#x69;&#x6f;&#46;&#x62;&#x72;</a></li>
     </ul>
 
 

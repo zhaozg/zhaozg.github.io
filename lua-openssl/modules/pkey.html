@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -42,29 +42,40 @@
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
   <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><strong>pkey</strong></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -119,7 +130,8 @@
 	<tr>
 	<td class="name" nowrap><a href="#evp_pkey:encrypt">evp_pkey:encrypt (data, string)</a></td>
 	<td class="summary">encrypt message with public key
-encrypt length of message must not longer than key size, if shorter will do padding,currently supports 6 padding modes.</td>
+encrypt length of message must not longer than key size, if shorter will do padding,currently
+supports 6 padding modes.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#evp_pkey:decrypt">evp_pkey:decrypt (data, string)</a></td>
@@ -133,6 +145,54 @@ pair with encrypt</td>
 	<tr>
 	<td class="name" nowrap><a href="#evp_pkey:get_public">evp_pkey:get_public ()</a></td>
 	<td class="summary">return public key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:ctx">evp_pkey:ctx ([engine])</a></td>
+	<td class="summary">create EVP_PKEY_CTX context for public key operations</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:ctx_new">evp_pkey:ctx_new (algorithm[, engine])</a></td>
+	<td class="summary">create new EVP_PKEY_CTX by algorithm identifier</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:keygen">evp_pkey:keygen ([bits])</a></td>
+	<td class="summary">generate a key pair using the context</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:ctrl">evp_pkey:ctrl (name, value)</a></td>
+	<td class="summary">control EVP_PKEY_CTX with string parameters</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:decrypt_init">evp_pkey:decrypt_init ()</a></td>
+	<td class="summary">initialize EVP_PKEY_CTX for decryption operations</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:encrypt_init">evp_pkey:encrypt_init ()</a></td>
+	<td class="summary">initialize EVP_PKEY_CTX for encryption operations</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:verify_init">evp_pkey:verify_init ()</a></td>
+	<td class="summary">initialize EVP_PKEY_CTX for verification operations</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:sign_init">evp_pkey:sign_init ()</a></td>
+	<td class="summary">initialize EVP_PKEY_CTX for signing operations</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:decrypt">evp_pkey:decrypt (data)</a></td>
+	<td class="summary">decrypt data using private key context</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:encrypt">evp_pkey:encrypt (data)</a></td>
+	<td class="summary">encrypt data using public key context</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:verify">evp_pkey:verify (data, signature)</a></td>
+	<td class="summary">verify signature using EVP_PKEY_CTX</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:sign">evp_pkey:sign (digest)</a></td>
+	<td class="summary">create digital signature using EVP_PKEY_CTX</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#evp_pkey:derive">evp_pkey:derive (pkey, peer[, eng])</a></td>
@@ -154,6 +214,46 @@ data be encrypt with secret key, secret key be encrypt with public key</td>
 	<tr>
 	<td class="name" nowrap><a href="#evp_pkey:open">evp_pkey:open (ekey, string[, md_alg='RC4'])</a></td>
 	<td class="summary">open and ecrypted seal data with private key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:seal_init">evp_pkey:seal_init (cipher, public_keys)</a></td>
+	<td class="summary">initialize envelope encryption (sealing) context</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:seal_update">evp_pkey:seal_update (context, data)</a></td>
+	<td class="summary">update envelope encryption with data</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:seal_final">evp_pkey:seal_final (context)</a></td>
+	<td class="summary">finalize envelope encryption</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:open_init">evp_pkey:open_init (private_key, encrypted_key, iv[, cipher])</a></td>
+	<td class="summary">initialize envelope decryption (opening) context</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:open_update">evp_pkey:open_update (context, data)</a></td>
+	<td class="summary">update envelope decryption with encrypted data</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:open_final">evp_pkey:open_final (context)</a></td>
+	<td class="summary">finalize envelope decryption</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:bits">evp_pkey:bits ()</a></td>
+	<td class="summary">get the number of bits in the key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:set_engine">evp_pkey:set_engine (eng)</a></td>
+	<td class="summary">set engine for the key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:as_sm2">evp_pkey:as_sm2 ()</a></td>
+	<td class="summary">convert EC key to SM2 key type</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_pkey:missing_paramaters">evp_pkey:missing_paramaters ()</a></td>
+	<td class="summary">check if key parameters are missing</td>
 	</tr>
 </table>
 
@@ -304,11 +404,13 @@ data be encrypt with secret key, secret key be encrypt with public key</td>
     <ul>
         <li><span class="parameter">factors</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         to create private/public key, key alg only accept accept &lsquo;rsa&rsquo;,&lsquo;dsa&rsquo;,&lsquo;dh&rsquo;,&lsquo;ec&rsquo; and must exist</br>
- when arg is rsa, table may with key n,e,d,p,q,dmp1,dmq1,iqmp, both are binary string or openssl.bn<br>
- when arg is dsa, table may with key p,q,g,priv_key,pub_key, both are binary string or openssl.bn<br>
- when arg is dh, table may with key p,g,priv_key,pub_key, both are binary string or openssl.bn<br>
- when arg is ec, table may with D,X,Y,Z,both are binary string or openssl.bn<br>
+         to create private/public key, key alg only accept accept &lsquo;rsa&rsquo;,&lsquo;dsa&rsquo;,&lsquo;dh&rsquo;,&lsquo;ec&rsquo;
+and must exist</br>
+when arg is rsa, table may with key n,e,d,p,q,dmp1,dmq1,iqmp, both are binary string or openssl.bn<br>
+when arg is dsa, table may with key p,q,g,priv_key,pub_key, both are binary string or openssl.bn<br>
+when arg is dh, table may with key p,g,priv_key,pub_key, both are binary string or openssl.bn<br>
+when arg is ec, table may with d,x,y,z,both are binary string or openssl.bn, and with curve_name,
+enc_flag, conv_form<br>
         </li>
     </ul>
 
@@ -390,7 +492,8 @@ only need when export private key
     <ol>
 
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        infos with key bits,pkey,type, pkey may be rsa,dh,dsa, show as table with factor hex encoded bignum
+        infos with key bits,pkey,type, pkey may be rsa,dh,dsa, show as table with factor hex
+encoded bignum
     </ol>
 
 
@@ -403,8 +506,8 @@ only need when export private key
     </dt>
     <dd>
     encrypt message with public key
-encrypt length of message must not longer than key size, if shorter will do padding,currently supports 6 padding modes.
-They are: pkcs1, sslv23, no, oaep, x931, pss.
+encrypt length of message must not longer than key size, if shorter will do padding,currently
+supports 6 padding modes.  They are: pkcs1, sslv23, no, oaep, x931, pss.
 
 
     <h3>Parameters:</h3>
@@ -503,6 +606,317 @@ pair with encrypt
 
            <span class="types"><span class="type">evp_pkey</span></span>
         pub
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:ctx"></a>
+    <strong>evp_pkey:ctx ([engine])</strong>
+    </dt>
+    <dd>
+    create EVP_PKEY_CTX context for public key operations
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">engine</span>
+            <span class="types"><span class="type">engine</span></span>
+         optional engine for hardware acceleration
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">evp_pkey_ctx</span></span>
+        public key context object for RSA operations
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:ctx_new"></a>
+    <strong>evp_pkey:ctx_new (algorithm[, engine])</strong>
+    </dt>
+    <dd>
+    create new EVP_PKEY_CTX by algorithm identifier
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">algorithm</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+         algorithm name or NID
+        </li>
+        <li><span class="parameter">engine</span>
+            <span class="types"><span class="type">engine</span></span>
+         optional engine for hardware acceleration
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">evp_pkey_ctx</span> or <span class="type">nil</span></span>
+        new context object or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:keygen"></a>
+    <strong>evp_pkey:keygen ([bits])</strong>
+    </dt>
+    <dd>
+    generate a key pair using the context
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bits</span>
+            <span class="types"><span class="type">number</span></span>
+         key size in bits (depends on key type)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">evp_pkey</span></span>
+        generated key pair on success
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:ctrl"></a>
+    <strong>evp_pkey:ctrl (name, value)</strong>
+    </dt>
+    <dd>
+    control EVP_PKEY_CTX with string parameters
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         control parameter name
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         control parameter value
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:decrypt_init"></a>
+    <strong>evp_pkey:decrypt_init ()</strong>
+    </dt>
+    <dd>
+    initialize EVP_PKEY_CTX for decryption operations
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">evp_pkey_ctx</span></span>
+        context object ready for decryption
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:encrypt_init"></a>
+    <strong>evp_pkey:encrypt_init ()</strong>
+    </dt>
+    <dd>
+    initialize EVP_PKEY_CTX for encryption operations
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">evp_pkey_ctx</span></span>
+        context object ready for encryption
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:verify_init"></a>
+    <strong>evp_pkey:verify_init ()</strong>
+    </dt>
+    <dd>
+    initialize EVP_PKEY_CTX for verification operations
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">evp_pkey_ctx</span></span>
+        context object ready for verification
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:sign_init"></a>
+    <strong>evp_pkey:sign_init ()</strong>
+    </dt>
+    <dd>
+    initialize EVP_PKEY_CTX for signing operations
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">evp_pkey_ctx</span></span>
+        context object ready for signing
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:decrypt"></a>
+    <strong>evp_pkey:decrypt (data)</strong>
+    </dt>
+    <dd>
+    decrypt data using private key context
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         encrypted data to decrypt
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        decrypted data or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:encrypt"></a>
+    <strong>evp_pkey:encrypt (data)</strong>
+    </dt>
+    <dd>
+    encrypt data using public key context
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         data to encrypt
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        encrypted data or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:verify"></a>
+    <strong>evp_pkey:verify (data, signature)</strong>
+    </dt>
+    <dd>
+    verify signature using EVP_PKEY_CTX
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         original data that was signed
+        </li>
+        <li><span class="parameter">signature</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         signature to verify
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if signature is valid, false otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:sign"></a>
+    <strong>evp_pkey:sign (digest)</strong>
+    </dt>
+    <dd>
+    create digital signature using EVP_PKEY_CTX
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">digest</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         message digest to sign
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        digital signature or nil on error
     </ol>
 
 
@@ -702,6 +1116,286 @@ data be encrypt with secret key, secret key be encrypt with public key
 
 
 </dd>
+    <dt>
+    <a name = "evp_pkey:seal_init"></a>
+    <strong>evp_pkey:seal_init (cipher, public_keys)</strong>
+    </dt>
+    <dd>
+    initialize envelope encryption (sealing) context
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cipher</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">evp_cipher</span></span>
+         encryption cipher to use
+        </li>
+        <li><span class="parameter">public_keys</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         array of public keys for recipients
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">evp_cipher_ctx</span> or <span class="type">nil</span></span>
+        encryption context or nil on error</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+        encrypted keys for each recipient</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        initialization vector</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:seal_update"></a>
+    <strong>evp_pkey:seal_update (context, data)</strong>
+    </dt>
+    <dd>
+    update envelope encryption with data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">context</span>
+            <span class="types"><span class="type">evp_cipher_ctx</span></span>
+         encryption context from seal_init
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         data to encrypt
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        encrypted data or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:seal_final"></a>
+    <strong>evp_pkey:seal_final (context)</strong>
+    </dt>
+    <dd>
+    finalize envelope encryption
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">context</span>
+            <span class="types"><span class="type">evp_cipher_ctx</span></span>
+         encryption context from seal_init
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        final encrypted data or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:open_init"></a>
+    <strong>evp_pkey:open_init (private_key, encrypted_key, iv[, cipher])</strong>
+    </dt>
+    <dd>
+    initialize envelope decryption (opening) context
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">private_key</span>
+            <span class="types"><span class="type">evp_pkey</span></span>
+         private key for decryption
+        </li>
+        <li><span class="parameter">encrypted_key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         encrypted symmetric key
+        </li>
+        <li><span class="parameter">iv</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         initialization vector
+        </li>
+        <li><span class="parameter">cipher</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">evp_cipher</span></span>
+         decryption cipher to use
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">evp_cipher_ctx</span> or <span class="type">nil</span></span>
+        decryption context or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:open_update"></a>
+    <strong>evp_pkey:open_update (context, data)</strong>
+    </dt>
+    <dd>
+    update envelope decryption with encrypted data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">context</span>
+            <span class="types"><span class="type">evp_cipher_ctx</span></span>
+         decryption context from open_init
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         encrypted data to decrypt
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        decrypted data or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:open_final"></a>
+    <strong>evp_pkey:open_final (context)</strong>
+    </dt>
+    <dd>
+    finalize envelope decryption
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">context</span>
+            <span class="types"><span class="type">evp_cipher_ctx</span></span>
+         decryption context from open_init
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        final decrypted data or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:bits"></a>
+    <strong>evp_pkey:bits ()</strong>
+    </dt>
+    <dd>
+    get the number of bits in the key
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        number of bits in the key
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:set_engine"></a>
+    <strong>evp_pkey:set_engine (eng)</strong>
+    </dt>
+    <dd>
+    set engine for the key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">eng</span>
+            <span class="types"><span class="type">engine</span></span>
+         engine object to use for this key
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        result true for success
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:as_sm2"></a>
+    <strong>evp_pkey:as_sm2 ()</strong>
+    </dt>
+    <dd>
+    convert EC key to SM2 key type
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        result true if successfully converted to SM2
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_pkey:missing_paramaters"></a>
+    <strong>evp_pkey:missing_paramaters ()</strong>
+    </dt>
+    <dd>
+    check if key parameters are missing
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if key is missing parameters
+    </ol>
+
+
+
+
+</dd>
 </dl>
 
 
@@ -709,7 +1403,7 @@ data be encrypt with secret key, secret key be encrypt with public key
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

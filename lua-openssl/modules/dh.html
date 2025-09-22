@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>lua-openssl Documentation</title>
+    <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>lua-openssl</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/asn1.html">asn1</a></li>
+  <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
+  <li><a href="../modules/cipher.html">cipher</a></li>
+  <li><a href="../modules/cms.html">cms</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><strong>dh</strong></li>
+  <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
+  <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
+  <li><a href="../modules/hmac.html">hmac</a></li>
+  <li><a href="../modules/kdf.html">kdf</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
+  <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
+  <li><a href="../modules/ocsp.html">ocsp</a></li>
+  <li><a href="../modules/openssl.html">openssl</a></li>
+  <li><a href="../modules/param.html">param</a></li>
+  <li><a href="../modules/pkcs12.html">pkcs12</a></li>
+  <li><a href="../modules/pkcs7.html">pkcs7</a></li>
+  <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
+  <li><a href="../modules/srp.html">srp</a></li>
+  <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
+  <li><a href="../modules/x509.html">x509</a></li>
+  <li><a href="../modules/x509.algor.html">x509.algor</a></li>
+  <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
+  <li><a href="../modules/x509.extension.html">x509.extension</a></li>
+  <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/x509.store.html">x509.store</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>dh</code></h1>
+<p>dh module for lua-openssl binding</p>
+
+<p>Diffie-Hellman (DH) key exchange is a method of securely exchanging
+cryptographic keys over a public channel.</p>
+<p> The module provides functionality
+for DH parameter generation, key generation and key agreement operations.</p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">dh = require(&apos;openssl&apos;).dh
+</pre>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#parse">parse ()</a></td>
+	<td class="summary">parse DH key parameters and components</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#check">check ()</a></td>
+	<td class="summary">check DH parameters for validity</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#generate_parameters">generate_parameters ([bits=1024[, generator=2[, eng]]])</a></td>
+	<td class="summary">generate DH parameters for key exchange</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#generate_key">generate_key ()</a></td>
+	<td class="summary">generate a DH key pair from parameters</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#problems">problems (reason[, pub=false])</a></td>
+	<td class="summary">interpret DH parameter check problems</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "parse"></a>
+    <strong>parse ()</strong>
+    </dt>
+    <dd>
+    parse DH key parameters and components
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        DH parameters including size, bits, p, q, g, public key, and private key (if present)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "check"></a>
+    <strong>check ()</strong>
+    </dt>
+    <dd>
+    check DH parameters for validity
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true if parameters are valid</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        error codes if parameters are invalid</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "generate_parameters"></a>
+    <strong>generate_parameters ([bits=1024[, generator=2[, eng]]])</strong>
+    </dt>
+    <dd>
+    generate DH parameters for key exchange
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bits</span>
+            <span class="types"><span class="type">number</span></span>
+         parameter size in bits
+         (<em>default</em> 1024)
+        </li>
+        <li><span class="parameter">generator</span>
+            <span class="types"><span class="type">number</span></span>
+         generator value (typically 2 or 5)
+         (<em>default</em> 2)
+        </li>
+        <li><span class="parameter">eng</span>
+            <span class="types"><span class="type">engine</span></span>
+         engine to use for parameter generation
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">dh</span> or <span class="type">nil</span></span>
+        generated DH parameters or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "generate_key"></a>
+    <strong>generate_key ()</strong>
+    </dt>
+    <dd>
+    generate a DH key pair from parameters
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">dh</span></span>
+        new DH object with generated key pair on success
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "problems"></a>
+    <strong>problems (reason[, pub=false])</strong>
+    </dt>
+    <dd>
+    interpret DH parameter check problems
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">reason</span>
+            <span class="types"><span class="type">number</span></span>
+         the problem codes returned by check functions
+        </li>
+        <li><span class="parameter">pub</span>
+            <span class="types"><span class="type">boolean</span></span>
+         whether to include public key problems
+         (<em>default</em> false)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        array of problem descriptions
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

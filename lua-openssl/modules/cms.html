@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -42,29 +42,40 @@
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><strong>cms</strong></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
   <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -118,11 +129,11 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
 	<td class="summary">write cms object to bio object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#create">create ()</a></td>
+	<td class="name" nowrap><a href="#new">new ()</a></td>
 	<td class="summary">create empty cms object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#create">create (input[, flags=0])</a></td>
+	<td class="name" nowrap><a href="#data_create">data_create (input[, flags=0])</a></td>
 	<td class="summary">create cms object from string or bio object</td>
 	</tr>
 	<tr>
@@ -169,7 +180,7 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
 <h2><a href="#Class_cms">Class cms </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#cms:cms">cms:cms ()</a></td>
+	<td class="name" nowrap><a href="#cms:type">cms:type ()</a></td>
 	<td class="summary">get type of cms object</td>
 	</tr>
 	<tr>
@@ -183,6 +194,34 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
 	<tr>
 	<td class="name" nowrap><a href="#cms:content">cms:content ()</a></td>
 	<td class="summary">get content of cms object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:add_signers">cms:add_signers (cms, signer, pkey)</a></td>
+	<td class="summary">add signers to CMS structure</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:get_signers">cms:get_signers (cms)</a></td>
+	<td class="summary">get signers from CMS structure</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:data">cms:data ([flags=0])</a></td>
+	<td class="summary">extract the data content from CMS object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:final">cms:final (input[, flags=CMS_STREAM])</a></td>
+	<td class="summary">finalize CMS object processing with provided input</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:add_receipt">cms:add_receipt ([receipt_to[, receipt_from[, all_or_first]]])</a></td>
+	<td class="summary">add receipt request to CMS structure</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:sign_receipt">cms:sign_receipt (signcert, pkey[, other[, flags]])</a></td>
+	<td class="summary">sign receipt for CMS message</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cms:verify_receipt">cms:verify_receipt (rcms, cms[, other], store[, flags])</a></td>
+	<td class="summary">verify receipt for CMS message</td>
 	</tr>
 </table>
 
@@ -283,8 +322,8 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
 
 </dd>
     <dt>
-    <a name = "create"></a>
-    <strong>create ()</strong>
+    <a name = "new"></a>
+    <strong>new ()</strong>
     </dt>
     <dd>
     create empty cms object
@@ -304,8 +343,8 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
 
 </dd>
     <dt>
-    <a name = "create"></a>
-    <strong>create (input[, flags=0])</strong>
+    <a name = "data_create"></a>
+    <strong>data_create (input[, flags=0])</strong>
     </dt>
     <dd>
     create cms object from string or bio object
@@ -394,7 +433,8 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
         </li>
         <li><span class="parameter">dcent</span>
             <span class="types"><span class="type">bio</span></span>
-         default nil for normal, in the rare case where the compressed content is detached.
+         default nil for normal, in the rare case where the compressed content is
+detached.
          (<em>default</em> nil)
         </li>
         <li><span class="parameter">flags</span>
@@ -807,8 +847,8 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
           </div>
     <dl class="function">
     <dt>
-    <a name = "cms:cms"></a>
-    <strong>cms:cms ()</strong>
+    <a name = "cms:type"></a>
+    <strong>cms:type ()</strong>
     </dt>
     <dd>
     get type of cms object
@@ -904,6 +944,252 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
 
 
 </dd>
+    <dt>
+    <a name = "cms:add_signers"></a>
+    <strong>cms:add_signers (cms, signer, pkey)</strong>
+    </dt>
+    <dd>
+    add signers to CMS structure
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cms</span>
+            <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
+         object to add signers to
+        </li>
+        <li><span class="parameter">signer</span>
+            <span class="types"><span class="type">x509</span></span>
+         certificate for signing
+        </li>
+        <li><span class="parameter">pkey</span>
+            <span class="types"><span class="type">evp_pkey</span></span>
+         private key for signing
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        result
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cms:get_signers"></a>
+    <strong>cms:get_signers (cms)</strong>
+    </dt>
+    <dd>
+    get signers from CMS structure
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cms</span>
+            <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
+         object to get signers from
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        array of x509 certificates
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cms:data"></a>
+    <strong>cms:data ([flags=0])</strong>
+    </dt>
+    <dd>
+    extract the data content from CMS object
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">number</span></span>
+         optional flags for data extraction
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        extracted data content
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cms:final"></a>
+    <strong>cms:final (input[, flags=CMS_STREAM])</strong>
+    </dt>
+    <dd>
+    finalize CMS object processing with provided input
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">bio</span></span>
+         data to finalize the CMS with
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">number</span></span>
+         optional flags for finalization
+         (<em>default</em> CMS_STREAM)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cms:add_receipt"></a>
+    <strong>cms:add_receipt ([receipt_to[, receipt_from[, all_or_first]]])</strong>
+    </dt>
+    <dd>
+    add receipt request to CMS structure
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">receipt_to</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         array of recipient emails
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">receipt_from</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         array of sender emails
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">all_or_first</span>
+            <span class="types"><span class="type">boolean</span></span>
+         request receipt from all or first recipient
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        result true for success
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cms:sign_receipt"></a>
+    <strong>cms:sign_receipt (signcert, pkey[, other[, flags]])</strong>
+    </dt>
+    <dd>
+    sign receipt for CMS message
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">signcert</span>
+            <span class="types"><span class="type">x509</span></span>
+         certificate to use for signing receipt
+        </li>
+        <li><span class="parameter">pkey</span>
+            <span class="types"><span class="type">evp_pkey</span></span>
+         private key for signing
+        </li>
+        <li><span class="parameter">other</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         additional certificates
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">number</span></span>
+         signing flags
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
+        signed receipt CMS object or nil if failed
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cms:verify_receipt"></a>
+    <strong>cms:verify_receipt (rcms, cms[, other], store[, flags])</strong>
+    </dt>
+    <dd>
+    verify receipt for CMS message
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rcms</span>
+            <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
+         receipt CMS object to verify
+        </li>
+        <li><span class="parameter">cms</span>
+            <span class="types"><a class="type" href="../modules/cms.html#cms">cms</a></span>
+         original CMS object
+        </li>
+        <li><span class="parameter">other</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         additional certificates
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">store</span>
+            <span class="types"><span class="type">x509_store</span></span>
+         certificate store for verification
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">number</span></span>
+         verification flags
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        result true if receipt is valid
+    </ol>
+
+
+
+
+</dd>
 </dl>
 
 
@@ -911,7 +1197,7 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

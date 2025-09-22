@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -34,29 +34,40 @@
 <ul class="nowrap">
   <li><a href="modules/asn1.html">asn1</a></li>
   <li><a href="modules/bio.html">bio</a></li>
+  <li><a href="modules/bn.html">bn</a></li>
+  <li><a href="modules/callback.html">callback</a></li>
   <li><a href="modules/cipher.html">cipher</a></li>
   <li><a href="modules/cms.html">cms</a></li>
-  <li><a href="modules/x509.crl.html">x509.crl</a></li>
-  <li><a href="modules/x509.req.html">x509.req</a></li>
+  <li><a href="modules/compat.html">compat</a></li>
+  <li><a href="modules/dh.html">dh</a></li>
   <li><a href="modules/digest.html">digest</a></li>
+  <li><a href="modules/dsa.html">dsa</a></li>
   <li><a href="modules/ec.html">ec</a></li>
+  <li><a href="modules/engine.html">engine</a></li>
   <li><a href="modules/hmac.html">hmac</a></li>
   <li><a href="modules/kdf.html">kdf</a></li>
-  <li><a href="modules/bn.html">bn</a></li>
+  <li><a href="modules/lhash.html">lhash</a></li>
   <li><a href="modules/mac.html">mac</a></li>
+  <li><a href="modules/misc.html">misc</a></li>
   <li><a href="modules/ocsp.html">ocsp</a></li>
   <li><a href="modules/openssl.html">openssl</a></li>
-  <li><a href="modules/ts.html">ts</a></li>
+  <li><a href="modules/param.html">param</a></li>
   <li><a href="modules/pkcs12.html">pkcs12</a></li>
   <li><a href="modules/pkcs7.html">pkcs7</a></li>
   <li><a href="modules/pkey.html">pkey</a></li>
+  <li><a href="modules/rsa.html">rsa</a></li>
   <li><a href="modules/srp.html">srp</a></li>
   <li><a href="modules/ssl.html">ssl</a></li>
+  <li><a href="modules/th-lock.html">th-lock</a></li>
+  <li><a href="modules/ts.html">ts</a></li>
+  <li><a href="modules/util.html">util</a></li>
   <li><a href="modules/x509.html">x509</a></li>
   <li><a href="modules/x509.algor.html">x509.algor</a></li>
   <li><a href="modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="modules/x509.crl.html">x509.crl</a></li>
   <li><a href="modules/x509.extension.html">x509.extension</a></li>
   <li><a href="modules/x509.name.html">x509.name</a></li>
+  <li><a href="modules/x509.req.html">x509.req</a></li>
   <li><a href="modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -69,7 +80,7 @@
 <div id="content">
 
 
-  <h2>Openssl binding for Lua</h2>
+  <h2>OpenSSL binding for Lua</h2>
 
 <h2>Modules</h2>
 <table class="module_list">
@@ -80,6 +91,17 @@
 	<tr>
 		<td class="name"  nowrap><a href="modules/bio.html">bio</a></td>
 		<td class="summary">bio module to mapping a BIO in openssl to a lua object.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/bn.html">bn</a></td>
+		<td class="summary">big-number library for Lua 5.1 based on OpenSSL bn</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/callback.html">callback</a></td>
+		<td class="summary">callback module for lua-openssl binding</p>
+
+<p>This module provides callback functionality for SSL/TLS operations,
+including certificate verification callbacks and other SSL event handling.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/cipher.html">cipher</a></td>
@@ -93,20 +115,37 @@
 cryptographically protected messages.</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/x509.crl.html">x509.crl</a></td>
-		<td class="summary">x509.crl module to mapping <code>X509_CRL</code> to lua object, creates and  processes CRL file in DER or PEM format.</td>
+		<td class="name"  nowrap><a href="modules/compat.html">compat</a></td>
+		<td class="summary">compat module for OpenSSL version compatibility</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/x509.req.html">x509.req</a></td>
-		<td class="summary">x509.req module to mapping <code>X509_REQ</code> to lua object, creates and processes certificate requests (CSRs) in PKCS#10 format.</td>
+		<td class="name"  nowrap><a href="modules/dh.html">dh</a></td>
+		<td class="summary">dh module for lua-openssl binding</p>
+
+<p>Diffie-Hellman (DH) key exchange is a method of securely exchanging
+cryptographic keys over a public channel.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/digest.html">digest</a></td>
 		<td class="summary">digest module perform digest operations base on OpenSSL EVP API.</td>
 	</tr>
 	<tr>
+		<td class="name"  nowrap><a href="modules/dsa.html">dsa</a></td>
+		<td class="summary">dsa module for lua-openssl binding</p>
+
+<p>Digital Signature Algorithm (DSA) is a Federal Information Processing
+Standard for digital signatures.</td>
+	</tr>
+	<tr>
 		<td class="name"  nowrap><a href="modules/ec.html">ec</a></td>
 		<td class="summary">ec module to create EC keys and do EC key processes.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/engine.html">engine</a></td>
+		<td class="summary">engine module for lua-openssl binding</p>
+
+<p>OpenSSL engine support allows the use of alternative implementations
+of cryptographic algorithms.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/hmac.html">hmac</a></td>
@@ -117,12 +156,18 @@ cryptographically protected messages.</td>
 		<td class="summary">kdf module perform EVP_KDF operations.</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/bn.html">bn</a></td>
-		<td class="summary">big-number library for Lua 5.1 based on OpenSSL bn</td>
+		<td class="name"  nowrap><a href="modules/lhash.html">lhash</a></td>
+		<td class="summary">lhash module for lua-openssl binding</p>
+
+<p>LHASH is OpenSSL&rsquo;s implementation of a hash table.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/mac.html">mac</a></td>
 		<td class="summary">mac module perform Message Authentication Code operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/misc.html">misc</a></td>
+		<td class="summary">misc module with utility functions for lua-openssl</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/ocsp.html">ocsp</a></td>
@@ -134,8 +179,11 @@ Generate, sign, process OCSP request and response.</td>
 		<td class="summary">Openssl binding for Lua, provide openssl full function in lua.</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/ts.html">ts</a></td>
-		<td class="summary">timestamp module provide basic Time Stamping Authority (TSA) client and server operations as specified in RFC 3161 (Time-Stamp Protocol, TSP).</td>
+		<td class="name"  nowrap><a href="modules/param.html">param</a></td>
+		<td class="summary">param module for OpenSSL 3.x parameter handling</p>
+
+<p>This module provides functionality for handling OpenSSL 3.x parameters
+used in cryptographic operations.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/pkcs12.html">pkcs12</a></td>
@@ -150,12 +198,35 @@ Generate, sign, process OCSP request and response.</td>
 		<td class="summary">pkey module to create and process public or private key, do asymmetric key operations.</td>
 	</tr>
 	<tr>
+		<td class="name"  nowrap><a href="modules/rsa.html">rsa</a></td>
+		<td class="summary">rsa module for lua-openssl binding</p>
+
+<p>RSA (Rivest-Shamir-Adleman) is a public-key cryptosystem that is widely
+used for secure data transmission.</td>
+	</tr>
+	<tr>
 		<td class="name"  nowrap><a href="modules/srp.html">srp</a></td>
 		<td class="summary">srp module to handle secure remote password.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/ssl.html">ssl</a></td>
 		<td class="summary">ssl modules to create SSL/TLS server or client, send and recv data over SSL channels.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/th-lock.html">th-lock</a></td>
+		<td class="summary">th-lock module for thread safety in lua-openssl</p>
+
+<p>This module provides thread locking functionality for OpenSSL operations
+in multi-threaded environments.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/ts.html">ts</a></td>
+		<td class="summary">timestamp module provide basic Time Stamping Authority (TSA) client and server operations as
+specified in RFC 3161 (Time-Stamp Protocol, TSP).</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/util.html">util</a></td>
+		<td class="summary">util module with internal utility functions for lua-openssl</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/x509.html">x509</a></td>
@@ -170,12 +241,22 @@ Generate, sign, process OCSP request and response.</td>
 		<td class="summary">x509.attribute module to mapping X509_ATTRIBUTE to lua object.</td>
 	</tr>
 	<tr>
+		<td class="name"  nowrap><a href="modules/x509.crl.html">x509.crl</a></td>
+		<td class="summary">x509.crl module to mapping <code>X509_CRL</code> to lua object, creates and  processes CRL file in DER or PEM
+format.</td>
+	</tr>
+	<tr>
 		<td class="name"  nowrap><a href="modules/x509.extension.html">x509.extension</a></td>
 		<td class="summary">x509.extension module to mapping X509_EXTENSION to lua object.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/x509.name.html">x509.name</a></td>
 		<td class="summary">x509.name module to mapping X509_NAME to lua object.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/x509.req.html">x509.req</a></td>
+		<td class="summary">x509.req module to mapping <code>X509_REQ</code> to lua object, creates and processes certificate requests
+(CSRs) in PKCS#10 format.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/x509.store.html">x509.store</a></td>
@@ -194,7 +275,7 @@ Generate, sign, process OCSP request and response.</td>
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

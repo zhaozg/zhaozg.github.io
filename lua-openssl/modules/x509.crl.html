@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -42,29 +42,40 @@
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
-  <li><strong>x509.crl</strong></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
   <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><strong>x509.crl</strong></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -77,7 +88,8 @@
 <div id="content">
 
 <h1>Module <code>x509.crl</code></h1>
-<p>x509.crl module to mapping <code>X509_CRL</code> to lua object, creates and  processes CRL file in DER or PEM format.</p>
+<p>x509.crl module to mapping <code>X509_CRL</code> to lua object, creates and  processes CRL file in DER or PEM
+format.</p>
 <p>
 </p>
     <h3>Usage:</h3>
@@ -89,6 +101,10 @@
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#revoked2table">revoked2table (revoked)</a></td>
+	<td class="summary">convert X509_REVOKED to lua table</td>
+	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new">new ([revoked_list[, cacert[, capkey[, md_alg[, period=7*24*3600]]]]])</a></td>
 	<td class="summary">create or generate a new x509_crl object.</td>
@@ -110,7 +126,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#x509_crl:add">x509_crl:add (serial, revokedtime[, reason=0])</a></td>
-	<td class="summary">add revoked entry to x509_crl object</td>
+	<td class="summary">add revoked certificate entry to CRL</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#x509_crl:extensions">x509_crl:extensions ()</a></td>
@@ -192,6 +208,26 @@
 	<td class="name" nowrap><a href="#x509_crl:get">x509_crl:get (index)</a></td>
 	<td class="summary">get revoekd entry</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#x509_crl:info">x509_crl:info ()</a></td>
+	<td class="summary">get detailed information about revoked certificate entry</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#x509_crl:reason">x509_crl:reason ([reason])</a></td>
+	<td class="summary">get or set revocation reason for X509 revoked entry</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#x509_crl:revocationDate">x509_crl:revocationDate ()</a></td>
+	<td class="summary">get revocation date from revoked certificate entry</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#x509_crl:serialNumber">x509_crl:serialNumber ()</a></td>
+	<td class="summary">get serial number from revoked certificate entry</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#x509_crl:extensions">x509_crl:extensions ()</a></td>
+	<td class="summary">get extensions from revoked certificate entry</td>
+	</tr>
 </table>
 
 <br/>
@@ -202,12 +238,40 @@
 
     <dl class="function">
     <dt>
+    <a name = "revoked2table"></a>
+    <strong>revoked2table (revoked)</strong>
+    </dt>
+    <dd>
+    convert X509_REVOKED to lua table
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">revoked</span>
+            <span class="types"><span class="type">userdata</span></span>
+         X509_REVOKED object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        table with revocation information
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "new"></a>
     <strong>new ([revoked_list[, cacert[, capkey[, md_alg[, period=7*24*3600]]]]])</strong>
     </dt>
     <dd>
     create or generate a new x509_crl object.
-Note if not give evp_pkey, will create a new x509_crl object,if give will generate a signed x509_crl object.
+Note if not give evp_pkey, will create a new x509_crl object,if give will generate a signed x509_crl
+object.
 
 
     <h3>Parameters:</h3>
@@ -352,25 +416,22 @@ Note if not give evp_pkey, will create a new x509_crl object,if give will genera
     <strong>x509_crl:add (serial, revokedtime[, reason=0])</strong>
     </dt>
     <dd>
-    add revoked entry to x509_crl object
+    add revoked certificate entry to CRL
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">serial</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">number</span> or <span class="type">bn</span></span>
-
-
+         serial number of revoked certificate
         </li>
         <li><span class="parameter">revokedtime</span>
             <span class="types"><span class="type">number</span></span>
-
-
+         revocation time
         </li>
         <li><span class="parameter">reason</span>
             <span class="types"><span class="type">number</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
+         revocation reason code
          (<em>default</em> 0)
         </li>
     </ul>
@@ -932,6 +993,126 @@ Note if not give evp_pkey, will create a new x509_crl object,if give will genera
 
 
 </dd>
+    <dt>
+    <a name = "x509_crl:info"></a>
+    <strong>x509_crl:info ()</strong>
+    </dt>
+    <dd>
+    get detailed information about revoked certificate entry
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        containing revoked certificate information
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "x509_crl:reason"></a>
+    <strong>x509_crl:reason ([reason])</strong>
+    </dt>
+    <dd>
+    get or set revocation reason for X509 revoked entry
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">reason</span>
+            <span class="types"><span class="type">number</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         revocation reason code or name to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        reason code (if getting)</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        reason name (if getting)</li>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        success status (if setting)</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "x509_crl:revocationDate"></a>
+    <strong>x509_crl:revocationDate ()</strong>
+    </dt>
+    <dd>
+    get revocation date from revoked certificate entry
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        revocation date as Unix timestamp</li>
+        <li>
+           <span class="types"><span class="type">asn1_time</span></span>
+        revocation date as ASN1_TIME object</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "x509_crl:serialNumber"></a>
+    <strong>x509_crl:serialNumber ()</strong>
+    </dt>
+    <dd>
+    get serial number from revoked certificate entry
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">bn</span></span>
+        serial number as bignum</li>
+        <li>
+           <span class="types"><span class="type">asn1_integer</span></span>
+        serial number as ASN1_INTEGER object</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "x509_crl:extensions"></a>
+    <strong>x509_crl:extensions ()</strong>
+    </dt>
+    <dd>
+    get extensions from revoked certificate entry
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+        array of extensions or nil if no extensions
+    </ol>
+
+
+
+
+</dd>
 </dl>
 
 
@@ -939,7 +1120,7 @@ Note if not give evp_pkey, will create a new x509_crl object,if give will genera
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

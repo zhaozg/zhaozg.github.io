@@ -1,0 +1,578 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>lua-openssl Documentation</title>
+    <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>lua-openssl</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/asn1.html">asn1</a></li>
+  <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
+  <li><a href="../modules/cipher.html">cipher</a></li>
+  <li><a href="../modules/cms.html">cms</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
+  <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
+  <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
+  <li><a href="../modules/hmac.html">hmac</a></li>
+  <li><a href="../modules/kdf.html">kdf</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
+  <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
+  <li><a href="../modules/ocsp.html">ocsp</a></li>
+  <li><a href="../modules/openssl.html">openssl</a></li>
+  <li><a href="../modules/param.html">param</a></li>
+  <li><a href="../modules/pkcs12.html">pkcs12</a></li>
+  <li><a href="../modules/pkcs7.html">pkcs7</a></li>
+  <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><strong>rsa</strong></li>
+  <li><a href="../modules/srp.html">srp</a></li>
+  <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
+  <li><a href="../modules/x509.html">x509</a></li>
+  <li><a href="../modules/x509.algor.html">x509.algor</a></li>
+  <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
+  <li><a href="../modules/x509.extension.html">x509.extension</a></li>
+  <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/x509.store.html">x509.store</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>rsa</code></h1>
+<p>rsa module for lua-openssl binding</p>
+
+<p>RSA (Rivest-Shamir-Adleman) is a public-key cryptosystem that is widely
+used for secure data transmission.</p>
+<p> The module provides functionality for
+RSA key generation, encryption, decryption, signing and signature verification.</p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">rsa = require(&apos;openssl&apos;).rsa
+</pre>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#isprivate">isprivate ()</a></td>
+	<td class="summary">check if RSA key contains private key components</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#size">size ()</a></td>
+	<td class="summary">get RSA key size in bytes</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#encrypt">encrypt (data[, padding="pkcs1"[, use_private]])</a></td>
+	<td class="summary">encrypt data using RSA key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#decrypt">decrypt (data[, padding="pkcs1"[, use_private]])</a></td>
+	<td class="summary">decrypt data using RSA private key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sign">sign (message[, digest="sha256"])</a></td>
+	<td class="summary">create digital signature using RSA private key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#verify">verify (message, signature[, digest="sha256"])</a></td>
+	<td class="summary">verify RSA signature using public key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#parse">parse ()</a></td>
+	<td class="summary">parse RSA key components and parameters</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#read">read (data[, private=true])</a></td>
+	<td class="summary">read RSA key from DER/PEM data</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#export">export ([private])</a></td>
+	<td class="summary">export RSA key to DER format</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set_engine">set_engine (engine)</a></td>
+	<td class="summary">set RSA engine for cryptographic operations</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#generate_key">generate_key ([bits=2048[, e=65537[, eng]]])</a></td>
+	<td class="summary">generate RSA key pair</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#padding_add">padding_add (data, padding, key_size, is_private)</a></td>
+	<td class="summary">add padding to data for RSA operations</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#padding_check">padding_check (data, padding, size)</a></td>
+	<td class="summary">check and remove padding from data</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "isprivate"></a>
+    <strong>isprivate ()</strong>
+    </dt>
+    <dd>
+    check if RSA key contains private key components
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if RSA key is private, false if public only
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "size"></a>
+    <strong>size ()</strong>
+    </dt>
+    <dd>
+    get RSA key size in bytes
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        key size in bytes
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "encrypt"></a>
+    <strong>encrypt (data[, padding="pkcs1"[, use_private]])</strong>
+    </dt>
+    <dd>
+    encrypt data using RSA key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         data to encrypt
+        </li>
+        <li><span class="parameter">padding</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         padding mode (&ldquo;pkcs1&rdquo;, &ldquo;oaep&rdquo;, &ldquo;none&rdquo;)
+         (<em>default</em> "pkcs1")
+        </li>
+        <li><span class="parameter">use_private</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true to use private key for encryption
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        encrypted data or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "decrypt"></a>
+    <strong>decrypt (data[, padding="pkcs1"[, use_private]])</strong>
+    </dt>
+    <dd>
+    decrypt data using RSA private key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         encrypted data to decrypt
+        </li>
+        <li><span class="parameter">padding</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         padding mode (&ldquo;pkcs1&rdquo;, &ldquo;oaep&rdquo;, &ldquo;none&rdquo;)
+         (<em>default</em> "pkcs1")
+        </li>
+        <li><span class="parameter">use_private</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true to use private key for decryption
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        decrypted data or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sign"></a>
+    <strong>sign (message[, digest="sha256"])</strong>
+    </dt>
+    <dd>
+    create digital signature using RSA private key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">message</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         data to sign
+        </li>
+        <li><span class="parameter">digest</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">evp_md</span></span>
+         algorithm to use
+         (<em>default</em> "sha256")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        signature or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "verify"></a>
+    <strong>verify (message, signature[, digest="sha256"])</strong>
+    </dt>
+    <dd>
+    verify RSA signature using public key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">message</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         original data that was signed
+        </li>
+        <li><span class="parameter">signature</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         signature to verify
+        </li>
+        <li><span class="parameter">digest</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">evp_md</span></span>
+         algorithm used for signing
+         (<em>default</em> "sha256")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if signature is valid, false otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "parse"></a>
+    <strong>parse ()</strong>
+    </dt>
+    <dd>
+    parse RSA key components and parameters
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        RSA key parameters including bits, n, e, d, p, q, and CRT parameters
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "read"></a>
+    <strong>read (data[, private=true])</strong>
+    </dt>
+    <dd>
+    read RSA key from DER/PEM data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         DER or PEM encoded RSA key data
+        </li>
+        <li><span class="parameter">private</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true to read private key, false for public key
+         (<em>default</em> true)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">rsa</span> or <span class="type">nil</span></span>
+        RSA key object or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "export"></a>
+    <strong>export ([private])</strong>
+    </dt>
+    <dd>
+    export RSA key to DER format
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">private</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true to export private key, false for public key
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        DER-encoded RSA key or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "set_engine"></a>
+    <strong>set_engine (engine)</strong>
+    </dt>
+    <dd>
+    set RSA engine for cryptographic operations
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">engine</span>
+            <span class="types"><span class="type">engine</span></span>
+         ENGINE object to use for RSA operations
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "generate_key"></a>
+    <strong>generate_key ([bits=2048[, e=65537[, eng]]])</strong>
+    </dt>
+    <dd>
+    generate RSA key pair
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bits</span>
+            <span class="types"><span class="type">number</span></span>
+         key size in bits
+         (<em>default</em> 2048)
+        </li>
+        <li><span class="parameter">e</span>
+            <span class="types"><span class="type">number</span></span>
+         public exponent (typically 65537)
+         (<em>default</em> 65537)
+        </li>
+        <li><span class="parameter">eng</span>
+            <span class="types"><span class="type">engine</span></span>
+         engine to use for key generation
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">rsa</span> or <span class="type">nil</span></span>
+        generated RSA key pair or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "padding_add"></a>
+    <strong>padding_add (data, padding, key_size, is_private)</strong>
+    </dt>
+    <dd>
+    add padding to data for RSA operations
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         input data to add padding to
+        </li>
+        <li><span class="parameter">padding</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         padding scheme (e.g., &ldquo;pkcs1&rdquo;, &ldquo;oaep&rdquo;, &ldquo;x931&rdquo;, &ldquo;pss&rdquo;)
+        </li>
+        <li><span class="parameter">key_size</span>
+            <span class="types"><span class="type">number</span> or <span class="type">rsa</span></span>
+         RSA key size in bytes or RSA object
+        </li>
+        <li><span class="parameter">is_private</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true for private key padding, false for public key
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        data with padding added
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "padding_check"></a>
+    <strong>padding_check (data, padding, size)</strong>
+    </dt>
+    <dd>
+    check and remove padding from data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         padded data to check
+        </li>
+        <li><span class="parameter">padding</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         padding mode to check
+        </li>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">number</span></span>
+         expected output size
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        unpadded data or nil if padding check failed
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

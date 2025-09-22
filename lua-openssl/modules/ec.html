@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -41,29 +41,40 @@
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
   <li><strong>ec</strong></li>
+  <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -79,10 +90,79 @@
 <p>ec module to create EC keys and do EC key processes.</p>
 <p>
 </p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">ec = require(&apos;openssl&apos;).ec
+</pre>
+    </ul>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#affine_coordinates">affine_coordinates (group, point[, x[, y]])</a></td>
+	<td class="summary">get or set affine coordinates of an elliptic curve point</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#group">group (curve)</a></td>
+	<td class="summary">create EC group and generator point from curve specification</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#parse">parse ()</a></td>
+	<td class="summary">parse elliptic curve group to extract detailed parameters</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asn1_flag">asn1_flag (group[, flag])</a></td>
+	<td class="summary">get or set ASN1 flag for elliptic curve group</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#point_conversion_form">point_conversion_form (group[, form])</a></td>
+	<td class="summary">get or set point conversion form for elliptic curve group</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#point_new">point_new (group)</a></td>
+	<td class="summary">create new elliptic curve point for group</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#point_dup">point_dup (group, point)</a></td>
+	<td class="summary">duplicate an EC point</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#point_equal">point_equal (group, a, b)</a></td>
+	<td class="summary">compare two EC points for equality</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#oct2point">oct2point (group, oct)</a></td>
+	<td class="summary">convert octet string to EC point</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#point2oct">point2oct (group[, form])</a></td>
+	<td class="summary">convert EC point to octet string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bn2point">bn2point (group, bn)</a></td>
+	<td class="summary">convert bignum to EC point</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#point2bn">point2bn (group[, form])</a></td>
+	<td class="summary">convert EC point to bignum</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hex2point">hex2point (group, hex)</a></td>
+	<td class="summary">convert hexadecimal string to EC point</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#point2hex">point2hex (group[, form])</a></td>
+	<td class="summary">convert EC point to hexadecimal string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#generate_key">generate_key ()</a></td>
+	<td class="summary">generate EC key pair from group</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#equal">equal (other)</a></td>
+	<td class="summary">check if two EC groups are equal</td>
+	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sign">sign (eckey, digest, md)</a></td>
 	<td class="summary">do EC sign</td>
@@ -90,6 +170,50 @@
 	<tr>
 	<td class="name" nowrap><a href="#verify">verify (eckey, digest, signature, md)</a></td>
 	<td class="summary">do EC verify, input msg is digest result</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#copy">copy (from)</a></td>
+	<td class="summary">copy EC point</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#parse">parse ([basic=false])</a></td>
+	<td class="summary">parse EC key components and parameters</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#compute_key">compute_key (peer[, kdf])</a></td>
+	<td class="summary">compute ECDH shared key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set_method">set_method (engine)</a></td>
+	<td class="summary">set ECDSA signing method for EC key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#check">check ()</a></td>
+	<td class="summary">check if EC key is valid</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#export">export ()</a></td>
+	<td class="summary">export EC key to DER format</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#group">group ([group])</a></td>
+	<td class="summary">get or set EC group for EC key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#read">read (der)</a></td>
+	<td class="summary">read EC key from DER encoded data</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#conv_form">conv_form ([form])</a></td>
+	<td class="summary">get or set point conversion form for EC key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#enc_flags">enc_flags ([flags])</a></td>
+	<td class="summary">get or set encoding flags for EC key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#list">list ()</a></td>
+	<td class="summary">list all available elliptic curve names</td>
 	</tr>
 </table>
 
@@ -100,6 +224,493 @@
     <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
+    <dt>
+    <a name = "affine_coordinates"></a>
+    <strong>affine_coordinates (group, point[, x[, y]])</strong>
+    </dt>
+    <dd>
+    get or set affine coordinates of an elliptic curve point
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         elliptic curve group
+        </li>
+        <li><span class="parameter">point</span>
+            <span class="types"><span class="type">ec_point</span></span>
+         elliptic curve point
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">bn</span></span>
+         x coordinate (for setting)
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">bn</span></span>
+         y coordinate (for setting)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">bn</span></span>
+        x coordinate (when getting)</li>
+        <li>
+           <span class="types"><span class="type">bn</span></span>
+        y coordinate (when getting)</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "group"></a>
+    <strong>group (curve)</strong>
+    </dt>
+    <dd>
+    create EC group and generator point from curve specification
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">curve</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">number</span></span>
+         curve specification (name, parameters, or NID)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">ec_group</span></span>
+        the elliptic curve group</li>
+        <li>
+           <span class="types"><span class="type">ec_point</span></span>
+        the generator point</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "parse"></a>
+    <strong>parse ()</strong>
+    </dt>
+    <dd>
+    parse elliptic curve group to extract detailed parameters
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        containing curve parameters (generator, order, cofactor, etc.)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "asn1_flag"></a>
+    <strong>asn1_flag (group[, flag])</strong>
+    </dt>
+    <dd>
+    get or set ASN1 flag for elliptic curve group
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         elliptic curve group
+        </li>
+        <li><span class="parameter">flag</span>
+            <span class="types"><span class="type">number</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ASN1 flag to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+        current ASN1 flag (string name and number value)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "point_conversion_form"></a>
+    <strong>point_conversion_form (group[, form])</strong>
+    </dt>
+    <dd>
+    get or set point conversion form for elliptic curve group
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         elliptic curve group
+        </li>
+        <li><span class="parameter">form</span>
+            <span class="types"><span class="type">number</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         point conversion form to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+        current point conversion form (string name and number value)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "point_new"></a>
+    <strong>point_new (group)</strong>
+    </dt>
+    <dd>
+    create new elliptic curve point for group
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         elliptic curve group
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ec_point</span></span>
+        new elliptic curve point
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "point_dup"></a>
+    <strong>point_dup (group, point)</strong>
+    </dt>
+    <dd>
+    duplicate an EC point
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         the EC group
+        </li>
+        <li><span class="parameter">point</span>
+            <span class="types"><span class="type">ec_point</span></span>
+         the EC point to duplicate
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ec_point</span></span>
+        new EC point that is a copy of the input point
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "point_equal"></a>
+    <strong>point_equal (group, a, b)</strong>
+    </dt>
+    <dd>
+    compare two EC points for equality
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         the EC group
+        </li>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">ec_point</span></span>
+         first EC point to compare
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">ec_point</span></span>
+         second EC point to compare
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if points are equal, false otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "oct2point"></a>
+    <strong>oct2point (group, oct)</strong>
+    </dt>
+    <dd>
+    convert octet string to EC point
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         the EC group
+        </li>
+        <li><span class="parameter">oct</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         octet string representation
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ec_point</span> or <span class="type">nil</span></span>
+        the resulting EC point or nil on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "point2oct"></a>
+    <strong>point2oct (group[, form])</strong>
+    </dt>
+    <dd>
+    convert EC point to octet string
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         the EC group
+        </li>
+        <li><span class="parameter">form</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         point conversion form (&ldquo;compressed&rdquo;, &ldquo;uncompressed&rdquo;, or &ldquo;hybrid&rdquo;)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        octet string representation of the point
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "bn2point"></a>
+    <strong>bn2point (group, bn)</strong>
+    </dt>
+    <dd>
+    convert bignum to EC point
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         the EC group
+        </li>
+        <li><span class="parameter">bn</span>
+            <span class="types"><span class="type">bignum</span></span>
+         the bignum to convert to point
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ec_point</span> or <span class="type">nil</span></span>
+        the resulting EC point or nil on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "point2bn"></a>
+    <strong>point2bn (group[, form])</strong>
+    </dt>
+    <dd>
+    convert EC point to bignum
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         the EC group
+        </li>
+        <li><span class="parameter">form</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         point conversion form (&ldquo;compressed&rdquo;, &ldquo;uncompressed&rdquo;, or &ldquo;hybrid&rdquo;)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bn</span> or <span class="type">nil</span></span>
+        the resulting bignum representation or nil on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hex2point"></a>
+    <strong>hex2point (group, hex)</strong>
+    </dt>
+    <dd>
+    convert hexadecimal string to EC point
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         the EC group
+        </li>
+        <li><span class="parameter">hex</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         hexadecimal string representation
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ec_point</span> or <span class="type">nil</span></span>
+        the resulting EC point or nil on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "point2hex"></a>
+    <strong>point2hex (group[, form])</strong>
+    </dt>
+    <dd>
+    convert EC point to hexadecimal string
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         the EC group
+        </li>
+        <li><span class="parameter">form</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         point conversion form (&ldquo;compressed&rdquo;, &ldquo;uncompressed&rdquo;, or &ldquo;hybrid&rdquo;)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        hexadecimal string representation or nil on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "generate_key"></a>
+    <strong>generate_key ()</strong>
+    </dt>
+    <dd>
+    generate EC key pair from group
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ec_key</span></span>
+        generated EC key object or nil if failed
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "equal"></a>
+    <strong>equal (other)</strong>
+    </dt>
+    <dd>
+    check if two EC groups are equal
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         EC group to compare with
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if groups are equal, false otherwise
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "sign"></a>
     <strong>sign (eckey, digest, md)</strong>
@@ -179,6 +790,312 @@
 
 
 </dd>
+    <dt>
+    <a name = "copy"></a>
+    <strong>copy (from)</strong>
+    </dt>
+    <dd>
+    copy EC point
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">from</span>
+            <span class="types"><span class="type">ec_point</span></span>
+         source EC point to copy from
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "parse"></a>
+    <strong>parse ([basic=false])</strong>
+    </dt>
+    <dd>
+    parse EC key components and parameters
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">basic</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true for basic information only
+         (<em>default</em> false)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        EC key information including encoding flags, conversion form, group, and key components
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "compute_key"></a>
+    <strong>compute_key (peer[, kdf])</strong>
+    </dt>
+    <dd>
+    compute ECDH shared key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">peer</span>
+            <span class="types"><span class="type">ec_key</span></span>
+         peer EC key for key exchange
+        </li>
+        <li><span class="parameter">kdf</span>
+            <span class="types"><span class="type">function</span></span>
+         key derivation function
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        shared secret or nil if failed
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "set_method"></a>
+    <strong>set_method (engine)</strong>
+    </dt>
+    <dd>
+    set ECDSA signing method for EC key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">engine</span>
+            <span class="types"><span class="type">engine</span></span>
+         engine providing the ECDSA method
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        result true for success
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "check"></a>
+    <strong>check ()</strong>
+    </dt>
+    <dd>
+    check if EC key is valid
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if key is valid, false otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "export"></a>
+    <strong>export ()</strong>
+    </dt>
+    <dd>
+    export EC key to DER format
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        DER encoded EC private key
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "group"></a>
+    <strong>group ([group])</strong>
+    </dt>
+    <dd>
+    get or set EC group for EC key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         optional EC group to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">ec_group</span></span>
+        current EC group when called without parameters</li>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true when setting group successfully</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "read"></a>
+    <strong>read (der)</strong>
+    </dt>
+    <dd>
+    read EC key from DER encoded data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">der</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         DER encoded EC private key data
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ec_key</span> or <span class="type">nil</span></span>
+        parsed EC key or nil on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "conv_form"></a>
+    <strong>conv_form ([form])</strong>
+    </dt>
+    <dd>
+    get or set point conversion form for EC key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">form</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+         point conversion form to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        point conversion form name if getting</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        point conversion form value if getting</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        result true for success if setting
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "enc_flags"></a>
+    <strong>enc_flags ([flags])</strong>
+    </dt>
+    <dd>
+    get or set encoding flags for EC key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+         encoding flags to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        encoding flags name if getting</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        encoding flags value if getting</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        result true for success if setting
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "list"></a>
+    <strong>list ()</strong>
+    </dt>
+    <dd>
+    list all available elliptic curve names
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        array of curve names and descriptions
+    </ol>
+
+
+
+
+</dd>
 </dl>
 
 
@@ -186,7 +1103,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

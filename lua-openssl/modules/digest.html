@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -43,29 +43,40 @@
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
   <li><strong>digest</strong></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
   <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -126,8 +137,8 @@
 	<td class="summary">get infomation of evp_digest object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#evp_digest:new">evp_digest:new ([eng])</a></td>
-	<td class="summary">create new evp_digest_ctx</td>
+	<td class="name" nowrap><a href="#evp_digest:init">evp_digest:init (md[, eng])</a></td>
+	<td class="summary">initialize digest context with message digest</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#evp_digest:signInit">evp_digest:signInit ([object=nil])</a></td>
@@ -157,16 +168,12 @@
 	<td class="summary">reset evp_diget_ctx to reuse</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#evp_digest_ctx:data">evp_digest_ctx:data ()</a></td>
+	<td class="name" nowrap><a href="#evp_digest_ctx:data">evp_digest_ctx:data ([md_data])</a></td>
 	<td class="summary">retrieve md data</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#evp_digest_ctx:data">evp_digest_ctx:data (md_data)</a></td>
-	<td class="summary">restore md data</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#evp_digest_ctx:verifyUpdate">evp_digest_ctx:verifyUpdate (data)</a></td>
-	<td class="summary">feed data for sign to get signature</td>
+	<td class="name" nowrap><a href="#evp_digest_ctx:signUpdate">evp_digest_ctx:signUpdate (ctx, data)</a></td>
+	<td class="summary">update digest context for signing operation</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#evp_digest_ctx:verifyUpdate">evp_digest_ctx:verifyUpdate (data)</a></td>
@@ -452,15 +459,19 @@
 
 </dd>
     <dt>
-    <a name = "evp_digest:new"></a>
-    <strong>evp_digest:new ([eng])</strong>
+    <a name = "evp_digest:init"></a>
+    <strong>evp_digest:init (md[, eng])</strong>
     </dt>
     <dd>
-    create new evp_digest_ctx
+    initialize digest context with message digest
 
 
     <h3>Parameters:</h3>
     <ul>
+        <li><span class="parameter">md</span>
+            <span class="types"><span class="type">evp_digest</span></span>
+         message digest algorithm
+        </li>
         <li><span class="parameter">eng</span>
             <span class="types"><span class="type">engine,</span></span>
 
@@ -640,25 +651,11 @@
 
 
 
-
-
-
-
-</dd>
-    <dt>
-    <a name = "evp_digest_ctx:data"></a>
-    <strong>evp_digest_ctx:data ()</strong>
-    </dt>
-    <dd>
-    retrieve md data
-
-
-
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        md_data
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
     </ol>
 
 
@@ -667,39 +664,49 @@
 </dd>
     <dt>
     <a name = "evp_digest_ctx:data"></a>
-    <strong>evp_digest_ctx:data (md_data)</strong>
+    <strong>evp_digest_ctx:data ([md_data])</strong>
     </dt>
     <dd>
-    restore md data
+    retrieve md data
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">md_data</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
+         data to set (optional)
+         (<em>optional</em>)
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">boolean</span></span>
+        if no parameter given, returns current md_data; if parameter given, returns boolean success status
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "evp_digest_ctx:verifyUpdate"></a>
-    <strong>evp_digest_ctx:verifyUpdate (data)</strong>
+    <a name = "evp_digest_ctx:signUpdate"></a>
+    <strong>evp_digest_ctx:signUpdate (ctx, data)</strong>
     </dt>
     <dd>
-    feed data for sign to get signature
+    update digest context for signing operation
 
 
     <h3>Parameters:</h3>
     <ul>
+        <li><span class="parameter">ctx</span>
+            <span class="types"><span class="type">evp_digest_ctx</span></span>
+         digest context
+        </li>
         <li><span class="parameter">data</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         to be signed
+         data to sign
         </li>
     </ul>
 
@@ -895,7 +902,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

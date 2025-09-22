@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -34,9 +34,12 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Introduction">Introduction </a></li>
-<li><a href="#documentation">documentation </a></li>
+<li><a href="#Quick_Start">Quick Start </a></li>
+<li><a href="#Documentation">Documentation </a></li>
 <li><a href="#Howto">Howto </a></li>
 <li><a href="#Example_usage">Example usage </a></li>
+<li><a href="#Contributing___Community">Contributing & Community </a></li>
+<li><a href="#Security_Notice">Security Notice </a></li>
 </ul>
 
 
@@ -48,29 +51,40 @@
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
   <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 
@@ -89,6 +103,7 @@
 
 <ol>
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#quick-start">Quick Start</a></li>
 <li><a href="#documentation">Documentation</a></li>
 <li><a href="#howto">Howto</a></li>
 <li><a href="#example-usage">Examples</a></li>
@@ -116,12 +131,37 @@ inspired me. So I decided to write this OpenSSL toolkit for Lua.</p>
 </ul>
 
 
-<p>This lua-openssl toolkit works with <a href="https://www.lua.org/">Lua</a> 5.1/5.2/5.3/5.4
-or <a href="http://luajit.org/">luajit</a> 2.0/2.1, and <a href="https://www.openssl.org/">OpenSSL</a>
-above 1.0.0 or <a href="https://www.libressl.org/">LibreSSL</a> v3.3.6</p>
+<p><a name="Quick_Start"></a></p>
+
+<h2>Quick Start</h2>
+
+<h3>Dependencies</h3>
+
+<ul>
+<li>Requires <a href="https://www.lua.org/">Lua</a> 5.1/5.2/5.3/5.4 or <a href="http://luajit.org/">luajit</a> 2.0/2.1.</li>
+<li>Requires <a href="https://www.openssl.org/">OpenSSL</a> >= 1.0.0 or <a href="https://www.libressl.org/">LibreSSL</a> >= v3.3.6.</li>
+<li>On MacOS, you can install dependencies via Homebrew:
+<code>`bash
+brew install openssl lua
+luarocks install openssl
+</code><code></code></li>
+</ul>
+
 
 <p>It is recommended to use the most up-to-date OpenSSL version because of the
 recent security fixes.</p>
+
+<h3>Quick Example</h3>
+
+<pre>
+<span class="keyword">local</span> openssl = <span class="global">require</span>(<span class="string">'openssl'</span>)
+<span class="keyword">local</span> md = openssl.digest.<span class="function-name">get</span>(<span class="string">'sha256'</span>)
+<span class="keyword">local</span> hash = md:<span class="function-name">digest</span>(<span class="string">'hello world'</span>)
+<span class="global">print</span>(openssl.<span class="function-name">hex</span>(hash))
+</pre>
+
+
+<p>See more examples in the "Example usage" section below.</p>
 
 <p>Most of the lua-openssl functions require a key or certificate as argument, to
 make things easy to use OpenSSL.</p>
@@ -139,7 +179,14 @@ make things easy to use OpenSSL.</p>
 
 <h3>lua-openssl modules</h3>
 
-<p>digest, cipher, x509, pkcs7, cms and so on, be write as modules.</p>
+<p>Module overview:
+&ndash; digest: message digest algorithms (md5, sha256, etc.)
+&ndash; cipher: symmetric encryption/decryption (aes, des, etc.)
+&ndash; x509: certificate parsing and manipulation
+&ndash; pkcs7/cms: PKCS7/CMS format handling
+&ndash; bio: memory/file/network data streams
+&ndash; ssl: SSL/TLS protocol support
+&ndash; hmac: HMAC authentication</p>
 
 <pre>
    <span class="keyword">local</span> digest = <span class="global">require</span><span class="string">'openssl'</span>.digest
@@ -149,14 +196,16 @@ make things easy to use OpenSSL.</p>
 
 <p>digest() equals with digest.digest(), same cipher() equals with cipher.cipher().</p>
 
-<p><a name="documentation"></a></p>
+<p><a name="Documentation"></a></p>
 
-<h2>documentation</h2>
+<h2>Documentation</h2>
 
 <p>Document please see <a href="http://zhaozg.github.io/lua-openssl/index.html">here</a>,
 that are generate by <a href="https://github.com/stevedonovan/LDoc">LDoc</a>.</p>
 
-<p><em>Notice</em>: Document quality is low and stale, feel free to make a PR to improve it.</p>
+<p>Notice: Documentation quality is low and stale, feel free to make a PR to improve it.</p>
+
+<p>If documentation is missing, refer to the <a href="./src">source code</a> or check the Lua test scripts in the test directory.</p>
 
 <h3>lua-openssl Objects</h3>
 
@@ -239,8 +288,8 @@ openssl = <span class="global">require</span> <span class="string">"openssl"</sp
 
 <h3>Style</h3>
 
-<p>Source code of lua-openssl tidy with <a href="http://astyle.sourceforge.net/">astyle</a>
-<code>--style=allman --indent=spaces=2</code></p>
+<p>Source code of lua-openssl tidy with <a href="https://clang.llvm.org/docs/ClangFormat.html">ClangFormat</a>
+<code>clang-format --style=file src/*.c</code></p>
 
 <h3>Bugs</h3>
 
@@ -315,7 +364,7 @@ Works with Lua5.1 (should support Lua5.2 by updating the config.win file).</p>
 
 <p>   <code>cmake -Bbuild -H. -DOPENSSL_ROOT_DIR=... -DBUILD_SHARED_LUA_OPENSSL=OFF &amp;&amp; cd build &amp;&amp; make</code></p>
 
-<h3>Howto 5: Handle fail or error</h3>
+<h3>Howto 6: Handle fail or error</h3>
 
 <p>Most lua-openssl function or methods return nil or false when error or
 failed, followed by string type error <em>reason</em> and number type error <em>code</em>,
@@ -461,21 +510,50 @@ host = host <span class="keyword">or</span> <span class="string">"127.0.0.1"</sp
 
 <span class="keyword">local</span> cli = <span class="global">assert</span>(bio.<span class="function-name">connect</span>(host..<span class="string">':'</span>..port,<span class="keyword">true</span>))
 
-    <span class="keyword">while</span> cli <span class="keyword">do</span>
-        s = <span class="global">io</span>.<span class="function-name">read</span>()
-        <span class="keyword">if</span>(#s&gt;<span class="number">0</span>) <span class="keyword">then</span>
-            <span class="global">print</span>(cli:<span class="function-name">write</span>(s))
-            ss = cli:<span class="function-name">read</span>()
-            <span class="global">assert</span>(#s==#ss)
-        <span class="keyword">end</span>
+<span class="keyword">while</span> cli <span class="keyword">do</span>
+    s = <span class="global">io</span>.<span class="function-name">read</span>()
+    <span class="keyword">if</span>(#s&gt;<span class="number">0</span>) <span class="keyword">then</span>
+        <span class="global">print</span>(cli:<span class="function-name">write</span>(s))
+        ss = cli:<span class="function-name">read</span>()
+        <span class="global">assert</span>(#s==#ss)
     <span class="keyword">end</span>
-    <span class="global">print</span>(openssl.<span class="function-name">errors</span>())
+<span class="keyword">end</span>
+<span class="global">print</span>(openssl.<span class="function-name">errors</span>())
 </pre>
 
 
-<p>For more examples, please see test lua script file.</p>
+<h3>Example 7: SSL client access github.com</h3>
 
-<h3>Example 7: aes-128-gcm</h3>
+<pre>
+<span class="keyword">local</span> openssl = <span class="global">require</span>(<span class="string">"openssl"</span>)
+
+<span class="comment">-- prepare a SSL_CTX object
+</span><span class="keyword">local</span> ctx = <span class="global">assert</span>(openssl.ssl.<span class="function-name">ctx_new</span>(<span class="string">"TLSv1_2_client"</span>))
+
+<span class="comment">-- make a TCP connection, and do connect first
+</span><span class="keyword">local</span> cli = <span class="global">assert</span>(openssl.bio.<span class="function-name">connect</span>(<span class="string">"github:443"</span>, <span class="keyword">true</span>))
+
+<span class="comment">-- make a SSL connection over TCP
+</span><span class="keyword">local</span> ssl = ctx:<span class="function-name">ssl</span>(cli)
+<span class="comment">-- set SNI name
+</span>ssl:<span class="function-name">set</span>(<span class="string">"hostname"</span>, <span class="string">"echo.websocket.org"</span>)
+
+<span class="comment">-- do SSL handshake
+</span><span class="global">assert</span>(ssl:<span class="function-name">connect</span>())
+
+<span class="comment">-- send a HTTP request over SSL connection
+</span><span class="global">assert</span>(ssl:<span class="function-name">write</span>(<span class="string">"GET / HTTP/1.1\r\nHost: github.com\r\nConnection: close\r\n\r\n"</span>))
+
+<span class="comment">-- read response
+</span><span class="global">print</span>(ssl:<span class="function-name">read</span>(<span class="number">4096</span>))
+
+<span class="comment">-- shutdown SSL connection and close TCP connection
+</span>ssl:<span class="function-name">shutdown</span>()
+cli:<span class="function-name">close</span>()
+</pre>
+
+
+<h3>Example 8: aes-128-gcm</h3>
 
 <pre>
 <span class="keyword">local</span> openssl = <span class="global">require</span>(<span class="string">'openssl'</span>)
@@ -520,6 +598,25 @@ r = r .. <span class="global">assert</span>(e:<span class="function-name">final<
 </pre>
 
 
+<p>For more examples, please see test lua script file.</p>
+
+<hr />
+
+<p><a name="Contributing___Community"></a></p>
+
+<h2>Contributing &amp; Community</h2>
+
+<p>Contributions via PR or issues are welcome.
+&ndash; Coding style: please use clang-format.
+&ndash; Unit tests: recommended <a href="https://github.com/bluebird75/luaunit">luaunit</a>.
+&ndash; Issue tracker: <a href="https://github.com/zhaozg/lua-openssl/issues/">GitHub Issues</a></p>
+
+<p><a name="Security_Notice"></a></p>
+
+<h2>Security Notice</h2>
+
+<p>This project involves cryptographic algorithms and is intended for learning and research purposes only. Do not use in production for security-sensitive scenarios. Always follow OpenSSL security advisories and keep dependencies up to date.</p>
+
 <hr />
 
 <p><strong><em>lua-openssl License</em></strong></p>
@@ -551,7 +648,7 @@ THE SOFTWARE.</p>
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

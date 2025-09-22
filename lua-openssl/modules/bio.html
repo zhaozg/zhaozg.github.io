@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -42,29 +42,40 @@
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><strong>bio</strong></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
   <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -94,6 +105,18 @@
 	<td class="summary">make string as bio object</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#pair">pair ([buffer1=0[, buffer2=buffer1]])</a></td>
+	<td class="summary">create a pair of connected BIOs</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#destroy_pair">destroy_pair (bio)</a></td>
+	<td class="summary">destroy a BIO pair connection</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#null">null ()</a></td>
+	<td class="summary">create a null BIO that discards all data written to it</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#socket">socket (fd[, support='noclose'])</a></td>
 	<td class="summary">make tcp bio from socket fd</td>
 	</tr>
@@ -118,8 +141,8 @@
 	<td class="summary">make tcp client socket</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#connect">connect (table[, connect=true])</a></td>
-	<td class="summary">make tcp client socket</td>
+	<td class="name" nowrap><a href="#connect">connect (address[, connect=true])</a></td>
+	<td class="summary">make tcp client socket with address table</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#filter">filter (mode)</a></td>
@@ -130,11 +153,11 @@
 	<td class="summary">make digest bio, which can append to an io BIO object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#filter">filter (mode, s[, support='noclose'])</a></td>
+	<td class="name" nowrap><a href="#filter">filter (mode, s[, flag='noclose'])</a></td>
 	<td class="summary">make ssl bio</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#filter">filter (mode, key, iv[, encrypt=true])</a></td>
+	<td class="name" nowrap><a href="#filter">filter (mode, alg, key, iv[, encrypt=true])</a></td>
 	<td class="summary">make cipher filter bio object</td>
 	</tr>
 </table>
@@ -161,6 +184,10 @@
 	<td class="summary">flush buffer of bio object</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#bio:free">bio:free ([free_all=false])</a></td>
+	<td class="summary">free BIO object and associated resources</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#bio:type">bio:type ()</a></td>
 	<td class="summary">get type of bio</td>
 	</tr>
@@ -169,8 +196,12 @@
 	<td class="summary">set nonblock for bio object</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#bio:retry">bio:retry ()</a></td>
+	<td class="summary">check if BIO operation should be retried</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#bio:reset">bio:reset ()</a></td>
-	<td class="summary">reset bio</td>
+	<td class="summary">reset bio to initial state</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#bio:push">bio:push (append)</a></td>
@@ -183,6 +214,18 @@
 	<tr>
 	<td class="name" nowrap><a href="#bio:get_mem">bio:get_mem ()</a></td>
 	<td class="summary">get mem data, only support mem bio object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bio:get_md">bio:get_md ()</a></td>
+	<td class="summary">get message digest from BIO filter chain</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bio:next">bio:next ()</a></td>
+	<td class="summary">get next BIO in the filter chain</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bio:cipher_status">bio:cipher_status ()</a></td>
+	<td class="summary">get cipher status for BIO</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#bio:accept">bio:accept ([setup=false])</a></td>
@@ -211,6 +254,14 @@
 	<tr>
 	<td class="name" nowrap><a href="#bio:fd">bio:fd (fd)</a></td>
 	<td class="summary">set fd of bio object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bio:seek">bio:seek (offset)</a></td>
+	<td class="summary">seek to position in BIO</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bio:tell">bio:tell ()</a></td>
+	<td class="summary">get current position in BIO</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#bio:set_callback">bio:set_callback (callback)</a></td>
@@ -255,6 +306,89 @@
 
            <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
         it can be input or output object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "pair"></a>
+    <strong>pair ([buffer1=0[, buffer2=buffer1]])</strong>
+    </dt>
+    <dd>
+    create a pair of connected BIOs
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">buffer1</span>
+            <span class="types"><span class="type">number</span></span>
+         buffer size for first BIO
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">buffer2</span>
+            <span class="types"><span class="type">number</span></span>
+         buffer size for second BIO
+         (<em>default</em> buffer1)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
+        first BIO of the pair</li>
+        <li>
+           <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
+        second BIO of the pair</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "destroy_pair"></a>
+    <strong>destroy_pair (bio)</strong>
+    </dt>
+    <dd>
+    destroy a BIO pair connection
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bio</span>
+            <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
+         BIO object that is part of a pair
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "null"></a>
+    <strong>null ()</strong>
+    </dt>
+    <dd>
+    create a null BIO that discards all data written to it
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
+        null BIO object
     </ol>
 
 
@@ -438,11 +572,11 @@
     <ul>
         <li><span class="parameter">host_addr</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         addrees like &lsquo;host:port&rsquo;
+         address like &lsquo;host:port&rsquo; (e.g., &lsquo;kkhub.com:443&rsquo;)
         </li>
         <li><span class="parameter">connect</span>
             <span class="types"><span class="type">boolean</span></span>
-         default connect immediately
+         default connect immediately, false to defer connection
          (<em>default</em> true)
         </li>
     </ul>
@@ -451,8 +585,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
-
-
+        TCP client BIO object
     </ol>
 
 
@@ -461,21 +594,21 @@
 </dd>
     <dt>
     <a name = "connect"></a>
-    <strong>connect (table[, connect=true])</strong>
+    <strong>connect (address[, connect=true])</strong>
     </dt>
     <dd>
-    make tcp client socket
+    make tcp client socket with address table
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">table</span>
-            <span class="types"><span class="type">address</span></span>
-         with hostname, ip, port filed
+        <li><span class="parameter">address</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         table with hostname, ip, port fields
         </li>
         <li><span class="parameter">connect</span>
             <span class="types"><span class="type">boolean</span></span>
-         default connect immediately
+         default connect immediately, false to defer connection
          (<em>default</em> true)
         </li>
     </ul>
@@ -484,12 +617,25 @@
     <ol>
 
            <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
-
-
+        TCP client BIO object
     </ol>
 
 
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="comment">-- String format
+</span><span class="keyword">local</span> cli = bio.<span class="function-name">connect</span>(<span class="string">"kkhub.com:443"</span>)
+
+<span class="comment">-- Table format
+</span><span class="keyword">local</span> cli = bio.<span class="function-name">connect</span>({
+  hostname = <span class="string">"kkhub.com"</span>,
+  port = <span class="string">"12345"</span>
+})
+
+<span class="comment">-- Deferred connection
+</span><span class="keyword">local</span> cli = bio.<span class="function-name">connect</span>(<span class="string">"host:port"</span>, <span class="keyword">false</span>)</pre>
+    </ul>
 
 </dd>
     <dt>
@@ -512,8 +658,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
-
-
+        filter BIO object
     </ol>
 
 
@@ -532,12 +677,11 @@
     <ul>
         <li><span class="parameter">mode</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         must be &lsquo;digest&rsquo;
+         must be &lsquo;md&rsquo; for message digest
         </li>
         <li><span class="parameter">md_alg</span>
             <span class="types"><span class="type">evp_md</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
+         message digest algorithm name (e.g., &lsquo;sha1&rsquo;, &lsquo;sha256&rsquo;)
         </li>
     </ul>
 
@@ -545,8 +689,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
-
-
+        filter BIO object for message digest operations
     </ol>
 
 
@@ -555,7 +698,7 @@
 </dd>
     <dt>
     <a name = "filter"></a>
-    <strong>filter (mode, s[, support='noclose'])</strong>
+    <strong>filter (mode, s[, flag='noclose'])</strong>
     </dt>
     <dd>
     make ssl bio
@@ -569,12 +712,11 @@
         </li>
         <li><span class="parameter">s</span>
             <span class="types"><span class="type">ssl</span></span>
-
-
+         SSL object to attach
         </li>
-        <li><span class="parameter">support</span>
-            <span class="types"><span class="type">flag</span></span>
-         &lsquo;close&rsquo; or &lsquo;noclose&rsquo; when close or gc
+        <li><span class="parameter">flag</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         support &lsquo;close&rsquo; or &lsquo;noclose&rsquo; when close or gc
          (<em>default</em> 'noclose')
         </li>
     </ul>
@@ -583,8 +725,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
-
-
+        SSL filter BIO object
     </ol>
 
 
@@ -593,7 +734,7 @@
 </dd>
     <dt>
     <a name = "filter"></a>
-    <strong>filter (mode, key, iv[, encrypt=true])</strong>
+    <strong>filter (mode, alg, key, iv[, encrypt=true])</strong>
     </dt>
     <dd>
     make cipher filter bio object
@@ -605,20 +746,21 @@
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          must be &lsquo;cipher&rsquo;
         </li>
+        <li><span class="parameter">alg</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">evp_cipher</span></span>
+         cipher algorithm name (e.g., &lsquo;aes-128-ecb&rsquo;)
+        </li>
         <li><span class="parameter">key</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
+         encryption/decryption key
         </li>
         <li><span class="parameter">iv</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
+         initialization vector
         </li>
         <li><span class="parameter">encrypt</span>
             <span class="types"><span class="type">boolean</span></span>
-
-
+         true for encryption, false for decryption
          (<em>default</em> true)
         </li>
     </ul>
@@ -627,8 +769,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
-
-
+        cipher filter BIO object
     </ol>
 
 
@@ -775,6 +916,34 @@
 
 </dd>
     <dt>
+    <a name = "bio:free"></a>
+    <strong>bio:free ([free_all=false])</strong>
+    </dt>
+    <dd>
+    free BIO object and associated resources
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">free_all</span>
+            <span class="types"><span class="type">boolean</span></span>
+         if true, free entire BIO chain; if false, free only this BIO
+         (<em>default</em> false)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        always returns 0
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "bio:type"></a>
     <strong>bio:type ()</strong>
     </dt>
@@ -824,14 +993,49 @@
 
 </dd>
     <dt>
+    <a name = "bio:retry"></a>
+    <strong>bio:retry ()</strong>
+    </dt>
+    <dd>
+    check if BIO operation should be retried
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true if operation should be retried</li>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true if should retry read operation</li>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true if should retry write operation</li>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true if should retry special I/O operation</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "bio:reset"></a>
     <strong>bio:reset ()</strong>
     </dt>
     <dd>
-    reset bio
+    reset bio to initial state
 
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
+    </ol>
 
 
 
@@ -903,6 +1107,69 @@
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "bio:get_md"></a>
+    <strong>bio:get_md ()</strong>
+    </dt>
+    <dd>
+    get message digest from BIO filter chain
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">evp_md</span> or <span class="type">nil</span></span>
+        message digest object or nil if not found</li>
+        <li>
+           <span class="types"><span class="type">evp_md_ctx</span> or <span class="type">nil</span></span>
+        message digest context or nil if not found</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "bio:next"></a>
+    <strong>bio:next ()</strong>
+    </dt>
+    <dd>
+    get next BIO in the filter chain
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a> or <span class="type">nil</span></span>
+        next BIO object in chain or nil if none
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "bio:cipher_status"></a>
+    <strong>bio:cipher_status ()</strong>
+    </dt>
+    <dd>
+    get cipher status for BIO
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        cipher status
     </ol>
 
 
@@ -1068,6 +1335,53 @@
 
 </dd>
     <dt>
+    <a name = "bio:seek"></a>
+    <strong>bio:seek (offset)</strong>
+    </dt>
+    <dd>
+    seek to position in BIO
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">offset</span>
+            <span class="types"><span class="type">number</span></span>
+         position offset to seek to
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        new position after seek
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "bio:tell"></a>
+    <strong>bio:tell ()</strong>
+    </dt>
+    <dd>
+    get current position in BIO
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        current position in the BIO
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "bio:set_callback"></a>
     <strong>bio:set_callback (callback)</strong>
     </dt>
@@ -1136,7 +1450,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

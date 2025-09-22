@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -35,6 +35,7 @@
 <ul>
 <li><a href="#Functions">Functions</a></li>
 <li><a href="#Class_asn1_object">Class asn1_object </a></li>
+<li><a href="#Class_asn1_integer">Class asn1_integer </a></li>
 <li><a href="#Class_asn1_string">Class asn1_string </a></li>
 </ul>
 
@@ -43,29 +44,40 @@
 <ul class="nowrap">
   <li><strong>asn1</strong></li>
   <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
   <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -90,7 +102,7 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#new_type">new_type ()</a></td>
+	<td class="name" nowrap><a href="#new_type">new_type (value)</a></td>
 	<td class="summary">create asn1_type object</td>
 	</tr>
 	<tr>
@@ -110,36 +122,60 @@
 	<td class="summary">create asn1_string object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#new_integer">new_integer (integer)</a></td>
+	<td class="name" nowrap><a href="#new_integer">new_integer (value)</a></td>
 	<td class="summary">create asn1_integer object</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new_generalizedtime">new_generalizedtime (time)</a></td>
-	<td class="summary">create asn1_time object</td>
+	<td class="summary">create asn1_time object using generalized time format</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new_utctime">new_utctime (time)</a></td>
-	<td class="summary">create asn1_time object</td>
+	<td class="summary">create asn1_time object using UTC time format</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#txt2nid">txt2nid (txt)</a></td>
 	<td class="summary">get nid for txt, which can be short name, long name, or numerical oid</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#new_object">new_object (name_or_oid[, no_name])</a></td>
-	<td class="summary">create asn1_object object</td>
+	<td class="name" nowrap><a href="#new_object">new_object (name_or_oid[, no_name=false])</a></td>
+	<td class="summary">create asn1_object from string identifier</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new_object">new_object (nid)</a></td>
-	<td class="summary">create asn1_object object</td>
+	<td class="summary">create asn1_object from NID</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#new_object">new_object (options)</a></td>
-	<td class="summary">create asn1_object object</td>
+	<td class="summary">create asn1_object from table definition</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#asn1type_di2">asn1type_di2 (der)</a></td>
 	<td class="summary">convert der encoded asn1type string to object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#type">type ()</a></td>
+	<td class="summary">get the ASN.1 type tag number</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#octet">octet ([data])</a></td>
+	<td class="summary">get or set octet string data for asn1_type object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cmp">cmp (other)</a></td>
+	<td class="summary">compare two asn1_type objects</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asn1string">asn1string ()</a></td>
+	<td class="summary">convert asn1_type to asn1_string object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#i2d">i2d ()</a></td>
+	<td class="summary">serialize asn1_type object to DER encoded string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#info">info ()</a></td>
+	<td class="summary">get detailed information about asn1_type object</td>
 	</tr>
 </table>
 <h2><a href="#Class_asn1_object">Class asn1_object </a></h2>
@@ -185,6 +221,13 @@
 	<td class="summary">get der encoded of asn1_object</td>
 	</tr>
 </table>
+<h2><a href="#Class_asn1_integer">Class asn1_integer </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#asn1_integer:bn">asn1_integer:bn ([number])</a></td>
+	<td class="summary">convert ASN1 integer to/from big number</td>
+	</tr>
+</table>
 <h2><a href="#Class_asn1_string">Class asn1_string </a></h2>
 <table class="function_list">
 	<tr>
@@ -228,6 +271,10 @@
 	<td class="summary">compare two asn1_string, if equals return true</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#asn1_string:__eq">asn1_string:__eq (other)</a></td>
+	<td class="summary">compare two ASN1 string objects for equality</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#asn1_string:__tostring">asn1_string:__tostring ()</a></td>
 	<td class="summary">convert asn1_string to lua string</td>
 	</tr>
@@ -243,6 +290,18 @@
 	<td class="name" nowrap><a href="#asn1_string:dup">asn1_string:dup ()</a></td>
 	<td class="summary">duplicate a new asn1_string</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asn1_string:check">asn1_string:check ()</a></td>
+	<td class="summary">check if asn1_time object is valid</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asn1_string:adj">asn1_string:adj (time[, offset_day=0[, offset_sec=0]])</a></td>
+	<td class="summary">adjust asn1_time by specified offset</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asn1_string:diff">asn1_string:diff (to)</a></td>
+	<td class="summary">calculate difference between two asn1_time objects</td>
+	</tr>
 </table>
 
 <br/>
@@ -254,13 +313,26 @@
     <dl class="function">
     <dt>
     <a name = "new_type"></a>
-    <strong>new_type ()</strong>
+    <strong>new_type (value)</strong>
     </dt>
     <dd>
     create asn1_type object
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">boolean</span>, <span class="type">number</span>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">asn1_string</span></span>
+         value to create ASN1_TYPE from
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">asn1_type</span> or <span class="type">nil</span></span>
+        new ASN1_TYPE object or nil on error
+    </ol>
 
 
 
@@ -392,6 +464,12 @@ indefinite length constructed
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        result
+    </ol>
 
 
 
@@ -402,9 +480,9 @@ indefinite length constructed
     <strong>new_string (data[, type])</strong>
     </dt>
     <dd>
-    create asn1_string object <br/><p> asn1_string object support types:   &ldquo;integer&rdquo;, &ldquo;enumerated&rdquo;, &ldquo;bit&rdquo;, &ldquo;octet&rdquo;, &ldquo;utf8&rdquo;,
-&ldquo;numeric&rdquo;, &ldquo;printable&rdquo;, &ldquo;t61&rdquo;, &ldquo;teletex&rdquo;, &ldquo;videotex&rdquo;, &ldquo;ia5&rdquo;, &ldquo;graphics&rdquo;, &ldquo;iso64&rdquo;,
-&ldquo;visible&rdquo;, &ldquo;general&rdquo;, &ldquo;unversal&rdquo;, &ldquo;bmp&rdquo;, &ldquo;utctime&rdquo; </p>
+    create asn1_string object <br/><p> asn1_string object support types:   &ldquo;integer&rdquo;, &ldquo;enumerated&rdquo;, &ldquo;bit&rdquo;,
+&ldquo;octet&rdquo;, &ldquo;utf8&rdquo;, &ldquo;numeric&rdquo;, &ldquo;printable&rdquo;, &ldquo;t61&rdquo;, &ldquo;teletex&rdquo;, &ldquo;videotex&rdquo;, &ldquo;ia5&rdquo;,
+&ldquo;graphics&rdquo;, &ldquo;iso64&rdquo;, &ldquo;visible&rdquo;, &ldquo;general&rdquo;, &ldquo;unversal&rdquo;, &ldquo;bmp&rdquo;, &ldquo;utctime&rdquo; </p>
 
 
     <h3>Parameters:</h3>
@@ -429,16 +507,12 @@ indefinite length constructed
     </ol>
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../modules/asn1.html#asn1_string">asn1_string</a>
-    </ul>
 
 
 </dd>
     <dt>
     <a name = "new_integer"></a>
-    <strong>new_integer (integer)</strong>
+    <strong>new_integer (value)</strong>
     </dt>
     <dd>
     create asn1_integer object
@@ -446,9 +520,9 @@ indefinite length constructed
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">integer</span>
-            <span class="types"><span class="type">number</span> or <span class="type">bn</span></span>
-         to create new asn1_integer
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">number</span> or <span class="type">bignum</span></span>
+         integer value or bignum
         </li>
     </ul>
 
@@ -456,8 +530,7 @@ indefinite length constructed
     <ol>
 
            <span class="types"><span class="type">asn1_integer</span></span>
-
-
+        new ASN1_INTEGER object
     </ol>
 
 
@@ -473,7 +546,7 @@ indefinite length constructed
     <strong>new_generalizedtime (time)</strong>
     </dt>
     <dd>
-    create asn1_time object
+    create asn1_time object using generalized time format
 
 
     <h3>Parameters:</h3>
@@ -494,6 +567,10 @@ indefinite length constructed
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/asn1.html#asn1_string">asn1_string</a>
+    </ul>
 
 
 </dd>
@@ -502,7 +579,7 @@ indefinite length constructed
     <strong>new_utctime (time)</strong>
     </dt>
     <dd>
-    create asn1_time object
+    create asn1_time object using UTC time format
 
 
     <h3>Parameters:</h3>
@@ -523,6 +600,10 @@ indefinite length constructed
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/asn1.html#asn1_string">asn1_string</a>
+    </ul>
 
 
 </dd>
@@ -555,30 +636,30 @@ indefinite length constructed
 </dd>
     <dt>
     <a name = "new_object"></a>
-    <strong>new_object (name_or_oid[, no_name])</strong>
+    <strong>new_object (name_or_oid[, no_name=false])</strong>
     </dt>
     <dd>
-    create asn1_object object
+    create asn1_object from string identifier
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name_or_oid</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-          short name,long name or oid string
+         short name (e.g., &ldquo;C&rdquo;), long name (e.g., &ldquo;countryName&rdquo;), or OID string (e.g., &ldquo;2.5.4.6&rdquo;)
         </li>
         <li><span class="parameter">no_name</span>
             <span class="types"><span class="type">boolean</span></span>
-          true for only oid string, default is false
-         (<em>optional</em>)
+         true for only oid string parsing, false to allow names
+         (<em>default</em> false)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">asn1_object</span></span>
-        mapping to ASN1_OBJECT in openssl
+           <span class="types"><span class="type">asn1_object</span> or <span class="type">nil</span></span>
+        ASN1_OBJECT mapping or nil on error
     </ol>
 
 
@@ -587,6 +668,12 @@ indefinite length constructed
          <a href="../modules/asn1.html#asn1_object">asn1_object</a>
     </ul>
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> obj1 = asn1.<span class="function-name">new_object</span>(<span class="string">"C"</span>)           <span class="comment">-- short name
+</span><span class="keyword">local</span> obj2 = asn1.<span class="function-name">new_object</span>(<span class="string">"countryName"</span>) <span class="comment">-- long name
+</span><span class="keyword">local</span> obj3 = asn1.<span class="function-name">new_object</span>(<span class="string">"2.5.4.6"</span>)     <span class="comment">-- OID string</span></pre>
+    </ul>
 
 </dd>
     <dt>
@@ -594,22 +681,22 @@ indefinite length constructed
     <strong>new_object (nid)</strong>
     </dt>
     <dd>
-    create asn1_object object
+    create asn1_object from NID
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">nid</span>
             <span class="types"><span class="type">integer</span></span>
-         ident to asn1_object
+         numeric identifier for the ASN1_OBJECT
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">asn1_object</span></span>
-        mapping to ASN1_OBJECT in openssl
+           <span class="types"><span class="type">asn1_object</span> or <span class="type">nil</span></span>
+        ASN1_OBJECT mapping or nil on error
     </ol>
 
 
@@ -618,6 +705,10 @@ indefinite length constructed
          <a href="../modules/asn1.html#asn1_object">asn1_object</a>
     </ul>
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> obj = asn1.<span class="function-name">new_object</span>(<span class="number">14</span>)  <span class="comment">-- NID for countryName</span></pre>
+    </ul>
 
 </dd>
     <dt>
@@ -625,22 +716,22 @@ indefinite length constructed
     <strong>new_object (options)</strong>
     </dt>
     <dd>
-    create asn1_object object
+    create asn1_object from table definition
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">options</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         have sn, ln, oid keys to create asn1_object
+         table with sn (short name), ln (long name), oid keys to create new asn1_object
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">asn1_object</span></span>
-        mapping to ASN1_OBJECT in openssl
+           <span class="types"><span class="type">asn1_object</span> or <span class="type">nil</span></span>
+        ASN1_OBJECT mapping or nil on error
     </ol>
 
 
@@ -649,6 +740,14 @@ indefinite length constructed
          <a href="../modules/asn1.html#asn1_object">asn1_object</a>
     </ul>
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> obj = asn1.<span class="function-name">new_object</span>({
+  oid = <span class="string">"1.2.3.4.5.6"</span>,
+  sn = <span class="string">"myShortName"</span>,
+  ln = <span class="string">"myLongName"</span>
+})</pre>
+    </ul>
 
 </dd>
     <dt>
@@ -673,6 +772,144 @@ indefinite length constructed
 
            <span class="types"><span class="type">asn1type</span></span>
         object for success, and nil for fail
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "type"></a>
+    <strong>type ()</strong>
+    </dt>
+    <dd>
+    get the ASN.1 type tag number
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        the ASN.1 type tag number
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "octet"></a>
+    <strong>octet ([data])</strong>
+    </dt>
+    <dd>
+    get or set octet string data for asn1_type object
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         optional octet string data to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        current octet string data when called without parameters</li>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true when setting data successfully</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cmp"></a>
+    <strong>cmp (other)</strong>
+    </dt>
+    <dd>
+    compare two asn1_type objects
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">asn1_type</span></span>
+         another asn1_type object to compare with
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if both asn1_type objects are equal, false otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "asn1string"></a>
+    <strong>asn1string ()</strong>
+    </dt>
+    <dd>
+    convert asn1_type to asn1_string object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">asn1_string</span> or <span class="type">nil</span></span>
+        asn1_string object or nil if conversion is not supported
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "i2d"></a>
+    <strong>i2d ()</strong>
+    </dt>
+    <dd>
+    serialize asn1_type object to DER encoded string
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        DER encoded representation of the asn1_type object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "info"></a>
+    <strong>info ()</strong>
+    </dt>
+    <dd>
+    get detailed information about asn1_type object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        containing type information and data
     </ol>
 
 
@@ -904,6 +1141,41 @@ indefinite length constructed
 
 </dd>
 </dl>
+    <h2 class="section-header has-description"><a name="Class_asn1_integer"></a>Class asn1_integer </h2>
+
+          <div class="section-description">
+          openssl.asn1_integer object
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "asn1_integer:bn"></a>
+    <strong>asn1_integer:bn ([number])</strong>
+    </dt>
+    <dd>
+    convert ASN1 integer to/from big number
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">number</span>
+            <span class="types"><a class="type" href="../modules/asn1.html#asn1_integer:bn">bn</a></span>
+         big number to set, or nil to get current value
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/asn1.html#asn1_integer:bn">bn</a></span>
+        big number representation if getting, or previous value if setting
+    </ol>
+
+
+
+
+</dd>
+</dl>
     <h2 class="section-header has-description"><a name="Class_asn1_string"></a>Class asn1_string </h2>
 
           <div class="section-description">
@@ -935,6 +1207,12 @@ indefinite length constructed
 
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">userdata</span></span>
+        object created
+    </ol>
 
 
 
@@ -950,6 +1228,12 @@ indefinite length constructed
 
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        result
+    </ol>
 
 
 
@@ -965,6 +1249,12 @@ indefinite length constructed
 
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        success status
+    </ol>
 
 
 
@@ -1104,6 +1394,33 @@ indefinite length constructed
 
 </dd>
     <dt>
+    <a name = "asn1_string:__eq"></a>
+    <strong>asn1_string:__eq (other)</strong>
+    </dt>
+    <dd>
+    compare two ASN1 string objects for equality
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">asn1_string</span></span>
+         ASN1 string object to compare with
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if objects are equal
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "asn1_string:__tostring"></a>
     <strong>asn1_string:__tostring ()</strong>
     </dt>
@@ -1183,6 +1500,99 @@ indefinite length constructed
 
 
 </dd>
+    <dt>
+    <a name = "asn1_string:check"></a>
+    <strong>asn1_string:check ()</strong>
+    </dt>
+    <dd>
+    check if asn1_time object is valid
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if asn1_time is valid, false otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "asn1_string:adj"></a>
+    <strong>asn1_string:adj (time[, offset_day=0[, offset_sec=0]])</strong>
+    </dt>
+    <dd>
+    adjust asn1_time by specified offset
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">time</span>
+            <span class="types"><span class="type">number</span></span>
+         base time as Unix timestamp
+        </li>
+        <li><span class="parameter">offset_day</span>
+            <span class="types"><span class="type">number</span></span>
+         offset in days
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">offset_sec</span>
+            <span class="types"><span class="type">number</span></span>
+         offset in seconds
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">asn1_time</span></span>
+        adjusted asn1_time object (self)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "asn1_string:diff"></a>
+    <strong>asn1_string:diff (to)</strong>
+    </dt>
+    <dd>
+    calculate difference between two asn1_time objects
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">to</span>
+            <span class="types"><span class="type">asn1_time</span></span>
+         target time to compare with
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        difference in days</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        difference in seconds</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        when comparison fails
+    </ol>
+
+
+
+
+</dd>
 </dl>
 
 
@@ -1190,7 +1600,7 @@ indefinite length constructed
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

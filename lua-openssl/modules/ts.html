@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -45,29 +45,40 @@
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
   <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
-  <li><strong>ts</strong></li>
+  <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><strong>ts</strong></li>
+  <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -80,8 +91,10 @@
 <div id="content">
 
 <h1>Module <code>ts</code></h1>
-<p>timestamp module provide basic Time Stamping Authority (TSA) client and server operations as specified in RFC 3161 (Time-Stamp Protocol, TSP).</p>
-<p>A TSA can be part of a PKI deployment and its role is to provide long term proof of the existence of a certain datum before a particular time.</p>
+<p>timestamp module provide basic Time Stamping Authority (TSA) client and server operations as
+specified in RFC 3161 (Time-Stamp Protocol, TSP).</p>
+<p> A TSA can be part of a PKI deployment and its role
+is to provide long term proof of the existence of a certain datum before a particular time.</p>
     <h3>Usage:</h3>
     <ul>
         <pre class="example">ts = require&apos;openssl&apos;.ts
@@ -94,6 +107,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#ts_msg_imprint_new">ts_msg_imprint_new (data, alg)</a></td>
 	<td class="summary">create a new ts_msg_imprint object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ts_msg_imprint_read">ts_msg_imprint_read (data)</a></td>
+	<td class="summary">read and parse ts_msg_imprint from DER encoded data</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#export">export ()</a></td>
@@ -114,6 +131,38 @@
 	<tr>
 	<td class="name" nowrap><a href="#dup">dup ()</a></td>
 	<td class="summary">duplicate ts_msg_imprint object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ts_accuracy_new">ts_accuracy_new ([seconds[, millis[, micros]]])</a></td>
+	<td class="summary">create new timestamp accuracy object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#seconds">seconds ([seconds])</a></td>
+	<td class="summary">get or set accuracy in seconds</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#millis">millis ([millis])</a></td>
+	<td class="summary">get or set accuracy in milliseconds</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#micros">micros ([micros])</a></td>
+	<td class="summary">get or set timestamp accuracy microseconds</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#dup">dup ()</a></td>
+	<td class="summary">duplicate timestamp accuracy object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#export">export ()</a></td>
+	<td class="summary">export timestamp accuracy to DER encoded string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ts_accuracy_read">ts_accuracy_read (data)</a></td>
+	<td class="summary">read timestamp accuracy from DER data</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#totable">totable ()</a></td>
+	<td class="summary">convert timestamp accuracy to table representation</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#version">version ()</a></td>
@@ -142,6 +191,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#ording">ording ()</a></td>
 	<td class="summary">get ordering of ts_tst_info object object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ordering">ordering ()</a></td>
+	<td class="summary">get ordering flag from timestamp info</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#nonce">nonce ()</a></td>
@@ -229,6 +282,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#ts_req:export">ts_req:export ()</a></td>
 	<td class="summary">export ts_req to string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ts_req:add_ext">ts_req:add_ext (extension[, location])</a></td>
+	<td class="summary">add X509 extension to timestamp request</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ts_req:info">ts_req:info ()</a></td>
@@ -406,6 +463,33 @@
 
 </dd>
     <dt>
+    <a name = "ts_msg_imprint_read"></a>
+    <strong>ts_msg_imprint_read (data)</strong>
+    </dt>
+    <dd>
+    read and parse ts_msg_imprint from DER encoded data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         DER encoded ts_msg_imprint data
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ts_msg_imprint</span> or <span class="type">nil</span></span>
+        parsed object or nil on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "export"></a>
     <strong>export ()</strong>
     </dt>
@@ -504,6 +588,224 @@
            <span class="types"><span class="type">ts_msg_imprint</span></span>
 
 
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ts_accuracy_new"></a>
+    <strong>ts_accuracy_new ([seconds[, millis[, micros]]])</strong>
+    </dt>
+    <dd>
+    create new timestamp accuracy object
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">seconds</span>
+            <span class="types"><span class="type">number</span></span>
+         accuracy in seconds
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">millis</span>
+            <span class="types"><span class="type">number</span></span>
+         accuracy in milliseconds
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">micros</span>
+            <span class="types"><span class="type">number</span></span>
+         accuracy in microseconds
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ts_accuracy</span></span>
+        new timestamp accuracy object or nil on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "seconds"></a>
+    <strong>seconds ([seconds])</strong>
+    </dt>
+    <dd>
+    get or set accuracy in seconds
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">seconds</span>
+            <span class="types"><span class="type">number</span></span>
+         optional seconds value to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        current seconds value when called without parameters</li>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true when setting value successfully</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "millis"></a>
+    <strong>millis ([millis])</strong>
+    </dt>
+    <dd>
+    get or set accuracy in milliseconds
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">millis</span>
+            <span class="types"><span class="type">number</span></span>
+         optional milliseconds value to set
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        current milliseconds value when called without parameters</li>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true when setting value successfully</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "micros"></a>
+    <strong>micros ([micros])</strong>
+    </dt>
+    <dd>
+    get or set timestamp accuracy microseconds
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">micros</span>
+            <span class="types"><span class="type">number</span></span>
+         microseconds value to set (if provided)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        current microseconds value (if getting)</li>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        success status (if setting)</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "dup"></a>
+    <strong>dup ()</strong>
+    </dt>
+    <dd>
+    duplicate timestamp accuracy object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ts_accuracy</span></span>
+        new duplicated ts_accuracy object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "export"></a>
+    <strong>export ()</strong>
+    </dt>
+    <dd>
+    export timestamp accuracy to DER encoded string
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        DER encoded representation of ts_accuracy object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ts_accuracy_read"></a>
+    <strong>ts_accuracy_read (data)</strong>
+    </dt>
+    <dd>
+    read timestamp accuracy from DER data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         DER encoded timestamp accuracy data
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ts_accuracy</span></span>
+        timestamp accuracy object or nil on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "totable"></a>
+    <strong>totable ()</strong>
+    </dt>
+    <dd>
+    convert timestamp accuracy to table representation
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        accuracy information with micros, millis, and seconds fields
     </ol>
 
 
@@ -651,6 +953,26 @@
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ordering"></a>
+    <strong>ordering ()</strong>
+    </dt>
+    <dd>
+    get ordering flag from timestamp info
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if ordering is required
     </ol>
 
 
@@ -1189,6 +1511,38 @@
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ts_req:add_ext"></a>
+    <strong>ts_req:add_ext (extension[, location])</strong>
+    </dt>
+    <dd>
+    add X509 extension to timestamp request
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">extension</span>
+            <span class="types"><span class="type">x509_extension</span></span>
+         X509 extension to add
+        </li>
+        <li><span class="parameter">location</span>
+            <span class="types"><span class="type">number</span></span>
+         position to insert extension
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success, false on failure
     </ol>
 
 
@@ -2022,7 +2376,7 @@ ts_resp_ctx:<span class="function-name">set_time_cb</span>(time_cb, arg)</pre>
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lua-openssl Docmentation</title>
+    <title>lua-openssl Documentation</title>
     <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
 </head>
 <body>
@@ -43,29 +43,40 @@
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
   <li><strong>cipher</strong></li>
   <li><a href="../modules/cms.html">cms</a></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
   <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -91,6 +102,11 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#returns...">returns... ()</a></td>
+	<td class="summary">
+</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#list">list ([alias])</a></td>
 	<td class="summary">list all support cipher algs</td>
 	</tr>
@@ -111,15 +127,15 @@
 	<td class="summary">quick encrypt or decrypt</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#new">new (alg, encrypt[, key[, iv[, pad[, engine]]]])</a></td>
+	<td class="name" nowrap><a href="#new">new (alg, encrypt[, key[, iv[, pad=true[, engine]]]])</a></td>
 	<td class="summary">get evp_cipher_ctx object for encrypt or decrypt</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#encrypt_new">encrypt_new (alg, key[, iv[, engine]])</a></td>
+	<td class="name" nowrap><a href="#encrypt_new">encrypt_new (alg, key[, iv[, engine[, pad=true]]])</a></td>
 	<td class="summary">get evp_cipher_ctx object for encrypt</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#decrypt_new">decrypt_new (alg, key[, iv[, engine]])</a></td>
+	<td class="name" nowrap><a href="#decrypt_new">decrypt_new (alg, key[, iv[, engine[, pad=true]]])</a></td>
 	<td class="summary">get evp_cipher_ctx object for decrypt</td>
 	</tr>
 </table>
@@ -176,6 +192,18 @@
 	<td class="name" nowrap><a href="#evp_cipher_ctx:info">evp_cipher_ctx:info ()</a></td>
 	<td class="summary">get infomation of evp_cipher_ctx object</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_cipher_ctx:padding">evp_cipher_ctx:padding (pad)</a></td>
+	<td class="summary">set padding mode for cipher context</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_cipher_ctx:ctrl">evp_cipher_ctx:ctrl (type, arg)</a></td>
+	<td class="summary">control cipher context with various parameters</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evp_cipher_ctx:__gc">evp_cipher_ctx:__gc ()</a></td>
+	<td class="summary">release cipher context resources</td>
+	</tr>
 </table>
 
 <br/>
@@ -185,6 +213,27 @@
     <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
+    <dt>
+    <a name = "returns..."></a>
+    <strong>returns... ()</strong>
+    </dt>
+    <dd>
+
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">various</span></span>
+        return value
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "list"></a>
     <strong>list ([alias])</strong>
@@ -403,7 +452,7 @@
 </dd>
     <dt>
     <a name = "new"></a>
-    <strong>new (alg, encrypt[, key[, iv[, pad[, engine]]]])</strong>
+    <strong>new (alg, encrypt[, key[, iv[, pad=true[, engine]]]])</strong>
     </dt>
     <dd>
     get evp_cipher_ctx object for encrypt or decrypt
@@ -432,8 +481,8 @@
         </li>
         <li><span class="parameter">pad</span>
             <span class="types"><span class="type">boolean</span></span>
-         true for padding default
-         (<em>optional</em>)
+         true for padding
+         (<em>default</em> true)
         </li>
         <li><span class="parameter">engine</span>
             <span class="types"><span class="type">engine</span></span>
@@ -459,7 +508,7 @@
 </dd>
     <dt>
     <a name = "encrypt_new"></a>
-    <strong>encrypt_new (alg, key[, iv[, engine]])</strong>
+    <strong>encrypt_new (alg, key[, iv[, engine[, pad=true]]])</strong>
     </dt>
     <dd>
     get evp_cipher_ctx object for encrypt
@@ -486,6 +535,11 @@
          custom crypto engine
          (<em>optional</em>)
         </li>
+        <li><span class="parameter">pad</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true for padding
+         (<em>default</em> true)
+        </li>
     </ul>
 
     <h3>Returns:</h3>
@@ -505,7 +559,7 @@
 </dd>
     <dt>
     <a name = "decrypt_new"></a>
-    <strong>decrypt_new (alg, key[, iv[, engine]])</strong>
+    <strong>decrypt_new (alg, key[, iv[, engine[, pad=true]]])</strong>
     </dt>
     <dd>
     get evp_cipher_ctx object for decrypt
@@ -531,6 +585,11 @@
             <span class="types"><span class="type">engine</span></span>
          custom crypto engine
          (<em>optional</em>)
+        </li>
+        <li><span class="parameter">pad</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true for padding
+         (<em>default</em> true)
         </li>
     </ul>
 
@@ -1016,6 +1075,84 @@
 
 
 </dd>
+    <dt>
+    <a name = "evp_cipher_ctx:padding"></a>
+    <strong>evp_cipher_ctx:padding (pad)</strong>
+    </dt>
+    <dd>
+    set padding mode for cipher context
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pad</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true to enable padding, false to disable
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        no return value
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_cipher_ctx:ctrl"></a>
+    <strong>evp_cipher_ctx:ctrl (type, arg)</strong>
+    </dt>
+    <dd>
+    control cipher context with various parameters
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">type</span>
+            <span class="types"><span class="type">number</span></span>
+         control command type
+        </li>
+        <li><span class="parameter">arg</span>
+            <span class="types"><span class="type">number</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         control argument
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        result depends on control type
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evp_cipher_ctx:__gc"></a>
+    <strong>evp_cipher_ctx:__gc ()</strong>
+    </dt>
+    <dd>
+    release cipher context resources
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        0
+    </ol>
+
+
+
+
+</dd>
 </dl>
 
 
@@ -1023,7 +1160,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-03-22 00:01:02 </i>
+<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
