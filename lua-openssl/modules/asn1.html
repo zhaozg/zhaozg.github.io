@@ -44,11 +44,12 @@
 <ul class="nowrap">
   <li><strong>asn1</strong></li>
   <li><a href="../modules/bio.html">bio</a></li>
-  <li><a href="../modules/bn.html">bn</a></li>
   <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
   <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
   <li><a href="../modules/dsa.html">dsa</a></li>
@@ -56,11 +57,13 @@
   <li><a href="../modules/engine.html">engine</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
+  <li><a href="../modules/lbn.html">lbn</a></li>
   <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
   <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
   <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
@@ -69,15 +72,12 @@
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
   <li><a href="../modules/th-lock.html">th-lock</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
   <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -231,24 +231,20 @@
 <h2><a href="#Class_asn1_string">Class asn1_string </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#asn1_string:set">asn1_string:set ()</a></td>
-	<td class="summary">
-</td>
+	<td class="name" nowrap><a href="#asn1_string:set">asn1_string:set (value)</a></td>
+	<td class="summary">set value of ASN1 object</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#asn1_string:get">asn1_string:get ()</a></td>
-	<td class="summary">
-</td>
+	<td class="summary">get value from ASN1 object</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#asn1_string:i2d">asn1_string:i2d ()</a></td>
-	<td class="summary">
-</td>
+	<td class="summary">encode ASN1 object to DER format</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#asn1_string:d2i">asn1_string:d2i ()</a></td>
-	<td class="summary">
-</td>
+	<td class="name" nowrap><a href="#asn1_string:d2i">asn1_string:d2i (der)</a></td>
+	<td class="summary">decode DER encoded string to ASN1 object</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#asn1_string:type">asn1_string:type ()</a></td>
@@ -521,7 +517,7 @@ indefinite length constructed
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">value</span>
-            <span class="types"><span class="type">number</span> or <span class="type">bignum</span></span>
+            <span class="types"><span class="type">number</span> or <a class="type" href="../modules/asn1.html#asn1_integer:bn">bn</a></span>
          integer value or bignum
         </li>
     </ul>
@@ -1184,14 +1180,26 @@ indefinite length constructed
     <dl class="function">
     <dt>
     <a name = "asn1_string:set"></a>
-    <strong>asn1_string:set ()</strong>
+    <strong>asn1_string:set (value)</strong>
     </dt>
     <dd>
+    set value of ASN1 object
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">number</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         value to set (number for integers/times, string for time strings)
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
 
-
+           <span class="types"><span class="type">boolean</span></span>
+        result true for success
+    </ol>
 
 
 
@@ -1202,16 +1210,15 @@ indefinite length constructed
     <strong>asn1_string:get ()</strong>
     </dt>
     <dd>
-
-
+    get value from ASN1 object
 
 
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">userdata</span></span>
-        object created
+           <span class="types"><span class="type">number</span> or <a class="type" href="../modules/asn1.html#asn1_integer:bn">bn</a></span>
+        value extracted from ASN1 object (bn for integers, number for times)
     </ol>
 
 
@@ -1223,8 +1230,7 @@ indefinite length constructed
     <strong>asn1_string:i2d ()</strong>
     </dt>
     <dd>
-
-
+    encode ASN1 object to DER format
 
 
 
@@ -1232,7 +1238,7 @@ indefinite length constructed
     <ol>
 
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        result
+        DER encoded string
     </ol>
 
 
@@ -1241,19 +1247,28 @@ indefinite length constructed
 </dd>
     <dt>
     <a name = "asn1_string:d2i"></a>
-    <strong>asn1_string:d2i ()</strong>
+    <strong>asn1_string:d2i (der)</strong>
     </dt>
     <dd>
+    decode DER encoded string to ASN1 object
 
 
-
-
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">der</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         DER encoded string
+        </li>
+    </ul>
 
     <h3>Returns:</h3>
     <ol>
-
+        <li>
+           <span class="types"><span class="type">asn1group</span></span>
+        self on success</li>
+        <li>
            <span class="types"><span class="type">boolean</span></span>
-        success status
+        result false on failure</li>
     </ol>
 
 
@@ -1600,7 +1615,7 @@ indefinite length constructed
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
+<i style="float:right;">Last updated 2025-11-02 11:59:05 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
