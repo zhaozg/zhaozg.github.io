@@ -31,6 +31,10 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
 
 
 <h2>Modules</h2>
@@ -54,7 +58,7 @@
   <li><a href="../modules/bn.html">bn</a></li>
   <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
-  <li><strong>misc</strong></li>
+  <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
   <li><a href="../modules/ts.html">ts</a></li>
@@ -62,7 +66,7 @@
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
-  <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><strong>ec.point</strong></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
@@ -84,23 +88,126 @@
 
 <div id="content">
 
-<h1>Module <code>misc</code></h1>
-<p>misc module with utility functions for lua-openssl</p>
-<p>This module provides various utility functions and helpers that are
-used throughout the lua-openssl library for data conversion,
-formatting, and common operations.</p>
+<h1>Module <code>ec.point</code></h1>
+<p>EC_POINT module for Lua OpenSSL binding.</p>
+<p>This module provides a complete wrapper for OpenSSL&rsquo;s EC_POINT operations,
+enabling elliptic curve point mathematical operations.</p>
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">misc = require(&apos;openssl&apos;).misc
+        <pre class="example">point = require(&apos;openssl&apos;).ec.point
 </pre>
     </ul>
 
 
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#new">new (group)</a></td>
+	<td class="summary">Create a new EC point on a given group.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#copy">copy (dest, src)</a></td>
+	<td class="summary">Copy one EC point to another.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tostring">tostring ()</a></td>
+	<td class="summary">Convert EC point to string (internal, called by __tostring).</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "new"></a>
+    <strong>new (group)</strong>
+    </dt>
+    <dd>
+    Create a new EC point on a given group.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">group</span>
+            <span class="types"><span class="type">ec_group</span></span>
+         the EC group
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ec_point</span></span>
+        new elliptic curve point (at infinity)
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">group = <span class="global">require</span>(<span class="string">'openssl'</span>).group
+point = <span class="global">require</span>(<span class="string">'openssl'</span>).point
+g = group.<span class="function-name">new</span>(<span class="string">'prime256v1'</span>)
+p = point.<span class="function-name">new</span>(g)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "copy"></a>
+    <strong>copy (dest, src)</strong>
+    </dt>
+    <dd>
+    Copy one EC point to another.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dest</span>
+            <span class="types"><span class="type">ec_point</span></span>
+         destination point
+        </li>
+        <li><span class="parameter">src</span>
+            <span class="types"><span class="type">ec_point</span></span>
+         source point
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ec_point</span></span>
+        destination point (self)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tostring"></a>
+    <strong>tostring ()</strong>
+    </dt>
+    <dd>
+    Convert EC point to string (internal, called by __tostring).
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        string representation
+    </ol>
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

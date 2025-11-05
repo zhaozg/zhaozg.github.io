@@ -31,46 +31,52 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
 
 
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="../modules/asn1.html">asn1</a></li>
   <li><a href="../modules/bio.html">bio</a></li>
-  <li><strong>bn</strong></li>
   <li><a href="../modules/callback.html">callback</a></li>
   <li><a href="../modules/cipher.html">cipher</a></li>
   <li><a href="../modules/cms.html">cms</a></li>
   <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/dh.html">dh</a></li>
   <li><a href="../modules/digest.html">digest</a></li>
   <li><a href="../modules/dsa.html">dsa</a></li>
   <li><a href="../modules/ec.html">ec</a></li>
   <li><a href="../modules/engine.html">engine</a></li>
+  <li><a href="../modules/ec.group.html">ec.group</a></li>
   <li><a href="../modules/hmac.html">hmac</a></li>
   <li><a href="../modules/kdf.html">kdf</a></li>
+  <li><strong>bn</strong></li>
   <li><a href="../modules/lhash.html">lhash</a></li>
   <li><a href="../modules/mac.html">mac</a></li>
   <li><a href="../modules/misc.html">misc</a></li>
   <li><a href="../modules/ocsp.html">ocsp</a></li>
   <li><a href="../modules/openssl.html">openssl</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
   <li><a href="../modules/param.html">param</a></li>
   <li><a href="../modules/pkcs12.html">pkcs12</a></li>
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/ec.point.html">ec.point</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
   <li><a href="../modules/th-lock.html">th-lock</a></li>
-  <li><a href="../modules/ts.html">ts</a></li>
   <li><a href="../modules/util.html">util</a></li>
   <li><a href="../modules/x509.html">x509</a></li>
   <li><a href="../modules/x509.algor.html">x509.algor</a></li>
   <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
-  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
   <li><a href="../modules/x509.extension.html">x509.extension</a></li>
   <li><a href="../modules/x509.name.html">x509.name</a></li>
-  <li><a href="../modules/x509.req.html">x509.req</a></li>
   <li><a href="../modules/x509.store.html">x509.store</a></li>
 </ul>
 <h2>Topics</h2>
@@ -83,9 +89,9 @@
 <div id="content">
 
 <h1>Module <code>bn</code></h1>
-<p>big-number library for Lua 5.1 based on OpenSSL bn</p>
-<p>
-</p>
+<p>big-number library for Lua 5.x based on OpenSSL BIGNUM</p>
+<p>This module provides a complete wrapper for OpenSSL&rsquo;s BIGNUM operations,
+enabling arbitrary precision arithmetic similar to BIGNUM.</p>
     <h3>Usage:</h3>
     <ul>
         <pre class="example">bn = require(&apos;openssl&apos;).bn
@@ -94,22 +100,1288 @@
     <h3>Info:</h3>
     <ul>
         <li><strong>License</strong>: This code is hereby placed in the public domain.</li>
-        <li><strong>Author</strong>: Luiz Henrique de Figueiredo <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x6c;&#104;&#102;&#x40;&#x74;&#x65;&#x63;&#103;&#114;&#x61;&#102;&#46;&#112;&#117;&#99;&#45;&#x72;&#105;&#x6f;&#x2e;&#98;&#x72;">&#108;&#104;&#102;&#64;&#116;&#101;&#x63;&#x67;&#x72;&#97;&#102;&#46;&#112;&#x75;&#99;&#x2d;&#x72;&#x69;&#x6f;&#46;&#x62;&#x72;</a></li>
+        <li><strong>Author</strong>: Luiz Henrique de Figueiredo <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x6c;&#x68;&#x66;&#64;&#116;&#x65;&#99;&#x67;&#x72;&#97;&#102;&#46;&#x70;&#117;&#99;&#45;&#114;&#105;&#111;&#x2e;&#x62;&#114;">&#x6c;&#104;&#x66;&#64;&#116;&#101;&#99;&#x67;&#114;&#x61;&#x66;&#x2e;&#112;&#x75;&#x63;&#45;&#x72;&#x69;&#x6f;&#46;&#x62;&#x72;</a></li>
     </ul>
 
 
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#bits">bits (x)</a></td>
+	<td class="summary">bits(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tostring">tostring (x)</a></td>
+	<td class="summary">tostring(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tohex">tohex (x)</a></td>
+	<td class="summary">tohex(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#totext">totext (x[, n])</a></td>
+	<td class="summary">totext(x[, n])</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tonumber">tonumber (x)</a></td>
+	<td class="summary">tonumber(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#iszero">iszero (x)</a></td>
+	<td class="summary">iszero(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isone">isone (x)</a></td>
+	<td class="summary">isone(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isodd">isodd (x)</a></td>
+	<td class="summary">isodd(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isneg">isneg (x)</a></td>
+	<td class="summary">isneg(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#number">number (x)</a></td>
+	<td class="summary">number(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#text">text (t)</a></td>
+	<td class="summary">text(t)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#compare">compare (x, y)</a></td>
+	<td class="summary">compare(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#__eq">__eq (x, y)</a></td>
+	<td class="summary">__eq(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#__lt">__lt (x, y)</a></td>
+	<td class="summary">__lt(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sqr">sqr (x)</a></td>
+	<td class="summary">sqr(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#neg">neg (x)</a></td>
+	<td class="summary">neg(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#abs">abs (x)</a></td>
+	<td class="summary">abs(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#add">add (x, y)</a></td>
+	<td class="summary">add(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sub">sub (x, y)</a></td>
+	<td class="summary">sub(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mul">mul (x, y)</a></td>
+	<td class="summary">mul(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#div">div (x, y)</a></td>
+	<td class="summary">div(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mod">mod (x, y)</a></td>
+	<td class="summary">mod(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rmod">rmod (x, y)</a></td>
+	<td class="summary">rmod(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#divmod">divmod (x, y)</a></td>
+	<td class="summary">divmod(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#gcd">gcd (x, y)</a></td>
+	<td class="summary">gcd(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#pow">pow (x, y)</a></td>
+	<td class="summary">pow(x, y)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#addmod">addmod (x, y, m)</a></td>
+	<td class="summary">addmod(x, y, m)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#submod">submod (x, y, m)</a></td>
+	<td class="summary">submod(x, y, m)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mulmod">mulmod (x, y, m)</a></td>
+	<td class="summary">mulmod(x, y, m)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#powmod">powmod (x, y, m)</a></td>
+	<td class="summary">powmod(x, y, m)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sqrmod">sqrmod (x, m)</a></td>
+	<td class="summary">sqrmod(x, m)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#invmod">invmod (x, m)</a></td>
+	<td class="summary">invmod(x, m)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sqrtmod">sqrtmod (x, m)</a></td>
+	<td class="summary">sqrtmod(x, m)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#random">random ([bits=32])</a></td>
+	<td class="summary">random([bits])</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#aprime">aprime ([bits=32])</a></td>
+	<td class="summary">aprime([bits])</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isprime">isprime (x[, checks])</a></td>
+	<td class="summary">isprime(x[, checks])</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "bits"></a>
+    <strong>bits (x)</strong>
+    </dt>
+    <dd>
+    bits(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        integer number of bits
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">bits = bn.<span class="function-name">bits</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "tostring"></a>
+    <strong>tostring (x)</strong>
+    </dt>
+    <dd>
+    tostring(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string decimal representation
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">s = bn.<span class="global">tostring</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "tohex"></a>
+    <strong>tohex (x)</strong>
+    </dt>
+    <dd>
+    tohex(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string hexadecimal representation
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">s = bn.<span class="function-name">tohex</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "totext"></a>
+    <strong>totext (x[, n])</strong>
+    </dt>
+    <dd>
+    totext(x[, n])
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">n</span>
+         number of bytes
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string binary representation
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">t = bn.<span class="function-name">totext</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "tonumber"></a>
+    <strong>tonumber (x)</strong>
+    </dt>
+    <dd>
+    tonumber(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        number
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">n = bn.<span class="global">tonumber</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "iszero"></a>
+    <strong>iszero (x)</strong>
+    </dt>
+    <dd>
+    iszero(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean true if x == 0
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">ok = bn.<span class="function-name">iszero</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isone"></a>
+    <strong>isone (x)</strong>
+    </dt>
+    <dd>
+    isone(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean true if x == 1
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">ok = bn.<span class="function-name">isone</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isodd"></a>
+    <strong>isodd (x)</strong>
+    </dt>
+    <dd>
+    isodd(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean true if x is odd
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">ok = bn.<span class="function-name">isodd</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isneg"></a>
+    <strong>isneg (x)</strong>
+    </dt>
+    <dd>
+    isneg(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean true if x &lt; 0
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">ok = bn.<span class="function-name">isneg</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "number"></a>
+    <strong>number (x)</strong>
+    </dt>
+    <dd>
+    number(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         number or string
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">x = bn.<span class="function-name">number</span>(<span class="number">123</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "text"></a>
+    <strong>text (t)</strong>
+    </dt>
+    <dd>
+    text(t)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         string binary representation
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">x = bn.<span class="function-name">text</span>(t)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "compare"></a>
+    <strong>compare (x, y)</strong>
+    </dt>
+    <dd>
+    compare(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        integer (-1, 0, 1)
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">cmp = bn.<span class="function-name">compare</span>(x, y)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "__eq"></a>
+    <strong>__eq (x, y)</strong>
+    </dt>
+    <dd>
+    __eq(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean true if x == y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "__lt"></a>
+    <strong>__lt (x, y)</strong>
+    </dt>
+    <dd>
+    __lt(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean true if x &lt; y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sqr"></a>
+    <strong>sqr (x)</strong>
+    </dt>
+    <dd>
+    sqr(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number x^2
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">y = bn.<span class="function-name">sqr</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "neg"></a>
+    <strong>neg (x)</strong>
+    </dt>
+    <dd>
+    neg(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number -x
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">y = bn.<span class="function-name">neg</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "abs"></a>
+    <strong>abs (x)</strong>
+    </dt>
+    <dd>
+    abs(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number |x|
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">y = bn.<span class="function-name">abs</span>(x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "add"></a>
+    <strong>add (x, y)</strong>
+    </dt>
+    <dd>
+    add(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number x + y
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">z = bn.<span class="function-name">add</span>(x, y)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "sub"></a>
+    <strong>sub (x, y)</strong>
+    </dt>
+    <dd>
+    sub(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number x &ndash; y
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">z = bn.<span class="function-name">sub</span>(x, y)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "mul"></a>
+    <strong>mul (x, y)</strong>
+    </dt>
+    <dd>
+    mul(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number x * y
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">z = bn.<span class="function-name">mul</span>(x, y)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "div"></a>
+    <strong>div (x, y)</strong>
+    </dt>
+    <dd>
+    div(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number x // y
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">q = bn.<span class="function-name">div</span>(x, y)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "mod"></a>
+    <strong>mod (x, y)</strong>
+    </dt>
+    <dd>
+    mod(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number x % y
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">r = bn.<span class="function-name">mod</span>(x, y)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "rmod"></a>
+    <strong>rmod (x, y)</strong>
+    </dt>
+    <dd>
+    rmod(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number x mod y (always positive)
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">r = bn.<span class="function-name">rmod</span>(x, y)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "divmod"></a>
+    <strong>divmod (x, y)</strong>
+    </dt>
+    <dd>
+    divmod(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        q, r quotient and remainder
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">q, r = bn.<span class="function-name">divmod</span>(x, y)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "gcd"></a>
+    <strong>gcd (x, y)</strong>
+    </dt>
+    <dd>
+    gcd(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number gcd(x, y)
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">g = bn.<span class="function-name">gcd</span>(x, y)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "pow"></a>
+    <strong>pow (x, y)</strong>
+    </dt>
+    <dd>
+    pow(x, y)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number x^y
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">z = bn.<span class="function-name">pow</span>(x, y)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "addmod"></a>
+    <strong>addmod (x, y, m)</strong>
+    </dt>
+    <dd>
+    addmod(x, y, m)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+        <li><span class="parameter">m</span>
+         modulus
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number (x + y) % m
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">z = bn.<span class="function-name">addmod</span>(x, y, m)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "submod"></a>
+    <strong>submod (x, y, m)</strong>
+    </dt>
+    <dd>
+    submod(x, y, m)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+        <li><span class="parameter">m</span>
+         modulus
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number (x &ndash; y) % m
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">z = bn.<span class="function-name">submod</span>(x, y, m)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "mulmod"></a>
+    <strong>mulmod (x, y, m)</strong>
+    </dt>
+    <dd>
+    mulmod(x, y, m)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+        <li><span class="parameter">m</span>
+         modulus
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number (x * y) % m
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">z = bn.<span class="function-name">mulmod</span>(x, y, m)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "powmod"></a>
+    <strong>powmod (x, y, m)</strong>
+    </dt>
+    <dd>
+    powmod(x, y, m)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">y</span>
+         big number
+        </li>
+        <li><span class="parameter">m</span>
+         modulus
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number (x^y) % m
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">z = bn.<span class="function-name">powmod</span>(x, y, m)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "sqrmod"></a>
+    <strong>sqrmod (x, m)</strong>
+    </dt>
+    <dd>
+    sqrmod(x, m)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">m</span>
+         modulus
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number (x^2) % m
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">z = bn.<span class="function-name">sqrmod</span>(x, m)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "invmod"></a>
+    <strong>invmod (x, m)</strong>
+    </dt>
+    <dd>
+    invmod(x, m)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">m</span>
+         modulus
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number modular inverse
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">y = bn.<span class="function-name">invmod</span>(x, m)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "sqrtmod"></a>
+    <strong>sqrtmod (x, m)</strong>
+    </dt>
+    <dd>
+    sqrtmod(x, m)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">m</span>
+         modulus
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number modular square root
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">y = bn.<span class="function-name">sqrtmod</span>(x, m)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "random"></a>
+    <strong>random ([bits=32])</strong>
+    </dt>
+    <dd>
+    random([bits])
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bits</span>
+         number of bits (default 32)
+         (<em>default</em> 32)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number random value
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">x = bn.<span class="function-name">random</span>(<span class="number">128</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "aprime"></a>
+    <strong>aprime ([bits=32])</strong>
+    </dt>
+    <dd>
+    aprime([bits])
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bits</span>
+         number of bits (default 32)
+         (<em>default</em> 32)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        big number probable prime
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">p = bn.<span class="function-name">aprime</span>(<span class="number">128</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isprime"></a>
+    <strong>isprime (x[, checks])</strong>
+    </dt>
+    <dd>
+    isprime(x[, checks])
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         big number
+        </li>
+        <li><span class="parameter">checks</span>
+         number of checks
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean true if x is prime
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">ok = bn.<span class="function-name">isprime</span>(x)</pre>
+    </ul>
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-09-22 19:55:54 </i>
+<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
