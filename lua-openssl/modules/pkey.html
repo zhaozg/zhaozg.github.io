@@ -68,6 +68,8 @@
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><strong>pkey</strong></li>
   <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><a href="../modules/provider.html">provider</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
@@ -287,7 +289,7 @@ data be encrypt with secret key, secret key be encrypt with public key</td>
         </li>
         <li><span class="parameter">format</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         or encoding of input, support &lsquo;auto&rsquo;,&lsquo;pem&rsquo;,&lsquo;der&rsquo;
+         format or encoding of input, support &lsquo;auto&rsquo;,&lsquo;pem&rsquo;,&lsquo;der&rsquo;
          (<em>default</em> 'auto')
         </li>
         <li><span class="parameter">passhprase</span>
@@ -300,7 +302,7 @@ data be encrypt with secret key, secret key be encrypt with public key</td>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">evp_pkey</span></span>
+           <span class="types"><span class="type">openssl.evp_pkey</span></span>
         public key
     </ol>
 
@@ -324,7 +326,7 @@ data be encrypt with secret key, secret key be encrypt with public key</td>
     <ul>
         <li><span class="parameter">alg</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        , alg must be &lsquo;ec&rsquo;
+         alg must be &lsquo;ec&rsquo;
         </li>
         <li><span class="parameter">curvename</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
@@ -340,7 +342,7 @@ data be encrypt with secret key, secret key be encrypt with public key</td>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">evp_pkey</span></span>
+           <span class="types"><span class="type">openssl.evp_pkey</span></span>
         object with mapping to EVP_PKEY in openssl
     </ol>
 
@@ -360,23 +362,23 @@ data be encrypt with secret key, secret key be encrypt with public key</td>
     <ul>
         <li><span class="parameter">alg</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        , accept <code>rsa</code>,<code>dsa</code>,<code>dh</code>
+         accept <code>rsa</code>,<code>dsa</code>,<code>dh</code>
          (<em>default</em> 'rsa')
         </li>
         <li><span class="parameter">bits</span>
             <span class="types"><span class="type">integer</span></span>
-        , <code>rsa</code> with 2048, <code>dh</code> or <code>dsa</code> with 1024
+         <code>rsa</code> with 2048, <code>dh</code> or <code>dsa</code> with 1024
          (<em>default</em> 2048|512)
         </li>
         <li><span class="parameter">e</span>
             <span class="types"><span class="type">integer</span></span>
-        , when alg is <code>rsa</code> give e value default is 0x10001,
+         when alg is <code>rsa</code> give e value default is 0x10001,
  when alg is <code>dh</code> give generator value default is 2,
  when alg is <code>dsa</code> give string type seed value default is none.
          (<em>optional</em>)
         </li>
         <li><span class="parameter">eng</span>
-            <span class="types"><span class="type">engine</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
 
 
          (<em>optional</em>)
@@ -386,7 +388,7 @@ data be encrypt with secret key, secret key be encrypt with public key</td>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">evp_pkey</span></span>
+           <span class="types"><span class="type">openssl.evp_pkey</span></span>
         object with mapping to EVP_PKEY in openssl
     </ol>
 
@@ -406,7 +408,7 @@ data be encrypt with secret key, secret key be encrypt with public key</td>
     <ul>
         <li><span class="parameter">factors</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         to create private/public key, key alg only accept accept &lsquo;rsa&rsquo;,&lsquo;dsa&rsquo;,&lsquo;dh&rsquo;,&lsquo;ec&rsquo;
+         create private/public key, key alg only accept accept &lsquo;rsa&rsquo;,&lsquo;dsa&rsquo;,&lsquo;dh&rsquo;,&lsquo;ec&rsquo;
 and must exist</br>
 when arg is rsa, table may with key n,e,d,p,q,dmp1,dmq1,iqmp, both are binary string or openssl.bn<br>
 when arg is dsa, table may with key p,q,g,priv_key,pub_key, both are binary string or openssl.bn<br>
@@ -419,7 +421,7 @@ enc_flag, conv_form<br>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">evp_pkey</span></span>
+           <span class="types"><span class="type">openssl.evp_pkey</span></span>
         object with mapping to EVP_PKEY in openssl
     </ol>
 
@@ -606,7 +608,7 @@ pair with encrypt
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">evp_pkey</span></span>
+           <span class="types"><span class="type">openssl.evp_pkey</span></span>
         pub
     </ol>
 
@@ -625,7 +627,7 @@ pair with encrypt
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">engine</span>
-            <span class="types"><span class="type">engine</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
          optional engine for hardware acceleration
          (<em>optional</em>)
         </li>
@@ -657,7 +659,7 @@ pair with encrypt
          algorithm name or NID
         </li>
         <li><span class="parameter">engine</span>
-            <span class="types"><span class="type">engine</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
          optional engine for hardware acceleration
          (<em>optional</em>)
         </li>
@@ -694,7 +696,7 @@ pair with encrypt
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">evp_pkey</span></span>
+           <span class="types"><span class="type">openssl.evp_pkey</span></span>
         generated key pair on success
     </ol>
 
@@ -936,15 +938,15 @@ pair with encrypt
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          private key
         </li>
         <li><span class="parameter">peer</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          public key
         </li>
         <li><span class="parameter">eng</span>
-            <span class="types"><span class="type">engine</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
 
 
          (<em>optional</em>)
@@ -1224,7 +1226,7 @@ data be encrypt with secret key, secret key be encrypt with public key
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">private_key</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          private key for decryption
         </li>
         <li><span class="parameter">encrypted_key</span>
@@ -1342,7 +1344,7 @@ data be encrypt with secret key, secret key be encrypt with public key
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">eng</span>
-            <span class="types"><span class="type">engine</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
          engine object to use for this key
         </li>
     </ul>
@@ -1405,7 +1407,7 @@ data be encrypt with secret key, secret key be encrypt with public key
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

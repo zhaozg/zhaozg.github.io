@@ -69,6 +69,8 @@
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><a href="../modules/provider.html">provider</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><strong>ssl</strong></li>
@@ -201,12 +203,11 @@ which CA certificates for verification purposes are located.</td>
 	<td class="summary">set client certificate engine for SSL context</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#ssl_ctx:ssl">ssl_ctx:ssl (fd[, server=false])</a></td>
-	<td class="summary">create ssl object</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ssl_ctx:ssl">ssl_ctx:ssl (input[, ouput=input[, server=false]])</a></td>
-	<td class="summary">create ssl object</td>
+	<td class="name" nowrap><a href="#ssl_ctx:ssl">ssl_ctx:ssl (ctx, fd_or_input[, server_or_output=false])</a></td>
+	<td class="summary">/***
+create SSL object from SSL context</p>
+
+<p>This function creates a new SSL object from an SSL context.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ssl_ctx:bio">ssl_ctx:bio (host_addr[, server=false[, autoretry=true]])</a></td>
@@ -405,13 +406,10 @@ connection</td>
 	<td class="summary">shutdown ssl connection with quite or noquite mode</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#ssl:shutdown">ssl:shutdown ()</a></td>
-	<td class="summary">shutdown SSL connection</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ssl:shutdown">ssl:shutdown (mode)</a></td>
-	<td class="summary">shutdown ssl connect with special mode, disable read or write,
-enable or disable quite shutdown</td>
+	<td class="name" nowrap><a href="#ssl:shutdown">ssl:shutdown ([mode])</a></td>
+	<td class="summary">shutdown SSL connection
+/***
+shutdown SSL connection</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ssl:set_connect_state">ssl:set_connect_state ()</a></td>
@@ -496,7 +494,7 @@ negotiate highest available SSL/TLS version
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/ssl.html#ssl">ssl_ctx</a></span>
+           <span class="types"><span class="type">openssl.ssl_ctx</span></span>
 
 
     </ol>
@@ -525,7 +523,7 @@ negotiate highest available SSL/TLS version
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/ssl.html#ssl">ssl_ctx</a></span>
+           <span class="types"><span class="type">openssl.ssl_ctx</span></span>
         SSL context object
     </ol>
 
@@ -669,12 +667,12 @@ negotiate highest available SSL/TLS version
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
 
 
         </li>
         <li><span class="parameter">cert</span>
-            <span class="types"><span class="type">x509</span></span>
+            <span class="types"><span class="type">openssl.x509</span></span>
 
 
         </li>
@@ -702,7 +700,7 @@ negotiate highest available SSL/TLS version
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">clientca</span>
-            <span class="types"><span class="type">x509</span></span>
+            <span class="types"><span class="type">openssl.x509</span></span>
 
 
         </li>
@@ -1119,7 +1117,7 @@ available via <em>CAfile</em> and <em>CApath</em> are trusted.
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">eng</span>
-            <span class="types"><span class="type">engine</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
          engine object to use for client certificates
         </li>
     </ul>
@@ -1137,22 +1135,30 @@ available via <em>CAfile</em> and <em>CApath</em> are trusted.
 </dd>
     <dt>
     <a name = "ssl_ctx:ssl"></a>
-    <strong>ssl_ctx:ssl (fd[, server=false])</strong>
+    <strong>ssl_ctx:ssl (ctx, fd_or_input[, server_or_output=false])</strong>
     </dt>
     <dd>
-    create ssl object
+    /***
+create SSL object from SSL context</p>
+
+<p>This function creates a new SSL object from an SSL context.  It supports two modes:
+1. Using a file descriptor (fd)
+2. Using BIO objects for input/output
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">fd</span>
-            <span class="types"><span class="type">number</span></span>
-
-
+        <li><span class="parameter">ctx</span>
+            <span class="types"><span class="type">openssl.ssl_ctx</span></span>
+         SSL context object
         </li>
-        <li><span class="parameter">server</span>
-            <span class="types"><span class="type">boolean</span></span>
-        , true will make ssl server
+        <li><span class="parameter">fd_or_input</span>
+            <span class="types"><span class="type">number</span> or <span class="type">openssl.bio</span></span>
+         File descriptor or input BIO
+        </li>
+        <li><span class="parameter">server_or_output</span>
+            <span class="types"><span class="type">boolean</span> or <span class="type">openssl.bio</span></span>
+         Server mode flag or output BIO
          (<em>default</em> false)
         </li>
     </ul>
@@ -1160,52 +1166,36 @@ available via <em>CAfile</em> and <em>CApath</em> are trusted.
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/ssl.html#ssl">ssl</a></span>
-
-
+           <span class="types"><span class="type">openssl.ssl</span></span>
+        SSL object on success
     </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "ssl_ctx:ssl"></a>
-    <strong>ssl_ctx:ssl (input[, ouput=input[, server=false]])</strong>
-    </dt>
-    <dd>
-    create ssl object
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">input</span>
-            <span class="types"><a class="type" href="../modules/ssl.html#ssl_ctx:bio">bio</a></span>
-
-
-        </li>
-        <li><span class="parameter">ouput</span>
-            <span class="types"><a class="type" href="../modules/ssl.html#ssl_ctx:bio">bio</a></span>
-        , default will use input as output
-         (<em>default</em> input)
-        </li>
-        <li><span class="parameter">server</span>
-            <span class="types"><span class="type">boolean</span></span>
-        , true will make ssl server
-         (<em>default</em> false)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
+     <h3>Or</h3>
     <ol>
-
-           <span class="types"><a class="type" href="../modules/ssl.html#ssl">ssl</a></span>
-
-
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+        on error</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         error message
+&mdash; @see OpenSSL function: SSL_new
+&mdash; @see OpenSSL function: SSL_set_fd
+&mdash; @see OpenSSL function: SSL_set_bio</li>
     </ol>
 
 
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="comment">-- Create SSL object from file descriptor
+</span><span class="keyword">local</span> ssl_ctx = <span class="global">require</span>(<span class="string">'openssl'</span>).ssl.<span class="function-name">ctx_new</span>(<span class="string">'TLS'</span>)
+<span class="keyword">local</span> fd = <span class="number">5</span>  <span class="comment">-- Assume fd 5 is a connected socket
+</span><span class="keyword">local</span> ssl = ssl_ctx:<span class="function-name">ssl</span>(fd)
+
+<span class="comment">-- Create SSL server object from BIO
+</span><span class="keyword">local</span> bio_in = <span class="global">require</span>(<span class="string">'openssl'</span>).bio.<span class="function-name">new</span>(<span class="string">'mem'</span>)
+<span class="keyword">local</span> bio_out = <span class="global">require</span>(<span class="string">'openssl'</span>).bio.<span class="function-name">new</span>(<span class="string">'mem'</span>)
+<span class="keyword">local</span> ssl = ssl_ctx:<span class="function-name">ssl</span>(bio_in, bio_out, <span class="keyword">true</span>)  <span class="comment">-- true for server mode</span></pre>
+    </ul>
 
 </dd>
     <dt>
@@ -1237,7 +1227,7 @@ available via <em>CAfile</em> and <em>CApath</em> are trusted.
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/ssl.html#ssl_ctx:bio">bio</a></span>
+           <span class="types"><span class="type">openssl.bio</span></span>
         bio object
     </ol>
 
@@ -1824,7 +1814,7 @@ the one selected as a string
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">x509</span></span>
+           <span class="types"><span class="type">openssl.x509</span></span>
         peer certificate from the session
     </ol>
 
@@ -1976,12 +1966,12 @@ SSL operation.
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
 
 
         </li>
         <li><span class="parameter">cert</span>
-            <span class="types"><span class="type">x509</span></span>
+            <span class="types"><span class="type">openssl.x509</span></span>
 
 
          (<em>optional</em>)
@@ -2011,7 +2001,7 @@ SSL operation.
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><span class="type">x509</span></span>
+           <span class="types"><span class="type">openssl.x509</span></span>
         certificate</li>
         <li>
            <span class="types"><span class="type">sk_of_x509</span></span>
@@ -2519,41 +2509,44 @@ SSL operation.
 </dd>
     <dt>
     <a name = "ssl:shutdown"></a>
-    <strong>ssl:shutdown ()</strong>
+    <strong>ssl:shutdown ([mode])</strong>
     </dt>
     <dd>
     shutdown SSL connection
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-        result true for success
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "ssl:shutdown"></a>
-    <strong>ssl:shutdown (mode)</strong>
-    </dt>
-    <dd>
-    shutdown ssl connect with special mode, disable read or write,
-enable or disable quite shutdown
+/***
+shutdown SSL connection
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">mode</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         support &lsquo;read&rsquo;,&lsquo;write&rsquo;, &lsquo;quite&rsquo;, &lsquo;noquite&rsquo;
+         optional mode: &lsquo;read&rsquo;, &lsquo;write&rsquo;, &lsquo;quite&rsquo;, &lsquo;noquite&rsquo;
+         (<em>optional</em>)
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true for success when called without mode
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        shutdown result when called with mode
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+        when error occurs</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        error message when error occurs</li>
+    </ol>
 
 
 
@@ -2611,7 +2604,7 @@ enable or disable quite shutdown
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/ssl.html#ssl">ssl</a></span>
+           <span class="types"><span class="type">openssl.ssl</span></span>
 
 
     </ol>
@@ -2699,7 +2692,7 @@ enable or disable quite shutdown
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/ssl.html#ssl">ssl_ctx</a></span>
+           <span class="types"><span class="type">openssl.ssl_ctx</span></span>
 
 
     </ol>
@@ -2719,7 +2712,7 @@ enable or disable quite shutdown
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">ctx</span>
-            <span class="types"><a class="type" href="../modules/ssl.html#ssl">ssl_ctx</a></span>
+            <span class="types"><span class="type">openssl.ssl_ctx</span></span>
 
 
         </li>
@@ -2728,7 +2721,7 @@ enable or disable quite shutdown
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/ssl.html#ssl">ssl_ctx</a></span>
+           <span class="types"><span class="type">openssl.ssl_ctx</span></span>
         orgine ssl_ctx object
     </ol>
 
@@ -2830,7 +2823,7 @@ enable or disable quite shutdown
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

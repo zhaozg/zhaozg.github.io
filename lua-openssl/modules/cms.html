@@ -68,6 +68,8 @@
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><a href="../modules/provider.html">provider</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
@@ -256,7 +258,7 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
          (<em>default</em> 'auto')
         </li>
         <li><span class="parameter">content</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
         , only used when format is &lsquo;smime&rsquo;
          (<em>default</em> nil)
         </li>
@@ -290,7 +292,7 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
 
 
          (<em>optional</em>)
@@ -355,7 +357,7 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
 
 
         </li>
@@ -390,7 +392,7 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
 
 
         </li>
@@ -434,7 +436,7 @@ cms api need flags, not support &ldquo;detached&rdquo;, &ldquo;nodetached&rdquo;
 
         </li>
         <li><span class="parameter">dcent</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
          default nil for normal, in the rare case where the compressed content is
 detached.
          (<em>default</em> nil)
@@ -470,16 +472,16 @@ detached.
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">signer</span>
-            <span class="types"><span class="type">x509</span></span>
+            <span class="types"><span class="type">openssl.x509</span></span>
          cert
         </li>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
 
 
         </li>
         <li><span class="parameter">input_data</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
 
 
         </li>
@@ -533,7 +535,7 @@ detached.
          (<em>optional</em>)
         </li>
         <li><span class="parameter">message</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
 
 
          (<em>optional</em>)
@@ -627,7 +629,7 @@ detached.
 
         </li>
         <li><span class="parameter">dcont</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
 
 
          (<em>optional</em>)
@@ -800,17 +802,17 @@ detached.
 
         </li>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
 
 
         </li>
         <li><span class="parameter">recipt</span>
-            <span class="types"><span class="type">x509</span></span>
+            <span class="types"><span class="type">openssl.x509</span></span>
 
 
         </li>
         <li><span class="parameter">dcount</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
          output object
          (<em>optional</em>)
         </li>
@@ -879,7 +881,7 @@ detached.
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">cmsbio</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
          bio returned by datainit
         </li>
     </ul>
@@ -961,11 +963,11 @@ detached.
          object to add signers to
         </li>
         <li><span class="parameter">signer</span>
-            <span class="types"><span class="type">x509</span></span>
+            <span class="types"><span class="type">openssl.x509</span></span>
          certificate for signing
         </li>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          private key for signing
         </li>
     </ul>
@@ -1117,11 +1119,11 @@ detached.
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">signcert</span>
-            <span class="types"><span class="type">x509</span></span>
+            <span class="types"><span class="type">openssl.x509</span></span>
          certificate to use for signing receipt
         </li>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          private key for signing
         </li>
         <li><span class="parameter">other</span>
@@ -1199,7 +1201,7 @@ detached.
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

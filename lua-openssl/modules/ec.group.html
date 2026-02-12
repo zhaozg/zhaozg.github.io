@@ -67,6 +67,8 @@
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><a href="../modules/provider.html">provider</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
@@ -102,7 +104,7 @@ enabling elliptic curve group mathematical operations similar to BIGNUM.</p>
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#new">new (curve, string, string)</a></td>
+	<td class="name" nowrap><a href="#new">new (curve[, form[, flag]])</a></td>
 	<td class="summary">Create EC group and generator point from curve specification</td>
 	</tr>
 	<tr>
@@ -240,7 +242,7 @@ enabling elliptic curve group mathematical operations similar to BIGNUM.</p>
     <dl class="function">
     <dt>
     <a name = "new"></a>
-    <strong>new (curve, string, string)</strong>
+    <strong>new (curve[, form[, flag]])</strong>
     </dt>
     <dd>
     Create EC group and generator point from curve specification
@@ -252,33 +254,63 @@ enabling elliptic curve group mathematical operations similar to BIGNUM.</p>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">number</span></span>
          curve specification (name, parameters, or NID)
         </li>
-        <li><span class="parameter">string</span>
-            <span class="types"><span class="type">[opt]</span></span>
-        |number flag asn1_flag
+        <li><span class="parameter">form</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+         point_conversion_form
+         (<em>optional</em>)
         </li>
-        <li><span class="parameter">string</span>
-            <span class="types"><span class="type">[opt]</span></span>
-        |number flag asn1_flag
+        <li><span class="parameter">flag</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+         asn1_flag
+         (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
+
+           <span class="types"><span class="type">openssl.ec_group</span></span>
+        the elliptic curve group
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.ec_point</span></span>
+        the generator point
+    </ol>
+     <h3>Or</h3>
+    <ol>
         <li>
-           <span class="types"><span class="type">ec_group</span></span>
-        the elliptic curve group</li>
+           <span class="types"><span class="type">nil</span></span>
+        on error</li>
         <li>
-           <span class="types"><span class="type">ec_point</span></span>
-        the generator point</li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         error message
+&mdash; @see OpenSSL function: EC_GROUP_new_by_curve_name
+&mdash; @see OpenSSL function: EC_GROUP_new_curve_GFp</li>
     </ol>
 
 
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">group = <span class="global">require</span>(<span class="string">'openssl'</span>).group
-g = group.<span class="function-name">new</span>(<span class="string">'prime256v1'</span>)
-g = group.<span class="function-name">new</span>(<span class="number">415</span>)  <span class="comment">-- NID for prime256v1</span></pre>
+        <pre class="example"><span class="keyword">local</span> group = <span class="global">require</span>(<span class="string">'openssl'</span>).group
+
+<span class="comment">-- Create group from curve name
+</span><span class="keyword">local</span> ec_group, generator = group.<span class="function-name">new</span>(<span class="string">'prime256v1'</span>)
+
+<span class="comment">-- Create group from NID
+</span><span class="keyword">local</span> ec_group2, generator2 = group.<span class="function-name">new</span>(<span class="number">415</span>)  <span class="comment">-- NID for prime256v1
+</span>
+<span class="comment">-- Create group with parameters
+</span><span class="keyword">local</span> ec_group3, generator3 = group.<span class="function-name">new</span>({
+  p = <span class="string">'0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF'</span>,
+  a = <span class="string">'0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFC'</span>,
+  b = <span class="string">'0x5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B'</span>,
+  order = <span class="string">'0xFFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551'</span>,
+  generator = <span class="string">'046B17D1F2E12C4247F8BCE6E563A440F277037D812DEB33A0F4A13945D898C2964FE342E2FE1A7F9B8EE7EB4A7C0F9E162BCE33576B315ECECBB6406837BF51F5'</span>,
+  cofactor = <span class="number">1</span>
+})</pre>
     </ul>
 
 </dd>
@@ -294,7 +326,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ec_group</span></span>
+           <span class="types"><span class="type">openssl.ec_group</span></span>
         duplicated elliptic curve group
     </ol>
 
@@ -314,7 +346,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ec_point</span></span>
+           <span class="types"><span class="type">openssl.ec_point</span></span>
         generator point of the curve
     </ol>
 
@@ -334,7 +366,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">bn</span></span>
+           <span class="types"><span class="type">openssl.bn</span></span>
         order of the group
     </ol>
 
@@ -354,7 +386,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">bn</span></span>
+           <span class="types"><span class="type">openssl.bn</span></span>
         cofactor of the group
     </ol>
 
@@ -425,7 +457,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
         current ASN1 flag (when getting)</li>
         <li>
-           <span class="types"><span class="type">ec_group</span></span>
+           <span class="types"><span class="type">openssl.ec_group</span></span>
         self (when setting)</li>
     </ol>
 
@@ -456,7 +488,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
         current conversion form (when getting)</li>
         <li>
-           <span class="types"><span class="type">ec_group</span></span>
+           <span class="types"><span class="type">openssl.ec_group</span></span>
         self (when setting)</li>
     </ol>
 
@@ -535,7 +567,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">other</span>
-            <span class="types"><span class="type">ec_group</span></span>
+            <span class="types"><span class="type">openssl.ec_group</span></span>
          EC group to compare
         </li>
     </ul>
@@ -563,7 +595,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ec_point</span></span>
+           <span class="types"><span class="type">openssl.ec_point</span></span>
         new elliptic curve point (at infinity)
     </ol>
 
@@ -582,7 +614,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">point</span>
-            <span class="types"><span class="type">ec_point</span></span>
+            <span class="types"><span class="type">openssl.ec_point</span></span>
          the EC point to duplicate
         </li>
     </ul>
@@ -590,7 +622,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ec_point</span></span>
+           <span class="types"><span class="type">openssl.ec_point</span></span>
         duplicated EC point
     </ol>
 
@@ -609,11 +641,11 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">a</span>
-            <span class="types"><span class="type">ec_point</span></span>
+            <span class="types"><span class="type">openssl.ec_point</span></span>
          first EC point
         </li>
         <li><span class="parameter">b</span>
-            <span class="types"><span class="type">ec_point</span></span>
+            <span class="types"><span class="type">openssl.ec_point</span></span>
          second EC point
         </li>
     </ul>
@@ -640,7 +672,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">point</span>
-            <span class="types"><span class="type">ec_point</span></span>
+            <span class="types"><span class="type">openssl.ec_point</span></span>
          the EC point
         </li>
         <li><span class="parameter">form</span>
@@ -699,7 +731,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">point</span>
-            <span class="types"><span class="type">ec_point</span></span>
+            <span class="types"><span class="type">openssl.ec_point</span></span>
          the EC point
         </li>
         <li><span class="parameter">form</span>
@@ -731,7 +763,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bn</span>
-            <span class="types"><span class="type">bn</span></span>
+            <span class="types"><span class="type">openssl.bn</span></span>
          the BIGNUM to convert
         </li>
     </ul>
@@ -758,7 +790,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">point</span>
-            <span class="types"><span class="type">ec_point</span></span>
+            <span class="types"><span class="type">openssl.ec_point</span></span>
          the EC point
         </li>
         <li><span class="parameter">form</span>
@@ -817,20 +849,20 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">group</span>
-            <span class="types"><span class="type">ec_group</span></span>
+            <span class="types"><span class="type">openssl.ec_group</span></span>
          the EC group
         </li>
         <li><span class="parameter">point</span>
-            <span class="types"><span class="type">ec_point</span></span>
+            <span class="types"><span class="type">openssl.ec_point</span></span>
          the EC point
         </li>
         <li><span class="parameter">x</span>
-            <span class="types"><span class="type">bn</span></span>
+            <span class="types"><span class="type">openssl.bn</span></span>
          x coordinate (for setting)
          (<em>optional</em>)
         </li>
         <li><span class="parameter">y</span>
-            <span class="types"><span class="type">bn</span></span>
+            <span class="types"><span class="type">openssl.bn</span></span>
          y coordinate (for setting)
          (<em>optional</em>)
         </li>
@@ -839,10 +871,10 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><span class="type">bn</span></span>
+           <span class="types"><span class="type">openssl.bn</span></span>
         x coordinate (when getting)</li>
         <li>
-           <span class="types"><span class="type">bn</span></span>
+           <span class="types"><span class="type">openssl.bn</span></span>
         y coordinate (when getting)</li>
     </ol>
 
@@ -861,7 +893,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">group</span>
-            <span class="types"><span class="type">ec_group</span></span>
+            <span class="types"><span class="type">openssl.ec_group</span></span>
          the EC group
         </li>
     </ul>
@@ -869,7 +901,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ec_point</span></span>
+           <span class="types"><span class="type">openssl.ec_point</span></span>
         self
     </ol>
 
@@ -888,7 +920,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">group</span>
-            <span class="types"><span class="type">ec_group</span></span>
+            <span class="types"><span class="type">openssl.ec_group</span></span>
          the EC group
         </li>
     </ul>
@@ -915,7 +947,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">group</span>
-            <span class="types"><span class="type">ec_group</span></span>
+            <span class="types"><span class="type">openssl.ec_group</span></span>
          the EC group
         </li>
     </ul>
@@ -942,15 +974,15 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">group</span>
-            <span class="types"><span class="type">ec_group</span></span>
+            <span class="types"><span class="type">openssl.ec_group</span></span>
          the EC group
         </li>
         <li><span class="parameter">a</span>
-            <span class="types"><span class="type">ec_point</span></span>
+            <span class="types"><span class="type">openssl.ec_point</span></span>
          first point
         </li>
         <li><span class="parameter">b</span>
-            <span class="types"><span class="type">ec_point</span></span>
+            <span class="types"><span class="type">openssl.ec_point</span></span>
          second point
         </li>
     </ul>
@@ -958,7 +990,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ec_point</span></span>
+           <span class="types"><span class="type">openssl.ec_point</span></span>
         result point (a + b)
     </ol>
 
@@ -977,7 +1009,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">group</span>
-            <span class="types"><span class="type">ec_group</span></span>
+            <span class="types"><span class="type">openssl.ec_group</span></span>
          the EC group
         </li>
     </ul>
@@ -985,7 +1017,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ec_point</span></span>
+           <span class="types"><span class="type">openssl.ec_point</span></span>
         result point (2 * point)
     </ol>
 
@@ -1004,7 +1036,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">group</span>
-            <span class="types"><span class="type">ec_group</span></span>
+            <span class="types"><span class="type">openssl.ec_group</span></span>
          the EC group
         </li>
     </ul>
@@ -1012,7 +1044,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ec_point</span></span>
+           <span class="types"><span class="type">openssl.ec_point</span></span>
         self (inverted)
     </ol>
 
@@ -1031,7 +1063,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">group</span>
-            <span class="types"><span class="type">ec_group</span></span>
+            <span class="types"><span class="type">openssl.ec_group</span></span>
          the EC group
         </li>
         <li><span class="parameter">n</span>
@@ -1039,12 +1071,12 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
          scalar multiplier
         </li>
         <li><span class="parameter">q</span>
-            <span class="types"><span class="type">ec_point</span></span>
+            <span class="types"><span class="type">openssl.ec_point</span></span>
          optional point for double scalar multiplication
          (<em>optional</em>)
         </li>
         <li><span class="parameter">m</span>
-            <span class="types"><span class="type">bn</span></span>
+            <span class="types"><span class="type">openssl.bn</span></span>
          optional second scalar for double scalar multiplication
          (<em>optional</em>)
         </li>
@@ -1053,7 +1085,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ec_point</span></span>
+           <span class="types"><span class="type">openssl.ec_point</span></span>
         result point (n <em> point) or (n </em> point + m * q)
     </ol>
 
@@ -1108,7 +1140,7 @@ g = group.<span class="function-name">new</span>(<span class="number">415</span>
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

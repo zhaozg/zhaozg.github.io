@@ -68,6 +68,8 @@
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><a href="../modules/provider.html">provider</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
@@ -167,7 +169,7 @@ format.</p>
 	<td class="summary">get updateTime time</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#x509_crl:updateTime">x509_crl:updateTime ([default=os.time()], period)</a></td>
+	<td class="name" nowrap><a href="#x509_crl:updateTime">x509_crl:updateTime ([lastUpdate=os.time()], period)</a></td>
 	<td class="summary">set updateTime time</td>
 	</tr>
 	<tr>
@@ -285,12 +287,12 @@ object.
          (<em>optional</em>)
         </li>
         <li><span class="parameter">cacert</span>
-            <span class="types"><span class="type">x509</span></span>
+            <span class="types"><span class="type">openssl.x509</span></span>
          ca cert to sign x509_crl
          (<em>optional</em>)
         </li>
         <li><span class="parameter">capkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          private key to sign x509_crl
          (<em>optional</em>)
         </li>
@@ -310,15 +312,12 @@ object.
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">x509_crl</span></span>
+           <span class="types"><span class="type">openssl.x509_crl</span></span>
         object
+&mdash; @see openssl/x509.h:X509_CRL_
     </ol>
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../modules/x509.crl.html#x509_crl">x509_crl</a>
-    </ul>
 
 
 </dd>
@@ -346,15 +345,12 @@ object.
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">x509_crl</span></span>
+           <span class="types"><span class="type">openssl.x509_crl</span></span>
         certificate sign request object
+&mdash; @see openssl/x509.h:X509_CRL_
     </ol>
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../modules/x509.crl.html#x509_crl">x509_crl</a>
-    </ul>
 
 
 </dd>
@@ -666,7 +662,7 @@ object.
 </dd>
     <dt>
     <a name = "x509_crl:updateTime"></a>
-    <strong>x509_crl:updateTime ([default=os.time()], period)</strong>
+    <strong>x509_crl:updateTime ([lastUpdate=os.time()], period)</strong>
     </dt>
     <dd>
     set updateTime time
@@ -674,9 +670,9 @@ object.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">default</span>
-            <span class="types"><a class="type" href="../modules/x509.crl.html#x509_crl:lastUpdate">lastUpdate,</a></span>
-         use current time
+        <li><span class="parameter">lastUpdate</span>
+            <span class="types"><span class="type">integer</span></span>
+         default use current time
          (<em>default</em> os.time())
         </li>
         <li><span class="parameter">period</span>
@@ -754,7 +750,7 @@ object.
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          private key to sign x509
         </li>
         <li><span class="parameter">cacert</span>
@@ -819,7 +815,7 @@ object.
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">other</span>
-            <span class="types"><span class="type">x509_crl</span></span>
+            <span class="types"><span class="type">openssl.x509_crl</span></span>
 
 
         </li>
@@ -851,12 +847,12 @@ object.
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">newer</span>
-            <span class="types"><span class="type">x509_crl</span></span>
+            <span class="types"><span class="type">openssl.x509_crl</span></span>
 
 
         </li>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
 
 
         </li>
@@ -877,7 +873,7 @@ object.
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">x509_crl</span></span>
+           <span class="types"><span class="type">openssl.x509_crl</span></span>
         delta result x509_crl object
     </ol>
 
@@ -1084,7 +1080,7 @@ object.
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><span class="type">bn</span></span>
+           <span class="types"><span class="type">openssl.bn</span></span>
         serial number as bignum</li>
         <li>
            <span class="types"><span class="type">asn1_integer</span></span>
@@ -1122,7 +1118,7 @@ object.
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

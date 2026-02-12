@@ -68,6 +68,8 @@
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><a href="../modules/provider.html">provider</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
@@ -183,20 +185,12 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
 	<td class="summary">get digest of x509 object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#x509:notbefore">x509:notbefore ()</a></td>
-	<td class="summary">get notbefore valid time of x509</td>
+	<td class="name" nowrap><a href="#x509:notbefore">x509:notbefore ([notbefore])</a></td>
+	<td class="summary">get or set notbefore valid time of x509</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#x509:notbefore">x509:notbefore (notbefore)</a></td>
-	<td class="summary">set notbefore valid time of x509</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#x509:notafter">x509:notafter ()</a></td>
-	<td class="summary">get notafter valid time of x509</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#x509:notafter">x509:notafter (notafter)</a></td>
-	<td class="summary">set notafter valid time of x509</td>
+	<td class="name" nowrap><a href="#x509:notafter">x509:notafter ([notafter])</a></td>
+	<td class="summary">get or set notafter valid time of x509</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#x509:validat">x509:validat ([time])</a></td>
@@ -363,7 +357,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/x509.html#x509">x509</a></span>
+           <span class="types"><span class="type">openssl.x509</span></span>
         certificate object
     </ol>
 
@@ -387,8 +381,8 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
          (<em>optional</em>)
         </li>
         <li><span class="parameter">csr</span>
-            <span class="types"><a class="type" href="../modules/x509.html#x509">x509_req</a></span>
-        ,copy x509_name, pubkey and extension to new object
+            <span class="types"><span class="type">openssl.x509_req</span></span>
+         copy x509_name, pubkey and extension to new object
          (<em>optional</em>)
         </li>
         <li><span class="parameter">subject</span>
@@ -411,7 +405,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/x509.html#x509">x509</a></span>
+           <span class="types"><span class="type">openssl.x509</span></span>
         certificate object
     </ol>
 
@@ -438,7 +432,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <ul>
         <li><span class="parameter">format</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        , &lsquo;der&rsquo; or &lsquo;pem&rsquo; default
+         &lsquo;der&rsquo; or &lsquo;pem&rsquo; default
          (<em>default</em> 'pem')
         </li>
     </ul>
@@ -495,7 +489,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">evp_pkey</span></span>
+           <span class="types"><span class="type">openssl.evp_pkey</span></span>
         public key
     </ol>
 
@@ -514,7 +508,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">pubkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          public key set to x509
         </li>
     </ul>
@@ -564,14 +558,11 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
         result true for check pass</li>
         <li>
            <span class="types"><span class="type">integer</span></span>
-        verify result</li>
+        verify result
+&mdash; @see OpenSSL function: X509_verify_cert_error_string</li>
     </ol>
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../modules/x509.html#verify_cert_error_string">verify_cert_error_string</a>
-    </ul>
 
 
 </dd>
@@ -586,7 +577,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          private key witch match with x509 pubkey
         </li>
     </ul>
@@ -695,7 +686,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/x509.html#x509">x509_name</a></span>
+           <span class="types"><span class="type">openssl.x509_name</span></span>
         subject name
     </ol>
 
@@ -714,7 +705,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">subject</span>
-            <span class="types"><a class="type" href="../modules/x509.html#x509">x509_name</a></span>
+            <span class="types"><span class="type">openssl.x509_name</span></span>
 
 
         </li>
@@ -743,7 +734,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <ul>
         <li><span class="parameter">asobject</span>
             <span class="types"><span class="type">boolean</span></span>
-        , true for return as x509_name object, or as table
+         true for return as x509_name object, or as table
          (<em>default</em> false)
         </li>
     </ul>
@@ -773,7 +764,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="../modules/x509.html#x509">x509_name</a></span>
+            <span class="types"><span class="type">openssl.x509_name</span></span>
 
 
         </li>
@@ -802,7 +793,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <ul>
         <li><span class="parameter">md_alg</span>
             <span class="types"><span class="type">evp_digest</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        , default use &lsquo;sha1&rsquo;
+         default use &lsquo;sha1&rsquo;
          (<em>default</em> 'sha1')
         </li>
     </ul>
@@ -820,60 +811,41 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
 </dd>
     <dt>
     <a name = "x509:notbefore"></a>
-    <strong>x509:notbefore ()</strong>
+    <strong>x509:notbefore ([notbefore])</strong>
     </dt>
     <dd>
-    get notbefore valid time of x509
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        notbefore time string
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "x509:notbefore"></a>
-    <strong>x509:notbefore (notbefore)</strong>
-    </dt>
-    <dd>
-    set notbefore valid time of x509
+    get or set notbefore valid time of x509
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">notbefore</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
-
-
+         time to set (optional)
+         (<em>optional</em>)
         </li>
     </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "x509:notafter"></a>
-    <strong>x509:notafter ()</strong>
-    </dt>
-    <dd>
-    get notafter valid time of x509
-
-
 
     <h3>Returns:</h3>
     <ol>
 
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        notafter time string
+        notbefore time string when getting
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true when setting successfully
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+        when error occurs</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        error message when error occurs</li>
     </ol>
 
 
@@ -882,21 +854,42 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
 </dd>
     <dt>
     <a name = "x509:notafter"></a>
-    <strong>x509:notafter (notafter)</strong>
+    <strong>x509:notafter ([notafter])</strong>
     </dt>
     <dd>
-    set notafter valid time of x509
+    get or set notafter valid time of x509
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">notafter</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
-
-
+         time to set (optional)
+         (<em>optional</em>)
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        notafter time string when getting
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true when setting successfully
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+        when error occurs</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        error message when error occurs</li>
+    </ol>
 
 
 
@@ -914,7 +907,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <ul>
         <li><span class="parameter">time</span>
             <span class="types"><span class="type">number</span></span>
-        , default will use now time
+         default will use now time
          (<em>optional</em>)
         </li>
     </ul>
@@ -990,7 +983,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">bn</span></span>
+           <span class="types"><span class="type">openssl.bn</span></span>
         object
     </ol>
      <h3>Or</h3>
@@ -1153,7 +1146,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          private key to sign x509
         </li>
         <li><span class="parameter">cacert</span>
@@ -1218,7 +1211,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">other</span>
-            <span class="types"><a class="type" href="../modules/x509.html#x509">x509</a></span>
+            <span class="types"><span class="type">openssl.x509</span></span>
          X509 certificate to compare with
         </li>
     </ul>
@@ -1241,7 +1234,7 @@ purpose can be one of: ssl_client, ssl_server, ns_ssl_server, smime_sign, smime_
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

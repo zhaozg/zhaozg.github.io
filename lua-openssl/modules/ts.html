@@ -71,6 +71,8 @@
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><a href="../modules/provider.html">provider</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
@@ -364,8 +366,8 @@ is to provide long term proof of the existence of a certain datum before a parti
 	<td class="summary">set clock_precision_digits</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#ts_resp_ctx:flags">ts_resp_ctx:flags ()</a></td>
-	<td class="summary">get flags</td>
+	<td class="name" nowrap><a href="#ts_resp_ctx:add_flags">ts_resp_ctx:add_flags (flags)</a></td>
+	<td class="summary">add flags to TS response context</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ts_resp_ctx:md">ts_resp_ctx:md (mds)</a></td>
@@ -384,11 +386,11 @@ is to provide long term proof of the existence of a certain datum before a parti
 	<td class="summary">get ts_req object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#ts_resp_ctx:set_serial_cb">ts_resp_ctx:set_serial_cb (serial_cb)</a></td>
+	<td class="name" nowrap><a href="#ts_resp_ctx:set_serial_cb">ts_resp_ctx:set_serial_cb (serial_cb[, arg])</a></td>
 	<td class="summary">set serial generate callback function</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#ts_resp_ctx:set_time_cb">ts_resp_ctx:set_time_cb (time_cb)</a></td>
+	<td class="name" nowrap><a href="#ts_resp_ctx:set_time_cb">ts_resp_ctx:set_time_cb (time_cb[, arg])</a></td>
 	<td class="summary">set time callback function</td>
 	</tr>
 </table>
@@ -448,7 +450,7 @@ is to provide long term proof of the existence of a certain datum before a parti
         </li>
         <li><span class="parameter">alg</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">integer</span> or <span class="type">asn1_object</span></span>
-         name, nid or object identity
+         alg name, nid or object identity
         </li>
     </ul>
 
@@ -1065,15 +1067,12 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ts_req</span></span>
+           <span class="types"><span class="type">openssl.ts_req</span></span>
         timestamp sign request object
+&mdash; @see openssl/ts.h:TS_REQ_
     </ol>
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../modules/ts.html#ts_req">ts_req</a>
-    </ul>
 
 
 </dd>
@@ -1097,15 +1096,12 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ts_req</span></span>
+           <span class="types"><span class="type">openssl.ts_req</span></span>
         timestamp sign request object
+&mdash; @see openssl/ts.h:TS_REQ_
     </ol>
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../modules/ts.html#ts_req">ts_req</a>
-    </ul>
 
 
 </dd>
@@ -1129,7 +1125,7 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ts_resp</span></span>
+           <span class="types"><span class="type">openssl.ts_resp</span></span>
         object
     </ol>
 
@@ -1148,11 +1144,11 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">signer</span>
-            <span class="types"><span class="type">x509</span></span>
+            <span class="types"><span class="type">openssl.x509</span></span>
          timestamp certificate
         </li>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          private key to sign ts_req
         </li>
         <li><span class="parameter">identity</span>
@@ -1164,7 +1160,7 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ts_resp_ctx</span></span>
+           <span class="types"><span class="type">openssl.ts_resp_ctx</span></span>
         object
     </ol>
 
@@ -1220,7 +1216,7 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ts_req</span></span>
+           <span class="types"><span class="type">openssl.ts_req</span></span>
 
 
     </ol>
@@ -1289,7 +1285,7 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">bn</span></span>
+           <span class="types"><span class="type">openssl.bn</span></span>
         openssl.bn object
     </ol>
 
@@ -1591,7 +1587,7 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ts_resp</span></span>
+           <span class="types"><span class="type">openssl.ts_resp</span></span>
         object
     </ol>
 
@@ -1716,7 +1712,7 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ts_resp</span></span>
+           <span class="types"><span class="type">openssl.ts_resp</span></span>
         result
     </ol>
 
@@ -1743,7 +1739,7 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">ts_resp</span></span>
+           <span class="types"><span class="type">openssl.ts_resp</span></span>
         result
     </ol>
 
@@ -1763,10 +1759,10 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><span class="type">x509</span></span>
+           <span class="types"><span class="type">openssl.x509</span></span>
         cert object or nil</li>
         <li>
-           <span class="types"><span class="type">evp_pkey</span></span>
+           <span class="types"><span class="type">openssl.evp_pkey</span></span>
         pkey object or nil</li>
     </ol>
 
@@ -1785,11 +1781,11 @@ is to provide long term proof of the existence of a certain datum before a parti
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">cert</span>
-            <span class="types"><span class="type">x509</span></span>
+            <span class="types"><span class="type">openssl.x509</span></span>
          signer cert
         </li>
         <li><span class="parameter">pkey</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          signer pkey
         </li>
     </ul>
@@ -2001,14 +1997,27 @@ is to provide long term proof of the existence of a certain datum before a parti
 
 </dd>
     <dt>
-    <a name = "ts_resp_ctx:flags"></a>
-    <strong>ts_resp_ctx:flags ()</strong>
+    <a name = "ts_resp_ctx:add_flags"></a>
+    <strong>ts_resp_ctx:add_flags (flags)</strong>
     </dt>
     <dd>
-    get flags
+    add flags to TS response context
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">number</span></span>
+         flags to add
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        always returns nil
+    </ol>
 
 
 
@@ -2120,7 +2129,7 @@ is to provide long term proof of the existence of a certain datum before a parti
 </dd>
     <dt>
     <a name = "ts_resp_ctx:set_serial_cb"></a>
-    <strong>ts_resp_ctx:set_serial_cb (serial_cb)</strong>
+    <strong>ts_resp_ctx:set_serial_cb (serial_cb[, arg])</strong>
     </dt>
     <dd>
     set serial generate callback function
@@ -2132,8 +2141,19 @@ is to provide long term proof of the existence of a certain datum before a parti
             <span class="types"><span class="type">function</span></span>
          serial_cb with proto funciont(ts_resp_ctx, arg) return openssl.bn end
         </li>
+        <li><span class="parameter">arg</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         optional argument passed to callback
+         (<em>optional</em>)
+        </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        always returns nil
+    </ol>
 
 
 
@@ -2150,7 +2170,7 @@ ts_resp_ctx:<span class="function-name">set_serial_cb</span>(serial_cb, arg)</pr
 </dd>
     <dt>
     <a name = "ts_resp_ctx:set_time_cb"></a>
-    <strong>ts_resp_ctx:set_time_cb (time_cb)</strong>
+    <strong>ts_resp_ctx:set_time_cb (time_cb[, arg])</strong>
     </dt>
     <dd>
     set time callback function
@@ -2162,8 +2182,19 @@ ts_resp_ctx:<span class="function-name">set_serial_cb</span>(serial_cb, arg)</pr
             <span class="types"><span class="type">function</span></span>
          serial_cb with proto funciont(ts_resp_ctx, arg) return sec, usec end
         </li>
+        <li><span class="parameter">arg</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         optional argument passed to callback
+         (<em>optional</em>)
+        </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        always returns nil
+    </ol>
 
 
 
@@ -2279,7 +2310,7 @@ ts_resp_ctx:<span class="function-name">set_time_cb</span>(time_cb, arg)</pre>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">data</span>
-            <span class="types"><span class="type">bio</span></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
          object
         </li>
     </ul>
@@ -2378,7 +2409,7 @@ ts_resp_ctx:<span class="function-name">set_time_cb</span>(time_cb, arg)</pre>
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

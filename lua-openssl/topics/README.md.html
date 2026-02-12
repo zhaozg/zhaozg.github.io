@@ -77,6 +77,8 @@
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><a href="../modules/provider.html">provider</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
@@ -188,11 +190,13 @@ make things easy to use OpenSSL.</p>
 &ndash; pkcs7/cms: PKCS7/CMS format handling
 &ndash; bio: memory/file/network data streams
 &ndash; ssl: SSL/TLS protocol support
-&ndash; hmac: HMAC authentication</p>
+&ndash; hmac: HMAC authentication
+&ndash; kdf: key derivation functions (pbkdf2, hkdf, scrypt, etc.) &ndash; see <a href="./docs/KDF_USAGE.md">KDF_USAGE.md</a></p>
 
 <pre>
    <span class="keyword">local</span> digest = <span class="global">require</span><span class="string">'openssl'</span>.digest
    <span class="keyword">local</span> cipher = <span class="global">require</span><span class="string">'openssl'</span>.cipher
+   <span class="keyword">local</span> kdf = <span class="global">require</span><span class="string">'openssl'</span>.kdf
 </pre>
 
 
@@ -409,19 +413,37 @@ this is very useful to free memory when lua-openssl repeat calls or run long tim
 <h3>Example 1: short encrypt/decrypt</h3>
 
 <pre>
-<span class="keyword">local</span> evp_cipher = openssl.cipher.<span class="function-name">get</span>(<span class="string">'des'</span>)
-m = <span class="string">'abcdefghick'</span>
-key = m
-cdata = evp_cipher:<span class="function-name">encrypt</span>(m,key)
-m1  = evp_cipher:<span class="function-name">decrypt</span>(cdata,key)
-<span class="global">assert</span>(m==m1)
+<span class="keyword">local</span> openssl = <span class="global">require</span>(<span class="string">'openssl'</span>)
+<span class="keyword">local</span> evp_cipher = openssl.cipher.<span class="function-name">get</span>(<span class="string">'aes-128-cbc'</span>)
+
+<span class="comment">-- Note: Use AES instead of DES as DES is disabled by default in OpenSSL 3.x
+</span><span class="keyword">local</span> msg = <span class="string">'abcdefghick'</span>
+<span class="keyword">local</span> key = <span class="string">'1234567890123456'</span>  <span class="comment">-- 16 bytes for AES-128
+</span><span class="keyword">local</span> iv = <span class="string">'1234567890123456'</span>   <span class="comment">-- 16 bytes IV
+</span>
+<span class="comment">-- Encrypt with error handling
+</span><span class="keyword">local</span> cdata, err = evp_cipher:<span class="function-name">encrypt</span>(msg, key, iv)
+<span class="keyword">if</span> <span class="keyword">not</span> cdata <span class="keyword">then</span>
+  <span class="global">print</span>(<span class="string">"Encryption failed: "</span> .. (err <span class="keyword">or</span> <span class="string">"unknown error"</span>))
+  <span class="keyword">return</span>
+<span class="keyword">end</span>
+
+<span class="comment">-- Decrypt with error handling
+</span><span class="keyword">local</span> decrypted, err = evp_cipher:<span class="function-name">decrypt</span>(cdata, key, iv)
+<span class="keyword">if</span> <span class="keyword">not</span> decrypted <span class="keyword">then</span>
+  <span class="global">print</span>(<span class="string">"Decryption failed: "</span> .. (err <span class="keyword">or</span> <span class="string">"unknown error"</span>))
+  <span class="keyword">return</span>
+<span class="keyword">end</span>
+
+<span class="global">assert</span>(msg == decrypted)
 </pre>
 
 
 <h3>Example 2: quick evp_digest</h3>
 
 <pre>
-md = openssl.digest.<span class="function-name">get</span>(<span class="string">'md5'</span>)
+<span class="keyword">local</span> alg = <span class="string">'sha256'</span>
+md = openssl.digest.<span class="function-name">get</span>(alg)
 m = <span class="string">'abcd'</span>
 aa = md:<span class="function-name">digest</span>(m)
 
@@ -618,7 +640,95 @@ r = r .. <span class="global">assert</span>(e:<span class="function-name">final<
 </pre>
 
 
-<p>For more examples, please see test lua script file.</p>
+<h3>Example 9: Ed25519 digital signatures</h3>
+
+<pre>
+<span class="keyword">local</span> openssl = <span class="global">require</span>(<span class="string">'openssl'</span>)
+<span class="keyword">local</span> pkey = openssl.pkey
+
+<span class="comment">-- Generate Ed25519 key pair
+</span><span class="keyword">local</span> ctx = pkey.<span class="function-name">ctx_new</span>(<span class="string">"ED25519"</span>)
+<span class="keyword">local</span> key = ctx:<span class="function-name">keygen</span>()
+
+<span class="comment">-- Sign a message
+</span><span class="keyword">local</span> message = <span class="string">"Hello, world!"</span>
+<span class="keyword">local</span> signature = pkey.<span class="function-name">sign</span>(key, message)
+
+<span class="comment">-- Verify the signature
+</span><span class="keyword">local</span> verified = pkey.<span class="function-name">verify</span>(key, message, signature)
+<span class="global">print</span>(<span class="string">"Signature verified:"</span>, verified)  <span class="comment">-- true
+</span>
+<span class="comment">-- Export and import keys
+</span><span class="keyword">local</span> pem = key:<span class="function-name">export</span>(<span class="string">"pem"</span>)
+<span class="keyword">local</span> imported_key = pkey.<span class="function-name">read</span>(pem, <span class="keyword">true</span>, <span class="string">"pem"</span>)
+<span class="global">print</span>(<span class="string">"Key successfully imported"</span>)
+</pre>
+
+
+<h3>Example 10: X25519 key exchange</h3>
+
+<pre>
+<span class="keyword">local</span> openssl = <span class="global">require</span>(<span class="string">'openssl'</span>)
+<span class="keyword">local</span> pkey = openssl.pkey
+
+<span class="comment">-- Alice and Bob each generate a key pair
+</span><span class="keyword">local</span> alice = pkey.<span class="function-name">ctx_new</span>(<span class="string">"X25519"</span>):<span class="function-name">keygen</span>()
+<span class="keyword">local</span> bob = pkey.<span class="function-name">ctx_new</span>(<span class="string">"X25519"</span>):<span class="function-name">keygen</span>()
+
+<span class="comment">-- Alice derives shared secret using Bob's public key
+</span><span class="keyword">local</span> alice_secret = alice:<span class="function-name">derive</span>(bob)
+
+<span class="comment">-- Bob derives shared secret using Alice's public key
+</span><span class="keyword">local</span> bob_secret = bob:<span class="function-name">derive</span>(alice)
+
+<span class="comment">-- Both secrets should be identical
+</span><span class="global">assert</span>(alice_secret == bob_secret)
+<span class="global">print</span>(<span class="string">"Shared secret established:"</span>, openssl.<span class="function-name">hex</span>(alice_secret))
+</pre>
+
+
+<h3>Example 11: ChaCha20-Poly1305 AEAD encryption</h3>
+
+<pre>
+<span class="keyword">local</span> openssl = <span class="global">require</span>(<span class="string">'openssl'</span>)
+<span class="keyword">local</span> cipher = openssl.cipher
+
+<span class="comment">-- Get ChaCha20-Poly1305 cipher
+</span><span class="keyword">local</span> cc20 = cipher.<span class="function-name">get</span>(<span class="string">"chacha20-poly1305"</span>)
+
+<span class="comment">-- Prepare key and nonce
+</span><span class="keyword">local</span> key = <span class="global">string</span>.<span class="function-name">rep</span>(<span class="string">"k"</span>, <span class="number">32</span>)  <span class="comment">-- 256-bit key
+</span><span class="keyword">local</span> nonce = <span class="global">string</span>.<span class="function-name">rep</span>(<span class="string">"n"</span>, <span class="number">12</span>) <span class="comment">-- 96-bit nonce
+</span><span class="keyword">local</span> message = <span class="string">"Secret message"</span>
+<span class="keyword">local</span> aad = <span class="string">"Additional authenticated data"</span>
+
+<span class="comment">-- Encrypt with AAD
+</span><span class="keyword">local</span> enc = cc20:<span class="function-name">encrypt_new</span>()
+enc:<span class="function-name">ctrl</span>(openssl.cipher.EVP_CTRL_GCM_SET_IVLEN, #nonce)
+enc:<span class="function-name">init</span>(key, nonce)
+enc:<span class="function-name">update</span>(aad, <span class="keyword">true</span>)  <span class="comment">-- Set AAD
+</span><span class="keyword">local</span> ciphertext = enc:<span class="function-name">update</span>(message) .. enc:<span class="function-name">final</span>()
+<span class="keyword">local</span> tag = enc:<span class="function-name">ctrl</span>(openssl.cipher.EVP_CTRL_GCM_GET_TAG, <span class="number">16</span>)
+
+<span class="comment">-- Decrypt with AAD
+</span><span class="keyword">local</span> dec = cc20:<span class="function-name">decrypt_new</span>()
+dec:<span class="function-name">ctrl</span>(openssl.cipher.EVP_CTRL_GCM_SET_IVLEN, #nonce)
+dec:<span class="function-name">init</span>(key, nonce)
+dec:<span class="function-name">ctrl</span>(openssl.cipher.EVP_CTRL_GCM_SET_TAG, tag)
+dec:<span class="function-name">update</span>(aad, <span class="keyword">true</span>)  <span class="comment">-- Set AAD
+</span><span class="keyword">local</span> plaintext = dec:<span class="function-name">update</span>(ciphertext) .. dec:<span class="function-name">final</span>()
+
+<span class="global">assert</span>(plaintext == message)
+<span class="global">print</span>(<span class="string">"Decrypted:"</span>, plaintext)
+</pre>
+
+
+<p>For more examples, please see test lua script files:
+&ndash; <code>test/eddsa.lua</code> &ndash; Ed25519/Ed448 digital signatures
+&ndash; <code>test/xecdh.lua</code> &ndash; X25519/X448 key exchange
+&ndash; <code>test/chacha20.lua</code> &ndash; ChaCha20-Poly1305 AEAD encryption
+&ndash; <code>test/2.kdf.lua</code> &ndash; Key derivation functions (PBKDF2, HKDF, SCRYPT)
+&ndash; <code>test/2.param.lua</code> &ndash; OSSL_PARAM API usage</p>
 
 <hr />
 
@@ -641,7 +751,7 @@ r = r .. <span class="global">assert</span>(e:<span class="function-name">final<
 
 <p><strong><em>lua-openssl License</em></strong></p>
 
-<p>Copyright &copy; 2011 &ndash; 2025 zhaozg, zhaozg(at)gmail.com</p>
+<p>Copyright &copy; 2011 &ndash; 2026 zhaozg, zhaozg(at)gmail.com</p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &ldquo;Software&rdquo;), to
@@ -668,7 +778,7 @@ THE SOFTWARE.</p>
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

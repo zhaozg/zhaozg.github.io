@@ -68,6 +68,8 @@
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><a href="../modules/provider.html">provider</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
@@ -103,8 +105,11 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#mem">mem ([data=nil])</a></td>
-	<td class="summary">make string as bio object</td>
+	<td class="name" nowrap><a href="#mem">mem ([data])</a></td>
+	<td class="summary">/***
+create memory BIO object</p>
+
+<p>Creates a memory BIO that can be used for input or output operations.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#pair">pair ([buffer1=0[, buffer2=buffer1]])</a></td>
@@ -274,7 +279,7 @@
 	<td class="summary">return pending length of bytes to read and write</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#bio:close">bio:close ()</a></td>
+	<td class="name" nowrap><a href="#bio:close">bio:close ([free_all=false])</a></td>
 	<td class="summary">close bio</td>
 	</tr>
 </table>
@@ -288,30 +293,57 @@
     <dl class="function">
     <dt>
     <a name = "mem"></a>
-    <strong>mem ([data=nil])</strong>
+    <strong>mem ([data])</strong>
     </dt>
     <dd>
-    make string as bio object
+    /***
+create memory BIO object</p>
+
+<p>Creates a memory BIO that can be used for input or output operations.
+If a string is provided, it will be written to the BIO as initial data.
+If a number is provided, it sets the buffer size.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">data</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        , it will be memory buffer data
-         (<em>default</em> nil)
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">number</span></span>
+         optional initial data string or buffer size
+         (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
-        it can be input or output object
+           <span class="types"><span class="type">openssl.bio</span></span>
+        memory BIO object on success
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+        on error</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         error message
+&mdash; @see OpenSSL function: BIO_new_mem_buf
+&mdash; @see OpenSSL function: BIO_s_mem</li>
     </ol>
 
 
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="comment">-- Create empty memory BIO
+</span><span class="keyword">local</span> bio1 = bio.<span class="function-name">mem</span>()
+
+<span class="comment">-- Create memory BIO with initial data
+</span><span class="keyword">local</span> bio2 = bio.<span class="function-name">mem</span>(<span class="string">"initial data"</span>)
+
+<span class="comment">-- Create memory BIO with specific buffer size
+</span><span class="keyword">local</span> bio3 = bio.<span class="function-name">mem</span>(<span class="number">4096</span>)  <span class="comment">-- 4KB buffer</span></pre>
+    </ul>
 
 </dd>
     <dt>
@@ -1083,12 +1115,24 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">toremove</span>
-            <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
+            <span class="types"><span class="type">openssl.bio</span></span>
 
 
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.bio</span></span>
+        removed bio object
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        if no bio was removed
+    </ol>
 
 
 
@@ -1204,8 +1248,8 @@
      <h3>Or</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
-        accpeted bio object
+           <span class="types"><span class="type">openssl.bio</span></span>
+        accepted bio object
     </ol>
 
 
@@ -1221,6 +1265,12 @@
 
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/bio.html#bio">bio</a></span>
+        returns self for method chaining
+    </ol>
 
 
 
@@ -1433,13 +1483,27 @@
 </dd>
     <dt>
     <a name = "bio:close"></a>
-    <strong>bio:close ()</strong>
+    <strong>bio:close ([free_all=false])</strong>
     </dt>
     <dd>
     close bio
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">free_all</span>
+            <span class="types"><span class="type">boolean</span></span>
+         if true, free entire BIO chain; if false, free only this BIO
+         (<em>default</em> false)
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        always returns 0
+    </ol>
 
 
 
@@ -1452,7 +1516,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

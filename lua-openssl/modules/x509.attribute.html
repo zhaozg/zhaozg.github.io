@@ -69,6 +69,8 @@
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><a href="../modules/provider.html">provider</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
@@ -174,23 +176,38 @@
     <ul>
         <li><span class="parameter">attribute</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         with object, type and value
+         attribute table with object, type and value fields
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">x509_attribute</span></span>
-        mapping to X509_ATTRIBUTE in openssl
+           <span class="types"><span class="type">openssl.x509_attribute</span></span>
+        X509_ATTRIBUTE object on success
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+        on error</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         error message
+&mdash; @see openssl/x509.h:X509_ATTRIBUTE_
+&mdash; @see OpenSSL function: X509_ATTRIBUTE_new</li>
     </ol>
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../modules/x509.attribute.html#x509_attribute_param_table">x509_attribute_param_table</a>
-    </ul>
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> attr = x509.attribute.<span class="function-name">new_attribute</span>({
+  object = <span class="string">'1.2.3.4.5'</span>,
+  <span class="global">type</span> = <span class="string">'utf8'</span>,
+  value = <span class="string">'test value'</span>
+})</pre>
+    </ul>
 
 </dd>
 </dl>
@@ -209,15 +226,15 @@
     <ul>
         <li><span class="parameter">object</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">integer</span> or <span class="type">asn1_object</span></span>
-        , identify a asn1_object
+         identify a asn1_object
         </li>
         <li><span class="parameter">type</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">integer</span></span>
-        , same with type in asn1.new_string
+         same with type in asn1.new_string
         </li>
         <li><span class="parameter">value</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">asn1_object</span></span>
-        , value of attribute
+         value of attribute
         </li>
     </ul>
 
@@ -246,15 +263,15 @@
     <ul>
         <li><span class="parameter">value</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        , value data
+         value data
         </li>
         <li><span class="parameter">type</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        , type of value
+         type of value
         </li>
         <li><span class="parameter">format</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        , value is &lsquo;der&rsquo;, only exist when type is not in &lsquo;bit&rsquo;,&lsquo;bmp&rsquo;,&lsquo;octet&rsquo;
+         value is &lsquo;der&rsquo;, only exist when type is not in &lsquo;bit&rsquo;,&lsquo;bmp&rsquo;,&lsquo;octet&rsquo;
         </li>
     </ul>
 
@@ -312,14 +329,11 @@
     <ol>
 
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        info,  x509_attribute infomation as table
+        info x509_attribute infomation as table
+&mdash; @see OpenSSL function: X509_ATTRIBUTE_get0_type
     </ol>
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../modules/x509.attribute.html#x509_attribute_info_table">x509_attribute_info_table</a>
-    </ul>
 
 
 </dd>
@@ -427,17 +441,14 @@
     <ol>
         <li>
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        asn1_type, asn1_type as table info</li>
+        asn1_type asn1_type as table info</li>
         <li>
            <span class="types"><span class="type">nil</span></span>
-        nil, fail return nothing</li>
+        nil, fail return nothing
+&mdash; @see openssl/asn1.h:ASN1_TYPE_</li>
     </ol>
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../modules/x509.attribute.html#asn1_type_table">asn1_type_table</a>
-    </ul>
 
 
 </dd>
@@ -453,7 +464,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">asn1_object</span></span>
+           <span class="types"><span class="type">openssl.asn1_object</span></span>
         object of x509_attribute
     </ol>
 
@@ -472,7 +483,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">obj</span>
-            <span class="types"><span class="type">asn1_object</span></span>
+            <span class="types"><span class="type">openssl.asn1_object</span></span>
 
 
         </li>
@@ -498,7 +509,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

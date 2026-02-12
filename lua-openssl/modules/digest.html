@@ -33,7 +33,7 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Functions">Functions</a></li>
+<li><a href="#Class_openssl_evp_digest_ctx">Class openssl.evp_digest_ctx </a></li>
 <li><a href="#Class_evp_digest">Class evp_digest </a></li>
 <li><a href="#Class_evp_digest_ctx">Class evp_digest_ctx </a></li>
 </ul>
@@ -69,6 +69,8 @@
   <li><a href="../modules/pkcs7.html">pkcs7</a></li>
   <li><a href="../modules/pkey.html">pkey</a></li>
   <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><a href="../modules/provider.html">provider</a></li>
   <li><a href="../modules/rsa.html">rsa</a></li>
   <li><a href="../modules/srp.html">srp</a></li>
   <li><a href="../modules/ssl.html">ssl</a></li>
@@ -101,30 +103,44 @@
     </ul>
 
 
-<h2><a href="#Functions">Functions</a></h2>
+<h2><a href="#Class_openssl_evp_digest_ctx">Class openssl.evp_digest_ctx </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#list">list ([alias])</a></td>
-	<td class="summary">list all support digest algs</td>
+	<td class="name" nowrap><a href="#openssl.evp_digest_ctx:list">openssl.evp_digest_ctx:list ([alias=true])</a></td>
+	<td class="summary">list all supported digest algorithms</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#get">get (alg)</a></td>
-	<td class="summary">get evp_digest object</td>
+	<td class="name" nowrap><a href="#openssl.evp_digest_ctx:get">openssl.evp_digest_ctx:get (alg)</a></td>
+	<td class="summary">get EVP_MD digest algorithm object</p>
+
+<p>This function retrieves a digest algorithm object by name, NID, or ASN1 object.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#new">new (alg)</a></td>
+	<td class="name" nowrap><a href="#openssl.evp_digest_ctx:fetch">openssl.evp_digest_ctx:fetch (alg[, options])</a></td>
+	<td class="summary">fetch evp_digest object with provider support (OpenSSL 3.0+)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.evp_digest_ctx:get_provider_name">openssl.evp_digest_ctx:get_provider_name ()</a></td>
+	<td class="summary">get provider name for a digest (OpenSSL 3.0+)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.evp_digest_ctx:__gc">openssl.evp_digest_ctx:__gc ()</a></td>
+	<td class="summary">free a fetched evp_digest object (OpenSSL 3.0+)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openssl.evp_digest_ctx:new">openssl.evp_digest_ctx:new (alg)</a></td>
 	<td class="summary">get evp_digest_ctx object</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#digest">digest (alg, msg[, raw])</a></td>
+	<td class="name" nowrap><a href="#openssl.evp_digest_ctx:digest">openssl.evp_digest_ctx:digest (alg, msg[, raw])</a></td>
 	<td class="summary">quick method to generate digest result</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#signInit">signInit (alg[, object=nil])</a></td>
+	<td class="name" nowrap><a href="#openssl.evp_digest_ctx:signInit">openssl.evp_digest_ctx:signInit (alg[, object=nil])</a></td>
 	<td class="summary">create digest object for sign</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#verifyInit">verifyInit (alg[, object=nil])</a></td>
+	<td class="name" nowrap><a href="#openssl.evp_digest_ctx:verifyInit">openssl.evp_digest_ctx:verifyInit (alg[, object=nil])</a></td>
 	<td class="summary">create digest object for verify</td>
 	</tr>
 </table>
@@ -203,58 +219,143 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    <h2 class="section-header has-description"><a name="Class_openssl_evp_digest_ctx"></a>Class openssl.evp_digest_ctx </h2>
 
+          <div class="section-description">
+          EVP_MD_CTX digest context object</p>
+
+<p>This object represents an OpenSSL EVP_MD_CTX digest context.
+It is created using digest.new() and used for hash operations.
+          </div>
     <dl class="function">
     <dt>
-    <a name = "list"></a>
-    <strong>list ([alias])</strong>
+    <a name = "openssl.evp_digest_ctx:list"></a>
+    <strong>openssl.evp_digest_ctx:list ([alias=true])</strong>
     </dt>
     <dd>
-    list all support digest algs
+    list all supported digest algorithms
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">alias</span>
             <span class="types"><span class="type">boolean</span></span>
-         include alias names for digest alg, default true
+         include alias names for digest algorithms
+         (<em>default</em> true)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        table of digest algorithm names
+&mdash; @see OpenSSL function: EVP_MD_do_all_sorted
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="comment">-- Get all digest algorithms with aliases
+</span><span class="keyword">local</span> digests = digest.<span class="function-name">list</span>()
+<span class="keyword">for</span> name, _ <span class="keyword">in</span> <span class="global">pairs</span>(digests) <span class="keyword">do</span>
+  <span class="global">print</span>(name)
+<span class="keyword">end</span>
+
+<span class="comment">-- Get only primary names (no aliases)
+</span><span class="keyword">local</span> primary_digests = digest.<span class="function-name">list</span>(<span class="keyword">false</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "openssl.evp_digest_ctx:get"></a>
+    <strong>openssl.evp_digest_ctx:get (alg)</strong>
+    </dt>
+    <dd>
+    get EVP_MD digest algorithm object</p>
+
+<p>This function retrieves a digest algorithm object by name, NID, or ASN1 object.
+The returned object can be used with digest.new() to create a digest context.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">alg</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">integer</span> or <span class="type">openssl.asn1_object</span></span>
+         algorithm name, NID, or ASN1 object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.evp_digest</span></span>
+        digest algorithm object
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+        if algorithm not found</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        error message</li>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../modules/digest.html#openssl.evp_digest_ctx:new">digest.new</a></li>
+         <li><a href="../modules/digest.html#openssl.evp_digest_ctx:fetch">digest.fetch</a></li>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> digest = <span class="global">require</span>(<span class="string">'openssl'</span>).digest
+
+<span class="comment">-- Get digest by name
+</span><span class="keyword">local</span> sha256 = digest.<span class="function-name">get</span>(<span class="string">'SHA256'</span>)
+
+<span class="comment">-- Get digest by NID
+</span><span class="keyword">local</span> sha256_nid = digest.<span class="function-name">get</span>(<span class="number">672</span>)  <span class="comment">-- NID for SHA256
+</span>
+<span class="comment">-- Use with digest.new()
+</span><span class="keyword">local</span> ctx = digest.<span class="function-name">new</span>(sha256)
+ctx:<span class="function-name">update</span>(<span class="string">'data'</span>)
+<span class="keyword">local</span> result = ctx:<span class="function-name">final</span>()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "openssl.evp_digest_ctx:fetch"></a>
+    <strong>openssl.evp_digest_ctx:fetch (alg[, options])</strong>
+    </dt>
+    <dd>
+    fetch evp_digest object with provider support (OpenSSL 3.0+)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">alg</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         algorithm name (e.g., &lsquo;SHA256&rsquo;, &lsquo;SHA512&rsquo;)
+        </li>
+        <li><span class="parameter">options</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         optional table with &lsquo;provider&rsquo; and &lsquo;properties&rsquo; fields
          (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
-
-           <span class="types"><span class="type">all</span></span>
-        methods
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "get"></a>
-    <strong>get (alg)</strong>
-    </dt>
-    <dd>
-    get evp_digest object
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">alg</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">integer</span> or <span class="type">asn1_object</span></span>
-         name, nid or object identity
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">evp_digest</span></span>
-        digest object mapping EVP_MD in openssl
+        <li>
+           <span class="types"><span class="type">openssl.evp_digest</span></span>
+        digest object mapping EVP_MD in openssl or nil on failure</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        error message if failed</li>
     </ol>
 
 
@@ -263,11 +364,65 @@
          <a href="../modules/digest.html#evp_digest">evp_digest</a>
     </ul>
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="comment">-- Fetch with default provider
+</span><span class="keyword">local</span> sha256 = digest.<span class="function-name">fetch</span>(<span class="string">'SHA256'</span>)
+
+<span class="comment">-- Fetch from specific provider
+</span><span class="keyword">local</span> fips_sha256 = digest.<span class="function-name">fetch</span>(<span class="string">'SHA256'</span>, {provider = <span class="string">'fips'</span>, properties = <span class="string">'fips=yes'</span>})</pre>
+    </ul>
 
 </dd>
     <dt>
-    <a name = "new"></a>
-    <strong>new (alg)</strong>
+    <a name = "openssl.evp_digest_ctx:get_provider_name"></a>
+    <strong>openssl.evp_digest_ctx:get_provider_name ()</strong>
+    </dt>
+    <dd>
+    get provider name for a digest (OpenSSL 3.0+)
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        provider name
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        if digest has no provider or provider has no name
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.evp_digest_ctx:__gc"></a>
+    <strong>openssl.evp_digest_ctx:__gc ()</strong>
+    </dt>
+    <dd>
+    free a fetched evp_digest object (OpenSSL 3.0+)
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        always returns nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openssl.evp_digest_ctx:new"></a>
+    <strong>openssl.evp_digest_ctx:new (alg)</strong>
     </dt>
     <dd>
     get evp_digest_ctx object
@@ -297,8 +452,8 @@
 
 </dd>
     <dt>
-    <a name = "digest"></a>
-    <strong>digest (alg, msg[, raw])</strong>
+    <a name = "openssl.evp_digest_ctx:digest"></a>
+    <strong>openssl.evp_digest_ctx:digest (alg, msg[, raw])</strong>
     </dt>
     <dd>
     quick method to generate digest result
@@ -333,8 +488,8 @@
 
 </dd>
     <dt>
-    <a name = "signInit"></a>
-    <strong>signInit (alg[, object=nil])</strong>
+    <a name = "openssl.evp_digest_ctx:signInit"></a>
+    <strong>openssl.evp_digest_ctx:signInit (alg[, object=nil])</strong>
     </dt>
     <dd>
     create digest object for sign
@@ -347,7 +502,7 @@
          name, nid or object identity
         </li>
         <li><span class="parameter">object</span>
-            <span class="types"><span class="type">engine</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
 
 
          (<em>default</em> nil)
@@ -367,8 +522,8 @@
 
 </dd>
     <dt>
-    <a name = "verifyInit"></a>
-    <strong>verifyInit (alg[, object=nil])</strong>
+    <a name = "openssl.evp_digest_ctx:verifyInit"></a>
+    <strong>openssl.evp_digest_ctx:verifyInit (alg[, object=nil])</strong>
     </dt>
     <dd>
     create digest object for verify
@@ -381,7 +536,7 @@
          name, nid or object identity
         </li>
         <li><span class="parameter">object</span>
-            <span class="types"><span class="type">engine</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
 
 
          (<em>default</em> nil)
@@ -422,7 +577,7 @@
          data to digest
         </li>
         <li><span class="parameter">eng</span>
-            <span class="types"><span class="type">engine,</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
 
 
          (<em>optional</em>)
@@ -471,11 +626,11 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">md</span>
-            <span class="types"><span class="type">evp_digest</span></span>
+            <span class="types"><span class="type">openssl.evp_digest</span></span>
          message digest algorithm
         </li>
         <li><span class="parameter">eng</span>
-            <span class="types"><span class="type">engine,</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
 
 
          (<em>optional</em>)
@@ -508,7 +663,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">object</span>
-            <span class="types"><span class="type">engine</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
 
 
          (<em>default</em> nil)
@@ -538,7 +693,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">object</span>
-            <span class="types"><span class="type">engine</span></span>
+            <span class="types"><a class="type" href="../modules/openssl.html#engine">openssl.engine</a></span>
 
 
          (<em>default</em> nil)
@@ -761,7 +916,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">private</span>
-            <span class="types"><span class="type">evp_pkey</span></span>
+            <span class="types"><span class="type">openssl.evp_pkey</span></span>
          key to do sign
         </li>
     </ul>
@@ -904,7 +1059,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-11-05 20:38:13 </i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

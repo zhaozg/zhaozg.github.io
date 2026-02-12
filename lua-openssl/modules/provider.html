@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>lua-openssl Documentation</title>
+    <link rel="stylesheet" href="../ldoc_pale.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>lua-openssl</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/asn1.html">asn1</a></li>
+  <li><a href="../modules/bio.html">bio</a></li>
+  <li><a href="../modules/callback.html">callback</a></li>
+  <li><a href="../modules/cipher.html">cipher</a></li>
+  <li><a href="../modules/cms.html">cms</a></li>
+  <li><a href="../modules/compat.html">compat</a></li>
+  <li><a href="../modules/x509.crl.html">x509.crl</a></li>
+  <li><a href="../modules/x509.req.html">x509.req</a></li>
+  <li><a href="../modules/dh.html">dh</a></li>
+  <li><a href="../modules/digest.html">digest</a></li>
+  <li><a href="../modules/dsa.html">dsa</a></li>
+  <li><a href="../modules/ec.html">ec</a></li>
+  <li><a href="../modules/engine.html">engine</a></li>
+  <li><a href="../modules/ec.group.html">ec.group</a></li>
+  <li><a href="../modules/hmac.html">hmac</a></li>
+  <li><a href="../modules/kdf.html">kdf</a></li>
+  <li><a href="../modules/bn.html">bn</a></li>
+  <li><a href="../modules/lhash.html">lhash</a></li>
+  <li><a href="../modules/mac.html">mac</a></li>
+  <li><a href="../modules/misc.html">misc</a></li>
+  <li><a href="../modules/ocsp.html">ocsp</a></li>
+  <li><a href="../modules/openssl.html">openssl</a></li>
+  <li><a href="../modules/ts.html">ts</a></li>
+  <li><a href="../modules/param.html">param</a></li>
+  <li><a href="../modules/pkcs12.html">pkcs12</a></li>
+  <li><a href="../modules/pkcs7.html">pkcs7</a></li>
+  <li><a href="../modules/pkey.html">pkey</a></li>
+  <li><a href="../modules/ec.point.html">ec.point</a></li>
+  <li><a href="../modules/private.html">private</a></li>
+  <li><strong>provider</strong></li>
+  <li><a href="../modules/rsa.html">rsa</a></li>
+  <li><a href="../modules/srp.html">srp</a></li>
+  <li><a href="../modules/ssl.html">ssl</a></li>
+  <li><a href="../modules/th-lock.html">th-lock</a></li>
+  <li><a href="../modules/util.html">util</a></li>
+  <li><a href="../modules/x509.html">x509</a></li>
+  <li><a href="../modules/x509.algor.html">x509.algor</a></li>
+  <li><a href="../modules/x509.attribute.html">x509.attribute</a></li>
+  <li><a href="../modules/x509.extension.html">x509.extension</a></li>
+  <li><a href="../modules/x509.name.html">x509.name</a></li>
+  <li><a href="../modules/x509.store.html">x509.store</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>provider</code></h1>
+<p>Provider module for OpenSSL 3.0+ provider API support</p>
+
+<p>This module provides Lua bindings for OpenSSL 3.0+ provider functionality,
+allowing loading, unloading, and querying of cryptographic providers.</p>
+<p>Note: This module is only available with OpenSSL 3.0 or later.
+LibreSSL does not support the provider API, so it is excluded.</p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">local provider = require(&apos;openssl&apos;).provider
+local default_provider = provider.load(&apos;default&apos;)
+</pre>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#load">load (name[, retain])</a></td>
+	<td class="summary">Load a provider by name</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#name">name ()</a></td>
+	<td class="summary">Get the name of a loaded provider</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#available">available ()</a></td>
+	<td class="summary">Check if a provider is available</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_params">get_params (params)</a></td>
+	<td class="summary">Get provider parameters</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#unload">unload ()</a></td>
+	<td class="summary">Unload a provider</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self_test">self_test ()</a></td>
+	<td class="summary">Self test a provider</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#list">list ()</a></td>
+	<td class="summary">List all available providers</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get">get (name)</a></td>
+	<td class="summary">Get provider by name without loading</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#__gc">__gc ()</a></td>
+	<td class="summary">Provider object garbage collection</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#__tostring">__tostring ()</a></td>
+	<td class="summary">Provider object string representation</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "load"></a>
+    <strong>load (name[, retain])</strong>
+    </dt>
+    <dd>
+    Load a provider by name
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         the name of the provider to load (e.g., &lsquo;default&rsquo;, &lsquo;fips&rsquo;, &lsquo;legacy&rsquo;)
+        </li>
+        <li><span class="parameter">retain</span>
+            <span class="types"><span class="type">boolean</span></span>
+         if true, the provider will be retained even after all references are released
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">openssl.provider</span></span>
+        loaded provider object or nil on failure</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        error message if failed</li>
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> default = provider.<span class="global">load</span>(<span class="string">'default'</span>)
+<span class="keyword">local</span> fips = provider.<span class="global">load</span>(<span class="string">'fips'</span>, <span class="keyword">true</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "name"></a>
+    <strong>name ()</strong>
+    </dt>
+    <dd>
+    Get the name of a loaded provider
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        provider name
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> prov = provider.<span class="global">load</span>(<span class="string">'default'</span>)
+<span class="global">print</span>(prov:<span class="function-name">name</span>())  <span class="comment">-- prints "default"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "available"></a>
+    <strong>available ()</strong>
+    </dt>
+    <dd>
+    Check if a provider is available
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if provider is available and active
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> prov = provider.<span class="global">load</span>(<span class="string">'default'</span>)
+<span class="keyword">if</span> prov:<span class="function-name">available</span>() <span class="keyword">then</span>
+  <span class="global">print</span>(<span class="string">"Provider is active"</span>)
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "get_params"></a>
+    <strong>get_params (params)</strong>
+    </dt>
+    <dd>
+    Get provider parameters
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">params</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         table of parameter names to query
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        table of parameter values
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> prov = provider.<span class="global">load</span>(<span class="string">'default'</span>)
+<span class="keyword">local</span> params = prov:<span class="function-name">get_params</span>({<span class="string">'name'</span>, <span class="string">'version'</span>, <span class="string">'buildinfo'</span>})
+<span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="global">pairs</span>(params) <span class="keyword">do</span>
+  <span class="global">print</span>(k, v)
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "unload"></a>
+    <strong>unload ()</strong>
+    </dt>
+    <dd>
+    Unload a provider
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true on success
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> prov = provider.<span class="global">load</span>(<span class="string">'legacy'</span>)
+<span class="comment">-- ... use provider
+</span>prov:<span class="function-name">unload</span>()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "self_test"></a>
+    <strong>self_test ()</strong>
+    </dt>
+    <dd>
+    Self test a provider
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if self test passes
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> prov = provider.<span class="global">load</span>(<span class="string">'fips'</span>)
+<span class="keyword">if</span> prov:<span class="function-name">self_test</span>() <span class="keyword">then</span>
+  <span class="global">print</span>(<span class="string">"FIPS provider self-test passed"</span>)
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "list"></a>
+    <strong>list ()</strong>
+    </dt>
+    <dd>
+    List all available providers
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        array of provider names
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> providers = provider.<span class="function-name">list</span>()
+<span class="keyword">for</span> i, name <span class="keyword">in</span> <span class="global">ipairs</span>(providers) <span class="keyword">do</span>
+  <span class="global">print</span>(name)
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "get"></a>
+    <strong>get (name)</strong>
+    </dt>
+    <dd>
+    Get provider by name without loading
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         the name of the provider
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">openssl.provider</span></span>
+        provider object if already loaded, nil otherwise
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> prov = provider.<span class="function-name">get</span>(<span class="string">'default'</span>)
+<span class="keyword">if</span> prov <span class="keyword">then</span>
+  <span class="global">print</span>(<span class="string">"Default provider is loaded"</span>)
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "__gc"></a>
+    <strong>__gc ()</strong>
+    </dt>
+    <dd>
+    Provider object garbage collection
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        always returns nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "__tostring"></a>
+    <strong>__tostring ()</strong>
+    </dt>
+    <dd>
+    Provider object string representation
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        string representation of provider
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2026-02-12 13:58:19 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
